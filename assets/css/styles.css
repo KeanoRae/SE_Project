@@ -1,0 +1,410 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Calibri;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+/*----------------------------------------------Buttons------------------------------------------------- */
+.btn-pink {
+    background-color: #FFF1E6 !important;
+    color: #000 !important;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.btn-shadow {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.accordion-button:not(.collapsed) {
+    color: #000;
+    background-color: #fff;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-button:after {
+    float: right;
+    color: #000 !important;
+}
+
+.accordion-item {
+    border: 1px solid #000;
+}
+
+
+/*-----------------------------------------------Navbar-------------------------------------------------- */
+.navbar, header {
+    background-color: #FFF1E6 !important;
+    padding: 0;
+}
+
+.navbar li a {
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0;
+    padding-top: 10px;
+}
+
+.header-logo img {
+    transform: translateY(-25px);
+}
+
+.search-box input, .search-box span{
+    list-style: none;
+    height: 50px;
+    background: #fff;
+    font-size: 24px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 300px;
+}
+
+.search-box span {
+    display: flex;
+    align-items: center;
+}
+
+header .iconify{
+    font-size: 48px;
+}
+
+header .icon1 {
+    margin-right: 15px;
+}
+
+
+/*-----------------------------------------------Account-------------------------------------------------- */
+.account .header {
+    font-size: 64px;
+}
+
+.account .content .header {
+    font-size: 48px;
+}
+
+.account .placeholder {
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.53);
+}
+
+
+/*----------------------------------------------Homepage------------------------------------------------- */
+.homepage .hp-container {
+    height: 500px;
+}
+
+.homepage .hp-container img {
+    width: 100vw;
+    height: 350px;
+
+}
+
+.homepage .content .btn {
+    background: #EEDDD3 !important;
+    color: #000 !important;
+    border-color: #EEDDD3 !important;
+    border-radius: 60px;
+    font-weight: bolder;
+    font-size: 36px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+    padding: 5px 30px;
+
+}
+
+.homepage .content .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*-----------------------------------------------Footer-------------------------------------------------- */
+footer {
+    background-color: #FFF1E6;
+    color: #000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: 100vw;
+    padding-top: 10px;
+}
+
+
+footer a, footer p {
+    margin: 0;
+    margin-left: 20px;
+    font-size: 24px !important;
+}
+
+
+/*--------------------------------------------Login/Signup----------------------------------------------- */
+.form-content .link a{
+    text-decoration: none;
+    color: #000;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.form-content .links .active {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.form-content form {
+    border: 1px solid #000;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 50px 70px;
+    width: 550px;
+}
+
+.form-content form .form-control {
+    height: 41px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+.form-content .form-floating label {
+    color: #C4C4C4;
+}
+
+
+
+.form-content form label {
+    line-height: 8px;
+}
+
+.form-content form .forgotpass a{
+    color:#100BF6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-content form .button button {
+    background-color: #E8D1C5;
+    color: #000;
+    border-radius: 10px;
+    border: none;
+}
+
+
+/*-----------------------------------------------Contact-------------------------------------------------- */
+.contact .header {
+    font-size: 64px;
+}
+/*
+.contact .content {
+    margin-bottom: 300px;
+    margin-left: 100px;
+}
+
+
+.contact i {
+    margin-right: 75px;
+    font-size: 50px;
+}
+*/
+
+/*-------------------------------------------------About---------------------------------------------------- */
+.about .header {
+    font-size: 64px;
+}
+
+.about .content p {
+    line-height: 29px;
+    font-size: 24px;
+}
+
+
+/*---------------------------------------------Return Policy------------------------------------------------ */
+.policy .header {
+    font-size: 64px;
+}
+
+.policy .content p {
+    font-size: 24px;
+}
+
+.policy i {
+    margin-right: 32px;
+    font-size: 50px;
+}
+
+
+/*------------------------------------------------Product--------------------------------------------------- */
+.slide {
+    width: 423px;
+}
+
+.carousel-control-prev {
+    margin-left: -60px;
+    border-width: thick;
+
+}
+
+.carousel-control-next {
+    margin-right: -60px;
+}
+
+.carousel-item {
+    background-color: #FFF;
+}
+
+.carousel-inner img {
+    float: left;
+    width: 423px;
+    height: 527px;
+    object-fit: cover;
+}
+
+.product .collapse-content p {
+    font-size: 20px;
+}
+
+.product .button {
+    background-color: #fff;
+    font-size: 20px;
+}
+
+.product .box {
+    width: 50px;
+    height: 50px;
+}
+
+.product .upload button {
+    background-color: #87CEFA;
+    border: none;
+}
+
+.product .upload .input[type="file"]::before {
+    content: 'Upload';
+}
+
+
+/*-------------------------------------------Shipping Info---------------------------------------------- */
+.shipping-info .form-control, .admin .form-control {
+    border: 1px solid #000;
+    box-shadow: none;
+}
+
+.shipping-info {
+    font-size: 24px;
+}
+
+.shipping-info .title p{
+    font-size: 32px !important;
+}
+
+.displaytotal {
+    border-radius: 20px;
+}
+
+.shipping-info .checkout {
+    margin-bottom: 120px;
+}
+
+.shipping-info .box {
+    width: 86px;
+    height: 77px;
+}
+
+/*-----------------------------------------------Payment-------------------------------------------------- */
+.payment .header {
+    margin-left: 50px;
+}
+
+.payment {
+    font-size: 24px;
+}
+
+.payment .row {
+    margin-left: 25px;
+}
+
+.payment-form .fas{
+    color: #C4C4C4;
+}
+
+
+
+/*-------------------------------------------------Cart---------------------------------------------------- */
+.cart .box1 {
+    height: 124px;
+    width: 112px;
+}
+
+.cart .box2 {
+    background: rgba(196, 196, 196, 0.47);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/*-------------------------------------------------Admin---------------------------------------------------- */
+.admin {
+    background-color: #C4C4C4;
+}
+
+.sidebar, .admin .right {
+    background: #fff;
+    border-radius: 50px;
+}
+
+.sidebar li {
+    font-size: 24px !important;
+}
+
+.admin .box {
+    width: 261px;
+    height: 187px;
+}
+
+.admin .box p {
+    margin-bottom: 0;
+    position: relative;
+    bottom: 0;
+}
+
+.admin .accordion-item {
+    border: none;
+    width: 100%;
+}
+
+.admin .button-group input {
+    outline: none;
+}
+
+.admin .button-group button {
+    background-color: #fff !important;
+}
+
+.admin table tr {
+    border: 1px solid #000;
+}
+
+.admin .t2 {
+    width: 100%;
+}
+
+.admin .t2 .product {
+    width: 40%;
+}
+
+.admin .t2 .price {
+    width: 20%;
+}
