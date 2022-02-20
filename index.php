@@ -52,7 +52,7 @@
             <div class="hp-container mt-5">
                 <img src="assets/images/hp-anime.png" alt="">
                 <div class="button">
-                    <a href="viewanime.html" class="btn btn-secondary btn-lg shadow-none" role="button" aria-pressed="true">shop now</a>
+                    <a href="defaultview-anime.html" class="btn btn-secondary btn-lg shadow-none" role="button" aria-pressed="true">shop now</a>
                 </div>
             </div>
             <div class="hp-container">
