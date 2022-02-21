@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-  <link rel="stylesheet" href="assets/css/css/all.css">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/css/all.css">
+  <link rel="stylesheet" href="../assets/css/styles.css">
   <title>NJ Customized Glass Painting</title>
 </head>
 <body>
@@ -15,13 +15,10 @@
         <div class="collapse navbar-collapse d-inline-block">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.php">order status</a>
+                    <a class="nav-link" href="trackorders.html">order status</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">log in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="signup.html">sign up</a>
+                    <a class="nav-link" href="logout.php">log out</a>
                 </li>
             </ul>
         </div>
@@ -30,7 +27,7 @@
         <div class="row">
             <div class="col">
                 <div class="header-logo">
-                    <a href="index.html"><img src="assets/images/header-logo1.png" alt=""></a>
+                    <a href="user_homepage.html"><img src="../assets/images/header-logo1.png" alt=""></a>
                 </div>
             </div>
             <div class="col">
@@ -38,45 +35,38 @@
                     <input type="search" class="px-3" placeholder="search">
                     <span><i class="fas fa-search mx-2"></i></span>
                     <div class="icons mx-4">
-                        <a class="text-reset" href="login.html"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
-                        <a class="text-reset" href="login.html"><span class="iconify" data-icon="bytesize:bag"></span></a>
+                        <a class="text-reset" href="account.html"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
+                        <a class="text-reset" href="cart.html"><span class="iconify" data-icon="bytesize:bag"></span></a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!------------------------------------------contact content--------------------------------------------->
-    <div class="container-fluid contact p-0">
-        <p class="header text-center mt-4">Contact Info</p>
-        <br>
-        <br>
-        <br>
-        <div class="content col-6 mx-auto">
-            <div class="facebook d-flex align-items-center mb-4">
-                <i class="fab fa-facebook-square display-5 mx-5"></i>
-                <p class="m-0 fs-4">https://www.facebook.com/NJglasspainting</p>
+    <!--------------------------------homepage content------------------------------->
+    <div class="container-fluid homepage p-0">
+        <div class="content">
+            <div class="hp-container mt-5">
+                <img src="../assets/images/hp-anime.png" alt="">
+                <div class="button">
+                    <a href="viewanime.html" class="btn btn-secondary btn-lg shadow-none" role="button" aria-pressed="true">shop now</a>
+                </div>
             </div>
-            <div class="instagram d-flex align-items-center mb-4">
-                <i class="fab fa-instagram display-5 mx-5"></i>
-                <p class="m-0 fs-4">https://www.instagram.com/njglasspainting</p>
+            <div class="hp-container">
+                <img src="../assets/images/hp-cartoon.png" alt="">
+                <div class="button">
+                    <a href="viewcartoon.html" class="btn btn-secondary btn-lg shadow-none" role="button" aria-pressed="true">shop now</a>
+                </div>
             </div>
-            <div class="phone d-flex align-items-center mb-4">
-                <i class="fas fa-phone-alt display-5 mx-5"></i>
-                <p class="m-0 fs-4">0977 427 5635</p>
-            </div>
-            <div class="email d-flex align-items-center">
-                <i class="fas fa-envelope-square display-5 mx-5"></i>
-                <p class="m-0 fs-4">danggannilda@gmail.com</p>
+            <div class="hp-container">
+                <img src="../assets/images/hp-vector.png" alt="">
+                <div class="button">
+                    <a href="viewvector.html" class="btn btn-secondary btn-lg shadow-none" role="button" aria-pressed="true">shop now</a>
+                </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <!------------------------------------------footer------------------------------------------>
+        
+        <!--------------------------------footer------------------------------->
         <footer>
             <div class="row">
                 <div class="col d-flex flex-column">

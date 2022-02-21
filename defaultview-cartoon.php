@@ -1,52 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-  <link rel="stylesheet" href="assets/css/css/all.css">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <title>NJ Customized Glass Painting</title>
-</head>
-<body>
-    <!---------------------------------- navbar content ------------------------------------->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse d-inline-block">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="login.php">order status</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.php">log in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="signup.php">sign up</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <header>
-        <div class="row">
-            <div class="col">
-                <div class="header-logo">
-                    <a href="index.html"><img src="assets/images/header-logo1.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
-                    <div class="icons mx-4">
-                        <a class="text-reset" href="login.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
-                        <a class="text-reset" href="login.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<?php
+include('include/header.php');
+include('include/navbar.php');
+?>
 
-    <!--------------------------------content------------------------------->
     <div class="container-fluid product p-0">
         <div class="header mx-3 mt-4">
             <p class="d-inline fs-4 text-decoration-underline">CARTOON ART</p>
@@ -55,6 +11,7 @@
         </div>
         <div class="row d-flex">
             <div class="col">
+                <!--Carousel-->
                 <div id="AnimeSlide" class="carousel carousel-dark slide mx-auto" data-bs-ride="carousel">
                     <div class="carousel-inner mt-4 mb-5">
                       <div class="carousel-item active">
@@ -203,25 +160,4 @@
             </div>
         </div>
 
-        <!--------------------------------footer------------------------------->
-        <footer>
-            <div class="row">
-                <div class="col d-flex flex-column">
-                    <a class="text-decoration-none text-reset mt-3" href="contact.html">Contact</a>
-                    <a class="text-decoration-none text-reset" href="about.html">About</a>
-                    <a class="text-decoration-none text-reset mb-4" href="policy.html">Return Policy</a>
-                </div>
-                <div class="col">
-                    <p class="fw-bold mt-3">Social Media</p>
-                    <p class="text-decoration-underline">https://www.facebook.com/NJglasspainting</p>
-                    <p class="mb-4">https://www.instagram.com/njglasspainting/</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-  
-  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-</html>
+<?php include('include/footer.php'); ?>

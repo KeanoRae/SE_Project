@@ -3,9 +3,6 @@ include('include/header.php');
 include('include/navbar.php');
 ?>
 
-    
-
-    <!--------------------------------content------------------------------->
     <div class="container-fluid login-container p-0">
         <br>
         <br>
@@ -15,7 +12,7 @@ include('include/navbar.php');
                         <img src="assets/images/login-logo.png" alt="">
                 </div>
                 <div class="col form-container d-inline-block mx-5">
-                    <form action="loginauth.php" method="POST" autocomplete="off">
+                    <form action="logincode.php" method="POST" autocomplete="off">
                         <div class="links d-flex justify-content-around">
                             <div class="link active d-inline">
                                 <a href="login.php">Log In</a>

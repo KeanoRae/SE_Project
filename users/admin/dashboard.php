@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse d-inline-block">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html">log out</a>
+                    <a class="nav-link" href="../logout.php">log out</a>
                 </li>
             </ul>
         </div>

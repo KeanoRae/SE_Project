@@ -24,15 +24,18 @@
 	
 				if($row['role'] == "admin"){
 					//$_SESSION['username'] = $email_login;
-					header('Location: admin/dashboard.html');
+					header('Location:users/admin/dashboard.php');
+					exit;
 				}
 				else if($row['role'] == "user"){
 					//$_SESSION['cusername'] = $email_login;
-					header('Location: user/user_homepage.html');
+					header('Location:users/user/user_homepage.php');
+					exit;
 				}
 				else{
 					$_SESSION['status'] = "Email / Password is Invalid";
-					header('Location: login.php');
+					header('Location:login.php');
+					exit;
 				}				
 			
 			}
@@ -46,7 +49,5 @@
 		else{
 			$_SESSION['message'] = 'Fill up add form first';
 		}
-
-	}
-	
+	}	
 ?>

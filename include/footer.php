@@ -1,10 +1,9 @@
-<!--------------------------------footer------------------------------->
-<footer>
+    <footer>
         <div class="row">
             <div class="col d-flex flex-column">
-                <a class="text-decoration-none text-reset mt-3" href="contact.html">Contact</a>
-                <a class="text-decoration-none text-reset" href="about.html">About</a>
-                <a class="text-decoration-none text-reset mb-4" href="policy.html">Return Policy</a>
+                <a class="text-decoration-none text-reset mt-3" href="contact.php">Contact</a>
+                <a class="text-decoration-none text-reset" href="about.php">About</a>
+                <a class="text-decoration-none text-reset mb-4" href="policy.php">Return Policy</a>
             </div>
             <div class="col">
                 <p class="fw-bold mt-3">Social Media</p>
