@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include_once('include/database.php');
 
     $errors=array("fname" => "", 
@@ -8,7 +7,12 @@
                     "phone" => "",
                     "pw" => ""
             );
-    $fname = $lname = $email = $phonenum = $pw = "";
+    $var=array("fname" => "",
+                "lname" => "",
+                "email" => "",
+                "phonenum" => "",
+                "pw" => ""
+        );
     
     if(isset($_POST['signup_btn'])){
         $database = new Connection();
@@ -28,8 +32,8 @@
             $errors['fname'] = "*First Name field is Required";
         }
         else{
-            $fname = test_input($_POST['firstname']);
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$fname)){
+            $var['fname'] = test_input($_POST['firstname']);
+            if (!preg_match("/^[a-zA-Z-' ]*$/",$var['fname'])){
                 $errors['fname'] = "*Only letters and spaces are allowed";
             }
         }
@@ -39,8 +43,8 @@
             $errors['lname'] = "*Last Name field is Required";
         }
         else{
-            $lname = test_input($_POST['lastname']);
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$lname)){
+            $var['lname'] = test_input($_POST['lastname']);
+            if (!preg_match("/^[a-zA-Z-' ]*$/",$var['lname'])){
                 $errors['lname'] = "*Only letters and spaces are allowed";
             }
         }
@@ -50,20 +54,17 @@
             $errors['email'] = "*Email field is Required";
         }
         else{
-            $email = test_input($_POST['email']);
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $var['email'] = test_input($_POST['email']);
+            if (!filter_var($var['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = "*Please enter a valid email address";
             }
             else{
                 $email_check =$db->prepare("SELECT * FROM user WHERE email=:email");
-                $email_check->bindParam(':email', $email);
+                $email_check->bindParam(':email', $var['email']);
                 $email_check->execute();
                 $count=$email_check->rowCount();
                 if($count == 1){
                     $errors['email'] = "*Email Already Taken. Please Try Another one.";
-                }
-                else{
-                    $errors['email'] = "*Email Not Taken";
                 }
             }
         }
@@ -73,8 +74,8 @@
             $errors['phone'] = "*Mobile number field is Required";
         }
         else{
-            $phonenum = test_input($_POST['number']);
-            if (strlen($phonenum) != 11){
+            $var['phonenum'] = test_input($_POST['number']);
+            if (strlen($var['phonenum']) != 11){
                 $errors['phone'] = "*Please enter a valid mobile number";
             }
         }
@@ -84,26 +85,26 @@
             $errors['pw'] = "*Password field is Required";
         }
         else{
-            $pw = test_input($_POST['password']);
+            $var['pw'] = test_input($_POST['password']);
         }
 
-        if(!isset($errors)){
+        if(!in_array("",$var)){
             try{
                 //make use of prepared statement to prevent sql injection
                 $insertsql = $db->prepare("INSERT INTO user (first_name, last_name, email, phone_number, password, role)
                 VALUES (:firstname, :lastname, :email, :phone_number, :password, :role)");
     
                 //bind
-                $insertsql->bindParam(':firstname', $fname);
-                $insertsql->bindParam(':lastname', $lname);
-                $insertsql->bindParam(':email', $email);
-                $insertsql->bindParam(':phone_number', $phonenum);
-                $insertsql->bindParam(':password', $pw);
+                $insertsql->bindParam(':firstname', $var['fname']);
+                $insertsql->bindParam(':lastname', $var['lname']);
+                $insertsql->bindParam(':email', $var['email']);
+                $insertsql->bindParam(':phone_number', $var['phonenum']);
+                $insertsql->bindParam(':password', $var['pw']);
                 $insertsql->bindParam(':role', $role);
     
                 if($insertsql->execute()){
-                    $_SESSION['email'] = $email;
-                    header('Location: users/user/user_homepage.php');
+                    $_SESSION['email'] = $var['email'];
+                    header('Location: login.php');
                 }                        	
             }
             catch(PDOException $e){
