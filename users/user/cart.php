@@ -10,16 +10,7 @@
 ?>
     <div class="container-fluid cart p-0">
         <p class="text-center fs-1 fw-bolder mt-4">CART</p>
-        <?php
-            include_once('../../include/database.php');
-            $database = new Connection();
-            $db = $database->open();
-            $sql = $db->prepare("SELECT * FROM cart WHERE customer_id=:uid");
-            $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
-            $sql->execute();
-
-            while($row=$sql->fetch(PDO::FETCH_ASSOC)){          
-        ?>
+        
         <form action="" class="mx-3">
             <div class="text-end me-3">
                 <button class="border-0 fs-4" style="background-color:#fff;">edit</button>
@@ -47,9 +38,7 @@
             </div>
             <hr>
         </form>
-        <?php
-            }
-        ?>
+
 
     </div>
     
