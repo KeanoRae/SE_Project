@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-  <link rel="stylesheet" href="../assets/css/css/all.css">
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../../assets/css/css/all.css">
+  <link rel="stylesheet" href="../../assets/css/styles.css">
   <title>NJ Customized Glass Painting</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse d-inline-block">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html">log out</a>
+                    <a class="nav-link" href="../../index.php">log out</a>
                 </li>
             </ul>
         </div>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col">
                 <div class="header-logo">
-                    <a href="dashboard.html"><img src="../assets/images/header-logo1.png" alt=""></a>
+                    <a href="dashboard.php"><img src="../../assets/images/header-logo1.png" alt=""></a>
                 </div>
             </div>
             <div class="col">
@@ -45,13 +45,13 @@
                 <p class="header text-center fw-bold fs-2 mt-2">ADMIN</p>
                 <br>
                 <div class="ms-1 d-flex align-items-center">
-                    <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="dashboard.html">
+                    <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="dashboard.php">
                         <span class="iconify fs-2 mb-1 me-1" data-icon="iwwa:dashboard"></span>Dashboard
                     </a>
                 </div>
                 <hr>
                 <div class="ms-1 d-flex align-items-center">
-                    <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="transaction.html">
+                    <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="transaction.php">
                         <span class="iconify fs-2 mb-1 me-1" data-icon="icon-park-outline:transaction-order"></span>Transaction
                     </a>
                 </div>
@@ -89,7 +89,7 @@
                                         </ul>
                                     </div>
                                     <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                        <a class="text-reset text-decoration-none" data-parent="#product" href="addproduct.html">+ add product</a>
+                                        <a class="text-reset text-decoration-none" data-parent="#product" href="addproduct.php">+ add product</a>
                                     </div>
                                 </div>
                             </div>
