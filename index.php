@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('include/header.php');
-include('include/navbar.php');
+    include('include/header.php');
+    include('include/navbar.php');
 ?>
 
     <div class="container-fluid homepage p-0">
@@ -27,4 +27,6 @@ include('include/navbar.php');
         </div>
     </div>
         
-<?php include('include/footer.php'); ?>
+<?php 
+    include('include/footer.php');
+?>

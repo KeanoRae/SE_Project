@@ -24,7 +24,6 @@
                         </div>
                         <hr>
                         <?php
-                            //session_start();
                             if(isset($_SESSION['errormsg']) && $_SESSION['errormsg'] !=''){
                             ?>
                             <div class="d-flex align-items-center mb-2">

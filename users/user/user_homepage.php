@@ -1,12 +1,18 @@
 <?php 
     session_start();
-    echo 'email= '.$_SESSION['email'];
-    echo "<br>";
-    echo 'id= '.$_SESSION['pid'];
-    echo "<br>";
-    echo 'type = '.$_SESSION['user_type'];
-    echo "<br>";
-    echo "logged in = ".$_SESSION['logged_in'];
+    //echo 'email= '.$_SESSION['email'];
+    //echo "<br>";
+    //echo 'id= '.$_SESSION['pid'];
+    //echo "<br>";
+    //echo 'type = '.$_SESSION['user_type'];
+    //echo "<br>";
+    //echo "logged in = ".$_SESSION['user_logged_in'];
+    //if(isset($_SESSION['product_name'])){
+        //echo $_SESSION['product_name'];
+    //}
+    //else{
+        //echo "Not set";
+    //}
     include('../../include/header.php');
     include('../../include/navbar.php');
 ?>
@@ -32,6 +38,7 @@
                     </div>
                 </div>
             </div>
+            <?php unset($_SESSION['product_name']); ?>
         </form>
         
 <?php include('../../include/footer.php'); ?>

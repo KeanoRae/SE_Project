@@ -1,14 +1,17 @@
 <?php 
     session_start();
-    echo 'email = '.$_SESSION['email'];
-    echo "<br>";
-    echo 'id = '.$_SESSION['pid'];
-    echo "<br>";
-    echo 'type = '.$_SESSION['user_type'];
-    echo "<br>";
-    if(isset($_SESSION['product_name'])){
-        echo $_SESSION['product_name'];
-    }
+    //echo 'email = '.$_SESSION['email'];
+    //echo "<br>";
+    //echo 'id = '.$_SESSION['pid'];
+    //echo "<br>";
+    //echo 'type = '.$_SESSION['user_type'];
+    //echo "<br>";
+    //if(isset($_SESSION['product_name'])){
+        //echo $_SESSION['product_name'];
+    //}
+    //else{
+        //echo "Not set";
+    //}
     include('../../include/header.php');
     include('../../include/navbar.php');
 ?>

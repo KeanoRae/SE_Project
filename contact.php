@@ -1,5 +1,6 @@
 <?php
     session_start();
+    echo 'user type = '.$_SESSION['user_type'];
     include('include/header.php');
     include('include/navbar.php');
 ?>

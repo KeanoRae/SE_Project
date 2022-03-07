@@ -1,12 +1,12 @@
 <?php 
     session_start();
-    echo 'email = '.$_SESSION['email'];
-    echo "<br>";
-    echo 'id = '.$_SESSION['pid'];
-    echo "<br>";
-    echo 'type = '.$_SESSION['user_type'];
-    echo "<br>";
-    echo "product name = ".$_SESSION['product_name'];
+    //echo 'email = '.$_SESSION['email'];
+    //echo "<br>";
+    //echo 'id = '.$_SESSION['pid'];
+    //echo "<br>";
+    //echo 'type = '.$_SESSION['user_type'];
+    //echo "<br>";
+    //echo "product name = ".$_SESSION['product_name'];
     include('../../include/header.php');
     include('../../include/navbar.php');
     include('process/order_process.php');
@@ -131,26 +131,44 @@
                         <p class="fs-1">VECTOR ART</p>
                         <hr>
                         <p class="fs-4">Characters</p>
+                        <?php
+                            include_once('../../include/database.php');
+                            $database = new Connection();
+                            $db = $database->open();
+                            $sql = $db->prepare("SELECT 1ch_price, 2ch_price, add_char, add_dedication FROM product WHERE product_name=:name");
+                            $sql->bindParam(':name',$_SESSION['product_name']);
+                            $sql->execute();
+
+                            while($row=$sql->fetch(PDO::FETCH_ASSOC)){          
+                        ?>
                         <!-- buttons for character price -->
                         <input type="hidden" id="baseprice" name="baseprice" value="">
                         <div class="d-flex mx-0">
-                            <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn1" value=390 >1 Character</button>
-                            <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn2" value=420 >2 Characters</button>
+                            <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn1" value=<?php echo $row['1ch_price']; ?> >1 Character</button>
+                            <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn2" value=<?php echo $row['2ch_price']; ?> >2 Characters</button>
+                        </div>
+                        <div class="error mb-2" style="color:red;">
+                            <?php echo $errors['price']; ?>
                         </div>
                         <hr>
                         <p class="fs-4">Add-ons</p>
                         <!-- buttons for addons -->
                         <div class="d-flex mx-0">
-                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="addons-ch" id="addons" data-bs-toggle="button" value=30 >Character</button>
-                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="addons-bd" id="addons" data-bs-toggle="button" value=30 >Background/Dedication</button>
+                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="addons-ch" id="addons" data-bs-toggle="button" value=<?php echo $row['add_char']; ?> >Character</button>
+                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="addons-bd" id="addons" data-bs-toggle="button" value=<?php echo $row['add_dedication']; ?> >Background/Dedication</button>
                         </div>
+                        <?php
+                            }
+                            //close connection
+                            $database->close();
+                        ?>
                         <hr>
                         <p class="fs-4">Quantity</p>
                         <!-- button for quantity -->
-                        <div class="quantity-content d-flex align-items-center">
-                            <i class="fas fa-plus"></i>
-                            <div class="box border border-dark mx-3"></div>
-                            <i class="fas fa-minus"></i>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="border-0" onClick="increase()"><i class="fas fa-plus"></i></button>
+                            <input type="text" id="qtybox" name="qtybox" class="mx-2 text-center" value="1" style="height:50px;width:50px;" readonly>
+                            <button type="button" class="border-0" onClick="decrease()"><i class="fas fa-minus"></i></button>
                         </div>
                         <hr>
                         <!-- button for upload image -->

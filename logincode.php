@@ -32,24 +32,21 @@
 				$db_pw = $row['password'];			
 
 				if($email == $db_email AND $pw == $db_pw){
-					$_SESSION['logged_in'] = true;
+					$_SESSION['user_logged_in'] = true;
 					if($row['role'] == "admin"){
 						$_SESSION['user_type'] = "admin";
 						header('Location: users/admin/dashboard.php');
-						exit;
 					}
 					else if($row['role'] == "user"){
 						$_SESSION['email'] = $row['email'];
 						$_SESSION['pid'] = $row['id'];
 						$_SESSION['user_type'] = "user";
 						header('Location: users/user/user_homepage.php');
-						exit;
 					}
 					else if($row['role'] == "staff"){
 						$_SESSION['user_type'] = "staff";
 						$_SESSION['status'] = "Email / Password is Invalid";
 						header('Location:login.php');
-						exit;
 					}		
 
 				}

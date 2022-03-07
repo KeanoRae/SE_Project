@@ -1,107 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-  <link rel="stylesheet" href="../../assets/css/css/all.css">
-  <link rel="stylesheet" href="../../assets/css/styles.css">
-  <title>NJ Customized Glass Painting</title>
-</head>
-<body>
-    <!---------------------------------- navbar content ------------------------------------->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse d-inline-block">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="../../index.php">log out</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <header>
-        <div class="row">
-            <div class="col">
-                <div class="header-logo">
-                    <a href="dashboard.php"><img src="../../assets/images/header-logo1.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="search-box d-flex mt-3 me-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <button type="button" class="border-0"><span><i class="fas fa-search mx-2"></i></span></button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!--------------------------------transaction content------------------------------->
-    <div class="container-fluid admin p-0">
-        <br>
-        <br>
-        <div class="row gx-3 mb-5 px-4" style="height: 800px;">
-            <div class="col-3 sidebar p-0 me-3">
-                <p class="header text-center fw-bold fs-2 mt-2">ADMIN</p>
-                <br>
-                <div class="ms-1 d-flex align-items-center">
-                    <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="dashboard.php">
-                        <span class="iconify fs-2 mb-1 me-1" data-icon="iwwa:dashboard"></span>Dashboard
-                    </a>
-                </div>
-                <hr>
-                <div class="ms-1 d-flex align-items-center">
-                    <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="transaction.php">
-                        <span class="iconify fs-2 mb-1 me-1" data-icon="icon-park-outline:transaction-order"></span>Transaction
-                    </a>
-                </div>
-                <hr>
-                <div class="ms-2">
-                    <div class="accordion" id="collapse-buttons">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button d-flex align-items-center collapsed fs-3 p-0 pe-2 d-inline-block shadow-none " type="button" data-bs-toggle="collapse" data-bs-target="#shipping-info" aria-expanded="false" aria-controls="shipping-info">
-                                <span class="iconify fs-2 me-2" data-icon="bytesize:cart"></span>Product
-                            </button>
-                            </h2>
-                            <div id="shipping-info" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="text-start ms-2 mb-4">
-                                        <ul>
-                                            <li>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">Anime Art</p>
-                                                    <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">Cartoon Art</p>
-                                                    <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">Vector Art</p>
-                                                    <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                        <a class="text-reset text-decoration-none" data-parent="#product" href="addproduct.php">+ add product</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
+<?php 
+    session_start();
+    //echo 'user type = '.$_SESSION['user_type'];
+    include('../../include/header.php');
+    include('../../include/navbar.php');
+    include('sidebar.php');
+    include('process/process.php'); 
+?>
             <div class="col right">
                 <p class="header fs-2 fw-bold mt-5 mb-0 mx-5">TRANSACTION</p>
                 <p class="header fs-3 mx-5 mb-5">Order > <b>Order Details</b></p>
@@ -110,80 +14,82 @@
                 <div class="table-responsive mx-5">
                     <table class="table">
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3" data-icon="bx:id-card"></span>
-                                        <p class="mb-0 fs-4">Order ID</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">0000000</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3"  data-icon="healthicons:i-schedule-school-date-time"></span>
-                                        <p class="mb-0 fs-4">Order Date/Time</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">2022/12/02 12:00:00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3" data-icon="carbon:user-avatar-filled-alt"></span>
-                                        <p class="mb-0 fs-4">Name</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">Melriss Estrada</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3"  data-icon="akar-icons:phone"></span>
-                                        <p class="mb-0 fs-4">Phone Number</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">09123456789</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3" data-icon="carbon:email"></span>
-                                        <p class="mb-0 fs-4">Email</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">melEs@gmail.com</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3"  data-icon="fluent:payment-16-regular"></span>
-                                        <p class="mb-0 fs-4">Payment Method</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">Gcash</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3" data-icon="entypo:location"></span>
-                                        <p class="mb-0 fs-4">Delivery Address</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">tumaga tumaga</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="iconify fs-2 me-3"  data-icon="grommet-icons:deliver"></span>
-                                        <p class="mb-0 fs-4">Shipping Method</p>
-                                    </div>
-                                    <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">JRS - Express</p>
-                                </td>
-                            </tr>
+                            <form action="process/update.php" method="POST">
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="hidden" name="getid" value="<?php echo $id; ?>">
+                                            <span class="iconify fs-2 me-3" data-icon="bx:id-card"></span>
+                                            <p class="mb-0 fs-4">Id</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $id; ?></p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3"  data-icon="healthicons:i-schedule-school-date-time"></span>
+                                            <p class="mb-0 fs-4">Order Date/Time</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $date; ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3" data-icon="carbon:user-avatar-filled-alt"></span>
+                                            <p class="mb-0 fs-4">Name</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $name; ?></p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3"  data-icon="akar-icons:phone"></span>
+                                            <p class="mb-0 fs-4">Phone Number</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $num; ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3" data-icon="carbon:email"></span>
+                                            <p class="mb-0 fs-4">Email</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $email; ?></p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3"  data-icon="fluent:payment-16-regular"></span>
+                                            <p class="mb-0 fs-4">Payment Method</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">Gcash</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3" data-icon="entypo:location"></span>
+                                            <p class="mb-0 fs-4">Delivery Address</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $addr; ?></p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="iconify fs-2 me-3"  data-icon="grommet-icons:deliver"></span>
+                                            <p class="mb-0 fs-4">Shipping Method</p>
+                                        </div>
+                                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $ship_method; ?></p>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                     <table class="table t2 mt-1 text-center">
                         <thead>
-                            <tr class="fs-4" style="background: rgba(196, 196, 196, 0.28);">
-                                <th scope="col">No.</th>
-                                <th scope="col" class="product">Product</th>
+                            <tr class="fs-4 rr">
+                                <th scope="col" class="num">No.</th>
+                                <th scope="col" class="product text-start">Product</th>
                                 <th scope="col">Q</th>
                                 <th scope="col" class="price">Price</th>
-                                <th scope="col">Subtotal</th>
+                                <th scope="col" class="subs">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -192,16 +98,16 @@
                                     <p class="mb-0 fs-4">1</p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 fs-4">VECTOR ART</p>
+                                    <p class="mb-0 fs-4"><?php echo $productname; ?></p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 fs-4">1</p>
+                                    <p class="mb-0 fs-4"><?php echo $quantity; ?></p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 fs-4">390.00</p>
+                                    <p class="mb-0 fs-4"><?php echo $price; ?></p>
                                 </td>
                                 <td>
-                                    <p class="mb-5 fs-4">520.00</p>
+                                    <p class="mb-5 fs-4"><?php echo $subtotal; ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -227,18 +133,20 @@
                                 <td colspan="6"></td>
                             </tr>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="3">
                                     <div class="text-start">
                                         <p class="mb-0 fs-4">uploaded image</p>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="float-end">
-                                        <a class="text-reset text-decoration-none px-5 py-1 fs-4 border border-dark btn-pink btn-shadow" href="orderdetails.html">to ship</a>
+                                    <div class="d-flex mx-auto">
+                                        <button class="px-1 py-1 fs-4 me-3 border border-dark btn-pink btn-shadow">cancel</button>
+                                        <button name="confirm" class="px-1 py-1 fs-4 border border-dark btn-pink btn-shadow">confirm</button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
+                        </form>
                     </table>
                 </div>
                 <br>
@@ -247,38 +155,7 @@
                 <br>
             </div>
         </div>
-        <!--------------------------------footer------------------------------->
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <footer>
-            <div class="row">
-                <div class="col d-flex flex-column">
-                    <a class="text-decoration-none text-reset mt-3" href="contact.html">Contact</a>
-                    <a class="text-decoration-none text-reset" href="about.html">About</a>
-                    <a class="text-decoration-none text-reset mb-4" href="policy.html">Return Policy</a>
-                </div>
-                <div class="col">
-                    <p class="fw-bold mt-3">Social Media</p>
-                    <p class="text-decoration-underline">https://www.facebook.com/NJglasspainting</p>
-                    <p class="mb-4">https://www.instagram.com/njglasspainting/</p>
-                </div>
-            </div>
-        </footer>
     </div>
 
 
-
-
-  
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+<?php include('../../include/footer.php'); ?>

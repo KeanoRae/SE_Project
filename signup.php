@@ -30,35 +30,35 @@
                             <br>
                             <div class="form-group">
                                 <label for="username">First name</label>
-                                <input type="text" class="form-control mt-2" name="firstname" value="<?php echo $fname; ?>" id="firstname">
+                                <input type="text" class="form-control mt-2" name="firstname" value="<?php echo $var['fname']; ?>" id="firstname">
                                 <div class="error mb-2" style="color:red;">
                                     <?php echo $errors['fname']; ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="username">Last name</label>
-                                <input type="text" class="form-control mt-2" name="lastname" value="<?php echo $lname; ?>" id="lastname">
+                                <input type="text" class="form-control mt-2" name="lastname" value="<?php echo $var['lname']; ?>" id="lastname">
                                 <div class="error mb-2" style="color:red;">
                                     <?php echo $errors['lname']; ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="text">Email</label>
-                                <input type="email" class="form-control mt-2" name="email" value="<?php echo $email; ?>" id="email">
+                                <input type="email" class="form-control mt-2" name="email" value="<?php echo $var['email']; ?>" id="email">
                                 <div class="error mb-2" style="color:red;">
                                     <?php echo $errors['email']; ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="number">Mobile number</label>
-                                <input type="text" class="form-control mt-2" name="number" value="<?php echo $phonenum; ?>" id="number">
+                                <input type="text" class="form-control mt-2" name="number" value="<?php echo $var['phonenum']; ?>" id="number">
                                 <div class="error mb-2" style="color:red;">
                                     <?php echo $errors['phone']; ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control mt-2" name="password" value="<?php echo $pw; ?>" id="password">
+                                <input type="password" class="form-control mt-2" name="password" value="<?php echo $var['pw']; ?>" id="password">
                                 <div class="error mb-2" style="color:red;">
                                     <?php echo $errors['pw']; ?>
                                 </div>

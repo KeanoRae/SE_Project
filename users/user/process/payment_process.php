@@ -83,6 +83,10 @@
                 $sql->bindParam(':type', $var['pay_method']);
 
                 if($sql->execute()){
+                    unset($_SESSION['product_name']);
+                    unset($_SESSION['price']);
+                    unset($_SESSION['qty']);
+                    unset($_SESSION['subtotal']);
                     header('Location: account.php');
                 }
                 else{

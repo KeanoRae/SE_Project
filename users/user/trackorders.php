@@ -1,10 +1,10 @@
 <?php 
     session_start();
-    echo 'email = '.$_SESSION['email'];
-    echo "<br>";
-    echo 'id = '.$_SESSION['pid'];
-    echo "<br>";
-    echo 'type = '.$_SESSION['user_type'];
+    //echo 'email = '.$_SESSION['email'];
+    //echo "<br>";
+    //echo 'id = '.$_SESSION['pid'];
+    //echo "<br>";
+    //echo 'type = '.$_SESSION['user_type'];
     include('../../include/header.php');
     include('../../include/navbar.php');
 ?>

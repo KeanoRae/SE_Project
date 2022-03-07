@@ -7,7 +7,7 @@
         <div class="header mx-3 mt-4">
             <p class="d-inline fs-4 text-decoration-underline">CARTOON ART</p>
             <p class="d-inline fs-4">╱</p>
-            <a class="d-inline text-reset text-decoration-none" href="user_homepage.php">HOME</a>
+            <a class="d-inline text-reset text-decoration-none" href="index.php">HOME</a>
         </div>
         <div class="row">
             <div class="col">
@@ -138,10 +138,10 @@
                     <hr>
                     <p class="fs-4">Quantity</p>
                     <!-- button for quantity -->
-                    <div class="quantity-content d-flex align-items-center">
-                        <i class="fas fa-plus"></i>
-                        <div class="box border border-dark mx-3"></div>
-                        <i class="fas fa-minus"></i>
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="border-0" onClick="increase()"><i class="fas fa-plus"></i></button>
+                        <input type="text" id="qtybox" name="qtybox" class="mx-2 text-center" value="1" style="height:50px;width:50px;" readonly>
+                        <button type="button" class="border-0" onClick="decrease()"><i class="fas fa-minus"></i></button>
                     </div>
                     <hr>
                     <!-- button for upload image -->

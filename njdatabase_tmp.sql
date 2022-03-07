@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2022 at 06:23 AM
+-- Generation Time: Mar 07, 2022 at 03:27 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -65,10 +65,23 @@ CREATE TABLE `cart` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `uploaded_image` blob NOT NULL,
-  `product_price` int(11) NOT NULL,
+  `product_price` decimal(7,2) NOT NULL,
+  `quantity` int(11) DEFAULT 1,
   `add_ons` int(11) NOT NULL DEFAULT 0,
-  `add_ons_details` varchar(100) NOT NULL
+  `subtotal` decimal(7,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `customer_id`, `product_id`, `product_name`, `uploaded_image`, `product_price`, `quantity`, `add_ons`, `subtotal`) VALUES
+(13, 7, 2, 'Anime Art', '', '480.00', 1, 0, '480.00'),
+(14, 7, 3, 'Cartoon Art', '', '420.00', 1, 0, '420.00'),
+(15, 7, 1, 'Vector Art', '', '390.00', 1, 0, '390.00'),
+(16, 9, 2, 'Anime Art', '', '480.00', 1, 0, '480.00'),
+(17, 9, 3, 'Cartoon Art', '', '420.00', 2, 0, '840.00'),
+(18, 8, 2, 'Anime Art', '', '480.00', 1, 0, '480.00');
 
 -- --------------------------------------------------------
 
@@ -78,7 +91,6 @@ CREATE TABLE `cart` (
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `cart_id` int(11) NOT NULL,
   `customer_id` int(1) NOT NULL,
   `ship_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -99,18 +111,17 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `cart_id`, `customer_id`, `ship_name`, `email`, `shipping_address`, `shipping_city`, `ship_postal_code`, `contact_number`, `shipping_fee`, `shipping_method`, `payment_type`, `order_status`, `order_date`, `paid_date`, `shipped_date`) VALUES
-(43, 0, 9, 'user third thirrd', 'user3@gmail.com', 'f44f4f234f23f4 canelar moret', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 0, '2022-02-25 15:17:44', NULL, NULL),
-(59, 0, 9, 'Keano Rae II Sevilla', 'sevilla@yahoo.com', 'd-52 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 0, '2022-02-27 10:19:29', NULL, NULL),
-(61, 0, 7, 'Keano Rae II Sevilla', 'user2@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 0, '2022-02-27 12:26:32', NULL, NULL),
-(62, 0, 7, 'Keano Rae IX Sevilla', 'user2@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 0, '2022-02-27 13:05:45', NULL, NULL),
-(63, 0, 7, 'Keano Rae X Sevilla', 'user1@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 0, '2022-02-27 13:15:24', NULL, NULL),
-(64, 0, 7, 'Keano Rae IX Sevilla', 'sevilla@yahoo.com', 'd-52 canelar moret', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 0, '2022-02-27 13:39:54', NULL, NULL),
-(65, 0, 7, ' ', '', ' ', ' Region ', '', '', 0, '', '', 0, '2022-02-27 13:40:03', NULL, NULL),
-(66, 0, 7, 'Keano Rae X Sevilla', 'user2@gmail.com', 'd-514412412 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 0, '2022-02-27 13:44:19', NULL, NULL),
-(67, 0, 7, ' ', '', ' ', ' Region ', '', '', 0, '', '', 0, '2022-02-27 13:44:27', NULL, NULL),
-(68, 0, 7, 'Keano Rae X Sevilla', 'sevilla@yahoo.com', 'd-514412412 canelar moret', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 0, '2022-02-27 13:51:50', NULL, NULL),
-(69, 0, 7, 'Keano Rae Sevilla', 'sevilla@yahoo.com', 'd-52 canelar', '23234vvv Region 9', '7000', '12345678901', 0, 'JRS - Express', '', 0, '2022-02-27 14:12:23', NULL, NULL);
+INSERT INTO `orders` (`id`, `customer_id`, `ship_name`, `email`, `shipping_address`, `shipping_city`, `ship_postal_code`, `contact_number`, `shipping_fee`, `shipping_method`, `payment_type`, `order_status`, `order_date`, `paid_date`, `shipped_date`) VALUES
+(79, 7, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 7, '2022-03-06 14:23:42', '2022-03-07 12:54:15', '2022-03-07 12:54:15'),
+(80, 7, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 7, '2022-03-06 14:25:03', '2022-03-07 12:57:16', '2022-03-07 12:57:16'),
+(81, 8, 'Keano Rae II Sevilla', 'user2@gmail.com', 'd-51 canelar moret', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 7, '2022-03-06 14:26:29', '2022-03-07 13:02:19', '2022-03-07 13:02:19'),
+(82, 8, 'Keano Rae II Sevilla', 'user2@gmail.com', 'd-52 canelar moret', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 3, '2022-03-06 14:28:18', NULL, NULL),
+(83, 9, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 3, '2022-03-07 10:07:06', NULL, NULL),
+(84, 9, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 3, '2022-03-07 10:08:04', NULL, NULL),
+(85, 9, 'Keano Rae II Sevilla', 'sevilla@yahoo.com', 'd-51 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 3, '2022-03-07 10:08:28', NULL, NULL),
+(93, 23, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-52 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 3, '2022-03-07 10:19:38', NULL, NULL),
+(94, 23, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-52 canelar', 'zamboanga Region 9', '7000', '09123456789', 0, 'JRS - Express', '', 3, '2022-03-07 10:19:54', NULL, NULL),
+(95, 23, 'Keano Rae Sevilla', 'user2@gmail.com', 'd-52 canelar moret', 'zamboanga Region 9', '7000', '09123456789', 0, 'M Lhuillier Padala', '', 3, '2022-03-07 10:20:15', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -128,6 +139,22 @@ CREATE TABLE `order_details` (
   `add_ons_details` varchar(200) NOT NULL,
   `uploaded_image` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `product_price`, `add_ons`, `add_ons_details`, `uploaded_image`) VALUES
+(11, 79, 2, 1, '480.00', '0.00', '', ''),
+(12, 80, 2, 1, '480.00', '0.00', '', ''),
+(13, 81, 3, 1, '420.00', '0.00', '', ''),
+(14, 82, 1, 1, '390.00', '0.00', '', ''),
+(15, 83, 3, 1, '420.00', '0.00', '', ''),
+(16, 84, 1, 1, '390.00', '0.00', '', ''),
+(17, 85, 2, 1, '480.00', '0.00', '', ''),
+(18, 93, 2, 1, '350.00', '0.00', '', ''),
+(19, 94, 3, 1, '420.00', '0.00', '', ''),
+(20, 95, 1, 1, '420.00', '0.00', '', '');
 
 -- --------------------------------------------------------
 
@@ -150,7 +177,8 @@ INSERT INTO `order_status` (`id`, `name`) VALUES
 (3, 'Pending'),
 (4, 'Processing'),
 (5, 'On hold'),
-(6, 'Refunded');
+(6, 'Refunded'),
+(7, 'Confirmed');
 
 -- --------------------------------------------------------
 
@@ -172,7 +200,19 @@ CREATE TABLE `payment` (
 
 INSERT INTO `payment` (`id`, `customer_id`, `payment_type`, `payment_date`, `total_amount`) VALUES
 (6, 7, 'Cebuana Lhuillier', '2022-02-27 14:11:02', '0.00'),
-(7, 7, 'M Lhuillier Padala', '2022-02-27 14:12:49', '0.00');
+(7, 7, 'M Lhuillier Padala', '2022-02-27 14:12:49', '0.00'),
+(8, 9, 'M Lhuillier Padala', '2022-03-01 04:46:08', '0.00'),
+(9, 7, 'Cebuana Lhuillier', '2022-03-01 08:39:51', '0.00'),
+(10, 8, 'M Lhuillier Padala', '2022-03-06 10:30:12', '0.00'),
+(11, 8, 'M Lhuillier Padala', '2022-03-06 10:48:49', '0.00'),
+(12, 8, 'M Lhuillier Padala', '2022-03-06 10:51:50', '0.00'),
+(13, 7, 'M Lhuillier Padala', '2022-03-06 10:58:48', '0.00'),
+(14, 9, 'M Lhuillier Padala', '2022-03-07 10:07:09', '0.00'),
+(15, 9, 'Gcash', '2022-03-07 10:08:07', '0.00'),
+(16, 9, 'Palawan Express', '2022-03-07 10:08:29', '0.00'),
+(17, 23, 'Gcash', '2022-03-07 10:19:40', '0.00'),
+(18, 23, 'Cebuana Lhuillier', '2022-03-07 10:19:56', '0.00'),
+(19, 23, 'Cebuana Lhuillier', '2022-03-07 10:20:17', '0.00');
 
 -- --------------------------------------------------------
 
@@ -185,7 +225,7 @@ CREATE TABLE `product` (
   `product_name` varchar(50) NOT NULL,
   `products_rating` varchar(50) NOT NULL,
   `1ch_price` decimal(7,2) NOT NULL,
-  `2_ch_price` decimal(7,2) NOT NULL,
+  `2ch_price` decimal(7,2) NOT NULL,
   `add_char` decimal(7,2) NOT NULL,
   `add_dedication` decimal(7,2) NOT NULL,
   `category` varchar(100) NOT NULL
@@ -195,10 +235,10 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `product_name`, `products_rating`, `1ch_price`, `2_ch_price`, `add_char`, `add_dedication`, `category`) VALUES
-(1, 'Vector Art', '*****', '340.00', '0.00', '30.00', '30.00', 'glass painting'),
+INSERT INTO `product` (`id`, `product_name`, `products_rating`, `1ch_price`, `2ch_price`, `add_char`, `add_dedication`, `category`) VALUES
+(1, 'Vector Art', '*****', '390.00', '420.00', '30.00', '30.00', 'glass painting'),
 (2, 'Anime Art', '*****', '350.00', '480.00', '30.00', '30.00', 'glass painting'),
-(3, 'Cartoon Art', '*****', '360.00', '0.00', '30.00', '30.00', 'glass painting');
+(3, 'Cartoon Art', '*****', '420.00', '480.00', '30.00', '30.00', 'glass painting');
 
 -- --------------------------------------------------------
 
@@ -303,11 +343,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `phone_number`, `password`, `last_name`, `first_name`, `email`, `role`, `created_at`, `modified_at`) VALUES
 (6, '09123456789', 'adminpw', 'admin lname', 'admin fname', 'admin123@gmail.com', 'admin', '2022-02-13 14:19:56', '2022-02-20 15:07:23'),
-(7, '09123456789', 'user1pw', 'user1_lname', 'user1_fname', 'user1@gmail.com', 'user', '2022-02-14 02:19:20', '2022-02-20 15:07:23'),
-(8, '09123456789', 'user2pw', 'user2_lname', 'user2_fname', 'user2@gmail.com', 'user', '2022-02-18 14:12:29', '2022-02-21 13:18:05'),
-(9, '09123456789', 'user3pw', 'user3_lname', 'user3_fname', 'user3@gmail.com', 'user', '2022-02-18 15:36:53', '2022-02-18 15:36:53'),
-(23, '09123456789', 'user6pw', 'Sevilla', 'Keano Rae IX', 'user6@gmail.com', 'user', '2022-02-28 05:19:03', '2022-02-28 05:19:03'),
-(24, '09123456789', 'user5pw', 'Sevilla', 'Keano Rae XI', 'user5@gmail.com', 'user', '2022-02-28 05:23:11', '2022-02-28 05:23:11');
+(7, '09123456789', 'user1pw', 'Sevilla', 'Keano Rae', 'user1@gmail.com', 'user', '2022-02-14 02:19:20', '2022-03-06 14:12:29'),
+(8, '09123456789', 'user2pw', 'Estrada', 'Melriss', 'user2@gmail.com', 'user', '2022-02-18 14:12:29', '2022-03-06 14:12:29'),
+(9, '09123456789', 'user3pw', 'Gonzales', 'Jay ann', 'user3@gmail.com', 'user', '2022-02-18 15:36:53', '2022-03-06 14:12:29'),
+(23, '09123456789', 'user4pw', 'Tubosa', 'Florence', 'user4@gmail.com', 'user', '2022-02-28 05:19:03', '2022-03-06 14:12:29');
 
 -- --------------------------------------------------------
 
@@ -353,7 +392,6 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_orders_cartID` (`cart_id`),
   ADD KEY `fk_orders_customerID` (`customer_id`),
   ADD KEY `fk_orders_statusID` (`order_status`);
 
@@ -425,31 +463,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -479,7 +517,7 @@ ALTER TABLE `transaction_status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
@@ -495,7 +533,8 @@ ALTER TABLE `cart`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_orders_customerID` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_orders_customerID` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_orderstatus_status` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_details`

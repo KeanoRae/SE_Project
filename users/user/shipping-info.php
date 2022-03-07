@@ -1,14 +1,16 @@
 <?php 
     session_start();
-    echo 'email = '.$_SESSION['email'];
-    echo "<br>";
-    echo 'id = '.$_SESSION['pid'];
-    echo "<br>";
-    echo 'type = '.$_SESSION['user_type'];
-    echo "<br>";
-    if(isset($_SESSION['product_name'])){
-        echo $_SESSION['product_name'];
-    }
+    //echo 'email = '.$_SESSION['email'];
+    //echo "<br>";
+    //echo 'id = '.$_SESSION['pid'];
+    //echo "<br>";
+    //echo 'type = '.$_SESSION['user_type'];
+    //if(isset($_SESSION['product_name'])){
+        //echo $_SESSION['product_name'];
+    //}
+    //else{
+        //echo "Not set";
+    //}
     include('../../include/header.php');
     include('../../include/navbar.php');
     include('process/shipping-info_process.php');
@@ -107,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ms-5 mt-5 mb-2">
+                    <div class="ms-5 mb-2">
                         <p class="my-0 fs-3"><span class="iconify pb-1 fs-1" data-icon="fluent:vehicle-truck-profile-24-regular"></span>Shipping Method</p>
                     </div>
                     <div class="col-12">
@@ -135,8 +137,8 @@
                                 <p class="fs-3"><?php echo $_SESSION['product_name']; ?></p>
                             </div>
                             <div class="right d-flex justify-content-between">
-                                <p class="me-5">1</p>
-                                <p class="ms-5">₱ 390.00</p>
+                                <p class="me-5"><?php echo $_SESSION['qty']; ?></p>
+                                <p class="ms-5"><?php echo $_SESSION['price']; ?></p>
                             </div>
                         </div>
                         <br>
@@ -146,7 +148,7 @@
                         <hr class="mx-3">
                         <div class="bot d-flex justify-content-between mx-4">
                             <p class="">Subtotal</p>
-                            <p>₱ 390.00</p>
+                            <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
                         </div>
                         <br>
                     </div>

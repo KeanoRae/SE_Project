@@ -1,14 +1,16 @@
 <?php 
     session_start();
-    echo 'email = '.$_SESSION['email'];
-    echo "<br>";
-    echo 'id = '.$_SESSION['pid'];
-    echo "<br>";
-    echo 'type = '.$_SESSION['user_type'];
-    echo "<br>";
-    if(isset($_SESSION['product_name'])){
-        echo $_SESSION['product_name'];
-    }
+    //echo 'email = '.$_SESSION['email'];
+    //echo "<br>";
+    //echo 'id = '.$_SESSION['pid'];
+    //echo "<br>";
+    //echo 'type = '.$_SESSION['user_type'];
+    //if(isset($_SESSION['product_name'])){
+        //echo $_SESSION['product_name'];
+    //}
+    //else{
+        //echo "Not set";
+    //}
     include('../../include/header.php');
     include('../../include/navbar.php');
     include('process/payment_process.php');
@@ -125,10 +127,19 @@
                         <br>
                         <br>
                         <hr class="mx-3">
-                        <p class="ms-4 mb-2">Subtotal</p>
-                        <p class="ms-4">Shipping Fee</p>
+                        <div class="d-flex justify-content-between mx-4">
+                            <p class="mb-2">Subtotal</p>
+                            <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                        </div>
+                        <div class="sp">
+                            <p class="ms-4">Shipping Fee</p>
+                            <p><?php ?></p>
+                        </div>
                         <hr class="mx-3">
-                        <p class="ms-4">Total</p>
+                        <div class="d-flex justify-content-between mx-4">
+                            <p class="mb-2">Total</p>
+                            <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                        </div>
                         <br>
                     </div>
                     <br>

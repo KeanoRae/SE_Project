@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse d-inline-block">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../../index.php">log out</a>
+                    <a class="nav-link" href="../../logout.php">log out</a>
                 </li>
             </ul>
         </div>
@@ -57,35 +57,42 @@
                 </div>
                 <hr>
                 <div class="ms-2">
-                    <div class="accordion" id="collapse-buttons">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button d-flex align-items-center collapsed fs-3 p-0 pe-2 d-inline-block shadow-none " type="button" data-bs-toggle="collapse" data-bs-target="#shipping-info" aria-expanded="false" aria-controls="shipping-info">
-                                <span class="iconify fs-2 me-2" data-icon="bytesize:cart"></span>Product
-                            </button>
-                            </h2>
-                            <div id="shipping-info" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="text-start ms-2 mb-4">
+                    <form action="" method="POST">
+                        <div class="accordion" id="product-collapse">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button fs-3 ps-2 py-1 collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#product" aria-expanded="false" aria-controls="product">
+                                        <span class="iconify fs-2 me-2" data-icon="bytesize:cart"></span>Product
+                                    </button>
+                                </h2>
+                                <div id="product" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#product-collapse">
+                                    <div class="accordion-body pt-0">
                                         <ul>
+                                        <?php
+                                            session_start();
+                                            include_once('../../include/database.php');
+                                            $database = new Connection();
+                                            $db = $database->open();
+                                            try{	
+                                                $sql = "SELECT product_name FROM product";
+                                                foreach ($db->query($sql) as $row) {  
+                                        ?>
                                             <li>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">Anime Art</p>
+                                                    <button type="submit" name="<?php echo $row['product_name']; ?>" class="mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?></button>
                                                     <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">Cartoon Art</p>
-                                                    <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1">Vector Art</p>
-                                                    <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
-                                                </div>
-                                            </li>
+                                        <?php 
+                                                }
+                                            }
+                                            catch(PDOException $e){
+                                                echo "There is some problem in connection: " . $e->getMessage();
+                                            }
+
+                                            //close connection
+                                            $database->close();
+                                        ?>
                                         </ul>
                                     </div>
                                     <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
@@ -94,9 +101,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>                               
                 </div>
-
                 <br>
                 <br>
                 <br>

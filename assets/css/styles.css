@@ -46,10 +46,19 @@ body {
     border-radius: 0.25rem;
     background-color: #fff;
 }
-
+/*
 .btn:active:hover, .btn-outline-dark:active:hover {
     background-color: #fff;
     color: #000;
+}
+*/
+
+button.border-0.me-2 {
+    background-color: #fff !important;
+}
+
+button.border-0.ms-2 {
+    background-color: #fff !important;
 }
 
 .selected {
@@ -418,14 +427,37 @@ footer a, footer p {
     border: 1px solid #000;
 }
 
-.admin .t2 {
-    width: 100%;
+.admin .t2 .subs {
+    width: 20%;
 }
 
 .admin .t2 .product {
-    width: 40%;
+    width: 50%;
 }
 
 .admin .t2 .price {
     width: 20%;
+}
+
+.title .head {
+    border: none;
+    background-color: #fff;
+}
+
+.title .headtag {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.table {
+    table-layout: fixed;
+}
+
+.trans .product, .trans .action {
+    width: 20%;
+}
+
+.trans .qty {
+    width: 10%;
 }

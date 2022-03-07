@@ -134,44 +134,58 @@
         }
 
         $addons = 390;
+        $status = 3;
 
             if(!in_array("",$var)){
                 try{
                     //make use of prepared statement to prevent sql injection
-                    $insertsql = $db->prepare("INSERT INTO orders (customer_id, ship_name, email, shipping_address, shipping_city, ship_postal_code, contact_number, shipping_method)
-                    VALUES (:uid, CONCAT(:firstname,' ',:lastname), :email, CONCAT(:addr,' ',:brgy), CONCAT(:city,' Region ',:region), :postal, :phone_number, :method)");
+                    $ordersql = $db->prepare("INSERT INTO orders (customer_id, ship_name, email, shipping_address, shipping_city, ship_postal_code, contact_number, shipping_method, order_status)
+                    VALUES (:uid, CONCAT(:firstname,' ',:lastname), :email, CONCAT(:addr,' ',:brgy), CONCAT(:city,' Region ',:region), :postal, :phone_number, :method, :status)");
                     
                     //bind
-                    $insertsql->bindParam(':uid', $_SESSION['pid']);
-                    $insertsql->bindParam(':firstname', $var['fname']);
-                    $insertsql->bindParam(':lastname', $var['lname']);
-                    $insertsql->bindParam(':email', $var['email']);
-                    $insertsql->bindParam(':addr', $var['addr']);
-                    $insertsql->bindParam(':brgy', $var['brgy']);
-                    $insertsql->bindParam(':city', $var['city']);
-                    $insertsql->bindParam(':region', $var['region']);
-                    $insertsql->bindParam(':postal', $var['postal']);
-                    $insertsql->bindParam(':phone_number', $var['phone']);
-                    $insertsql->bindParam(':method', $var['method']);
+                    $ordersql->bindParam(':uid', $_SESSION['pid']);
+                    $ordersql->bindParam(':firstname', $var['fname']);
+                    $ordersql->bindParam(':lastname', $var['lname']);
+                    $ordersql->bindParam(':email', $var['email']);
+                    $ordersql->bindParam(':addr', $var['addr']);
+                    $ordersql->bindParam(':brgy', $var['brgy']);
+                    $ordersql->bindParam(':city', $var['city']);
+                    $ordersql->bindParam(':region', $var['region']);
+                    $ordersql->bindParam(':postal', $var['postal']);
+                    $ordersql->bindParam(':phone_number', $var['phone']);
+                    $ordersql->bindParam(':method', $var['method']);
+                    $ordersql->bindParam(':status', $status);
     
-                    if($insertsql->execute()){
-                        //$sql = $db->prepare("INSERT INTO order_details (order_id, product_id, product_price, add-ons)
-                            //SELECT id, customer_id FROM orders WHERE customer_id=:uid ORDER BY id DESC LIMIT 1");
-    
-    
-    
-                        header('Location: payment.php');
+                    if($ordersql->execute()){
+
+                        $sql = $db->prepare("SELECT id FROM product WHERE product_name=:name");
+                        //bind
+                        $sql->bindParam(':name', $_SESSION['product_name']);
+                        $sql->execute();
+                        if($row=$sql->fetch(PDO::FETCH_ASSOC)){
+                            $productid = $row['id'];
+                        }
+
+                        $detailsql = $db->prepare("INSERT INTO order_details (order_id, product_id, quantity, product_price)
+                                                   SELECT orders.id, :productid, :quantity, :price FROM orders ORDER BY orders.id DESC LIMIT 1");
+                            //bind
+                            $detailsql->bindParam(':productid', $productid);
+                            $detailsql->bindParam(':quantity', $_SESSION['qty']);
+                            $detailsql->bindParam(':price', $_SESSION['price']);
+                            if($detailsql->execute()){
+                                header('Location: payment.php');
+                            }
                     }
                     else{
-                        $_SESSION['message'] = "Something wrong happened";
+                        $_SESSION['msg'] = "Something wrong happened";
                     }                        	
                 }
                 catch(PDOException $e){
-                    $_SESSION['message'] = $e->getMessage();
+                    $_SESSION['msg'] = $e->getMessage();
                 }
             }
             else{
-                $_SESSION['message'] = "Please fill out the form!";
+                $_SESSION['msg'] = "Please fill out the form!";
             }
         
         //close connection
