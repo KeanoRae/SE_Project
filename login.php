@@ -1,6 +1,7 @@
 <?php
-include('include/header.php');
-include('include/navbar.php');
+    session_start();
+    include('include/header.php');
+    include('include/navbar.php');
 ?>
 
     <div class="container-fluid login-container p-0">
@@ -22,10 +23,7 @@ include('include/navbar.php');
                             </div>
                         </div>
                         <hr>
-                        <br>
                         <?php
-                        session_start();
-
                             if(isset($_SESSION['errormsg']) && $_SESSION['errormsg'] !=''){
                             ?>
                             <div class="d-flex align-items-center mb-2">
@@ -35,6 +33,10 @@ include('include/navbar.php');
                                 <?php
                                 unset($_SESSION['errormsg']);
                             }
+                            else{
+                                echo "<br>";
+                                echo "<br>";
+                            }
                         ?>
                         <div class="form-group mb-3">
                             <input type="email" name="email" class="form-control" id="Email" placeholder="Email">
@@ -43,7 +45,7 @@ include('include/navbar.php');
                             <input type="password" name="password" class="form-control" id="Password" placeholder="Password">
                         </div>
                         <div class="forgotpass float-end">
-                            <a href="">forgot password</a>
+                            <a href="#">forgot password</a>
                         </div>
                         <br>
                         <br>

@@ -10,6 +10,7 @@ body {
 }
 
 
+
 /*----------------------------------------------Buttons------------------------------------------------- */
 .btn-pink {
     background-color: #FFF1E6 !important;
@@ -38,6 +39,39 @@ body {
 
 .accordion-item {
     border: 1px solid #000;
+}
+
+.sim-btn {
+    border: 1px solid #000;
+    border-radius: 0.25rem;
+    background-color: #fff;
+}
+/*
+.btn:active:hover, .btn-outline-dark:active:hover {
+    background-color: #fff;
+    color: #000;
+}
+*/
+
+button.border-0.me-2 {
+    background-color: #fff !important;
+}
+
+button.border-0.ms-2 {
+    background-color: #fff !important;
+}
+
+.selected {
+    background-color: #000;
+    color: #fff;
+}
+
+a {
+    cursor: pointer;
+}
+
+button[disabled] {
+    background-color: #C4C4C4 !important;
 }
 
 
@@ -95,9 +129,47 @@ header .icon1 {
     font-size: 48px;
 }
 
-.account .placeholder {
+.account .placeholder, .cart .placeholder {
     font-size: 24px;
     color: rgba(0, 0, 0, 0.53);
+}
+
+.detail-container {
+    width: 80%;
+}
+
+.detail-header {
+    background-color: rgba(209, 209, 209, 0.77);
+}
+
+.detail-topbox, .detail-botbox table, .detail-botbox .tmpbox{
+    border: 1px solid #C4C4C4;
+}
+
+.detail-botbox thead {
+    background-color: rgba(209, 209, 209, 0.36);
+}
+
+.detail-botbox .receipt {
+    border-right: 1px solid #C4C4C4;
+}
+
+.detail-botbox .receipt button {
+    background-color: #87CEFA;
+    border: none;
+}
+
+.receipt label {
+    background-color: #87CEFA;
+    color: #000;
+    font-family: sans-serif;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.receipt #file-chosen {
+  margin-left: 0.3rem;
+  font-family: sans-serif;
 }
 
 
@@ -184,8 +256,6 @@ footer a, footer p {
     color: #C4C4C4;
 }
 
-
-
 .form-content form label {
     line-height: 8px;
 }
@@ -201,6 +271,14 @@ footer a, footer p {
     color: #000;
     border-radius: 10px;
     border: none;
+}
+
+.form-control:disabled,.form-control[readonly]{
+    background-color: #fff !important;
+}
+
+input:-webkit-autofill:active {
+    background-color: #fff !important;
 }
 
 
@@ -354,6 +432,12 @@ footer a, footer p {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.edit-btn button{
+    background-color: #fff;
+    color: #7F7B7B;
+    border: none;
+}
+
 
 /*-------------------------------------------------Admin---------------------------------------------------- */
 .admin {
@@ -397,14 +481,10 @@ footer a, footer p {
     border: 1px solid #000;
 }
 
-.admin .t2 {
-    width: 100%;
+.table {
+    table-layout: fixed;
 }
 
-.admin .t2 .product {
-    width: 40%;
-}
-
-.admin .t2 .price {
-    width: 20%;
+.column-box {
+    background-color: rgba(209, 209, 209, 0.26);
 }

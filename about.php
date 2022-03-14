@@ -1,6 +1,7 @@
 <?php
-include('include/header.php');
-include('include/navbar.php');
+    session_start();
+    include('include/header.php');
+    include('include/navbar.php');
 ?>
 
     <div class="container-fluid about p-0">
@@ -35,5 +36,5 @@ include('include/navbar.php');
         <br>
         <br>
         <br>
-
+      
 <?php include('include/footer.php'); ?>

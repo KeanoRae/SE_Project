@@ -1,6 +1,8 @@
 <?php
-include('include/header.php');
-include('include/navbar.php');
+    session_start();
+    include('include/header.php');
+    include('include/navbar.php');
+    include('signupcode.php');
 ?>
 
     <div class="container-fluid login-container p-0">
@@ -15,7 +17,7 @@ include('include/navbar.php');
                 </div>
                 <div class="col">
                     <div class="form-container d-inline-block">
-                        <form action="signupcode.php" method="POST">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <div class="links d-flex justify-content-around">
                                 <div class="link d-inline">
                                     <a href="login.php">Log In</a>
@@ -26,45 +28,40 @@ include('include/navbar.php');
                             </div>
                             <hr>
                             <br>
-                            <?php
-                                if(isset($_SESSION['status']) && $_SESSION['status'] !='') 
-                                {
-                                    echo '<h2 class="bg-danger text-white"> '.$_SESSION['status'].' </h2>';
-                                    unset($_SESSION['status']);
-                                }
-                            ?>
-                            <?php
-                                session_start();
-
-                                    if(isset($_SESSION['errormsg']) && $_SESSION['errormsg'] !=''){
-                                    ?>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="iconify fs-3 mb-1" data-icon="carbon:warning-alt" style="color: red;"></span>
-                                        <h4 class="mb-0 ms-1" style="color:red;"><?php echo $_SESSION['errormsg']; ?></h4>
-                                    </div>
-                                        <?php
-                                        unset($_SESSION['errormsg']);
-                                    }
-                            ?>
                             <div class="form-group">
-                            <label for="username">First name</label>
-                            <input type="text" class="form-control my-2" name="firstname" required id="firstname">
+                                <label for="username">First name</label>
+                                <input type="text" class="form-control mt-2" name="firstname" value="<?php echo $var['fname']; ?>" id="firstname">
+                                <div class="error mb-2" style="color:red;">
+                                    <?php echo $errors['fname']; ?>
+                                </div>
                             </div>
                             <div class="form-group">
-                            <label for="username">Last name</label>
-                            <input type="text" class="form-control my-2" name="lastname" required id="lastname">
+                                <label for="username">Last name</label>
+                                <input type="text" class="form-control mt-2" name="lastname" value="<?php echo $var['lname']; ?>" id="lastname">
+                                <div class="error mb-2" style="color:red;">
+                                    <?php echo $errors['lname']; ?>
+                                </div>
                             </div>
                             <div class="form-group">
-                            <label for="text">Email</label>
-                            <input type="email" class="form-control my-2" name="email" required id="email">
+                                <label for="text">Email</label>
+                                <input type="email" class="form-control mt-2" name="email" value="<?php echo $var['email']; ?>" id="email">
+                                <div class="error mb-2" style="color:red;">
+                                    <?php echo $errors['email']; ?>
+                                </div>
                             </div>
                             <div class="form-group">
-                            <label for="number">Mobile number</label>
-                            <input type="text" class="form-control my-2" name="number" required id="number">
+                                <label for="number">Mobile number</label>
+                                <input type="text" class="form-control mt-2" name="number" value="<?php echo $var['phonenum']; ?>" id="number">
+                                <div class="error mb-2" style="color:red;">
+                                    <?php echo $errors['phone']; ?>
+                                </div>
                             </div>
                             <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control my-2" name="password" required id="password">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control mt-2" name="password" value="<?php echo $var['pw']; ?>" id="password">
+                                <div class="error mb-2" style="color:red;">
+                                    <?php echo $errors['pw']; ?>
+                                </div>
                             </div>
                             <br>
                             <br>
