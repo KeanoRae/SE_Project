@@ -3,6 +3,7 @@
     include('include/header.php');
     include('include/navbar.php');
 ?>
+
     <div class="container-fluid about p-0">
         <p class="header text-center mt-4 mb-5 lh-sm">About <br> NJ Customized Glass Painting</p>
         <br>
@@ -35,6 +36,5 @@
         <br>
         <br>
         <br>
-
-
+      
 <?php include('include/footer.php'); ?>

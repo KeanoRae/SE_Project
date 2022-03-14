@@ -1,10 +1,8 @@
 <?php
     session_start();
-    echo 'user type = '.$_SESSION['user_type'];
     include('include/header.php');
     include('include/navbar.php');
 ?>
-
 
     <div class="container-fluid contact p-0">
         <p class="header text-center mt-4">Contact Info</p>
