@@ -2,15 +2,12 @@
     session_start();
     //echo 'email = '.$_SESSION['email'];
     //echo "<br>";
-    //echo 'id = '.$_SESSION['pid'];
-    //echo "<br>";
+    echo 'id = '.$_SESSION['product_id'];
+    echo "<br>";
+    echo 'name = '.$_SESSION['product_name'];
+    echo "<br>";
+    echo $_SESSION['subtotal'];
     //echo 'type = '.$_SESSION['user_type'];
-    //if(isset($_SESSION['product_name'])){
-        //echo $_SESSION['product_name'];
-    //}
-    //else{
-        //echo "Not set";
-    //}
     include('../../include/header.php');
     include('../../include/navbar.php');
     include('process/shipping-info_process.php');
@@ -33,7 +30,7 @@
             }
         ?>
         <div class="header ms-5">
-            <a class="d-inline fw-normal fs-4 text-decoration-none text-reset" href="#">cart</a>
+            <a class="d-inline fw-normal fs-4 text-decoration-none text-reset" href="cart.php">cart</a>
             <p class="d-inline fw-normal fs-4">></p>
             <p class="d-inline fw-bolder fs-4">shipping</p>
             <div class="title">
@@ -45,27 +42,36 @@
                 <div class="col">
                     <br>
                     <div class="row ms-5">
+                        <?php
+                            include_once('../../include/database.php');
+                            $database = new Connection();
+                            $db = $database->open();
+
+                            $sql = $db->prepare("SELECT first_name, last_name, email, phone_number FROM user WHERE id=:uid");
+                            //bind
+                            $sql->bindParam(':uid', $_SESSION['pid']);
+                            $sql->execute();
+                            if($display=$sql->fetch(PDO::FETCH_ASSOC)){
+                        ?>
                         <div class="col-6 mb-3">
                             <label for="firstname">First name</label>
-                            <input type="text" class="form-control" name="firstname" value="<?php echo $var['fname']; ?>">
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['fname']; ?>
-                            </div>
+                            <input type="text" class="form-control" name="firstname" value="<?php echo $display['first_name']; ?>">
                         </div>
                         <div class="col-6">
                             <label for="lastname">Last name</label>
-                            <input type="text" class="form-control" name="lastname" value="<?php echo $var['lname']; ?>">
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['lname']; ?>
-                            </div>
+                            <input type="text" class="form-control" name="lastname" value="<?php echo $display['last_name']; ?>">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" value="<?php echo $var['email']; ?>">
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['email']; ?>
-                            </div>
+                            <input type="email" class="form-control" name="email" value="<?php echo $display['email']; ?>">
                         </div>
+                        <div class="col-12 mb-3">
+                            <label for="number">Phone No.</label>
+                            <input type="text" class="form-control" name="number" value="<?php echo $display['phone_number']; ?>">
+                        </div>
+                        <?php
+                            }
+                        ?>
                         <div class="col-12 mb-3">
                             <label for="address">Unit or House No. & Street No.</label>
                             <input type="text" class="form-control" name="address" value="<?php echo $var['addr']; ?>">
@@ -73,9 +79,9 @@
                                 <?php echo $errors['addr']; ?>
                             </div>
                         </div>
-                        <div class="col-12 mb-3">
-                            <label for="baranggay">Baranggay</label>
-                            <input type="text" class="form-control" name="baranggay" value="<?php echo $var['brgy']; ?>">
+                        <div class="col-6 mb-3">
+                            <label for="barangay">Barangay</label>
+                            <input type="text" class="form-control" name="barangay" value="<?php echo $var['brgy']; ?>">
                             <div class="error mb-2" style="color:red;">
                                 <?php echo $errors['brgy']; ?>
                             </div>
@@ -96,16 +102,29 @@
                         </div>
                         <div class="col-6 mb-5">
                             <label for="region">Region</label>
-                            <input type="text" class="form-control" name="region" value="<?php echo $var['region']; ?>">
+                            <div>
+                                <select name="region" class="w-100">
+                                    <option value="<?php isset($_POST['region']) ? $var['region']:""; ?>"></option>
+                                    <option>NCR</option>
+                                    <option>CAR</option>
+                                    <option>Region I</option>
+                                    <option>Region II</option>
+                                    <option>Region III</option>
+                                    <option>Region IV</option>
+                                    <option>Region V</option>
+                                    <option>Region VI</option>
+                                    <option>Region VII</option>
+                                    <option>Region VIII</option>
+                                    <option>Region IX</option>
+                                    <option>Region X</option>
+                                    <option>Region XI</option>
+                                    <option>Region XII</option>
+                                    <option>Region XIII</option>
+                                    <option>BARMM</option>
+                                </select>
+                            </div>
                             <div class="error mb-2" style="color:red;">
                                 <?php echo $errors['region']; ?>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="number">Phone No.</label>
-                            <input type="text" class="form-control" name="number" value="<?php echo $var['phone']; ?>">
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['phone']; ?>
                             </div>
                         </div>
                     </div>
@@ -114,11 +133,8 @@
                     </div>
                     <div class="col-12">
                         <div class="btn-group-vertical w-75 ms-5" data-toggle="buttons">
-                            <label class="p-2 border border-dark border-bottom-0 text-start w-100">
-                                <input type="radio" name="options" id="option1" value="JRS - Express" <?php if (isset($_POST['options']) && $_POST['options']=="JRS - Express") echo "checked";?>> JRS - Express
-                            </label>
                             <label class="p-2 border border-dark text-start w-100">
-                                <input type="radio" name="options" id="option2" value="M Lhuillier Padala" <?php if (isset($_POST['options']) && $_POST['options']=="M Lhuillier Padala") echo "checked";?>> M Lhuillier Padala
+                                <input type="radio" name="options" id="option1" value="JRS - Express" <?php if (isset($_POST['options']) && $_POST['options']=="JRS - Express") echo "checked";?>> JRS - Express
                             </label>
                             <div class="error mb-2" style="color:red;">
                                 <?php echo $errors['method']; ?>
@@ -138,7 +154,7 @@
                             </div>
                             <div class="right d-flex justify-content-between">
                                 <p class="me-5"><?php echo $_SESSION['qty']; ?></p>
-                                <p class="ms-5"><?php echo $_SESSION['price']; ?></p>
+                                <p class="ms-5"><?php echo "₱".$_SESSION['subtotal']; ?></p>
                             </div>
                         </div>
                         <br>
@@ -146,8 +162,8 @@
                         <br>
                         <br>
                         <hr class="mx-3">
-                        <div class="bot d-flex justify-content-between mx-4">
-                            <p class="">Subtotal</p>
+                        <div class="d-flex justify-content-between mx-4">
+                            <p>Subtotal</p>
                             <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
                         </div>
                         <br>

@@ -40,53 +40,59 @@
             <p class="d-inline fw-bolder fs-4">payment</p>
         </div>
         <?php
+            include_once('../../include/database.php');
             $database = new Connection();
             $db = $database->open();
-            $sql = $db->prepare("SELECT ship_name, email, shipping_address, shipping_city, shipping_method FROM orders WHERE customer_id=:uid ORDER BY id DESC LIMIT 1");
-            $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
+
+            $sql = $db->prepare("SELECT first_name, last_name, email, phone_number FROM user WHERE id=:uid");
+            //bind
+            $sql->bindParam(':uid', $_SESSION['pid']);
             $sql->execute();
-            if($row=$sql->fetch(PDO::FETCH_ASSOC)){
+            if($display=$sql->fetch(PDO::FETCH_ASSOC)){
+                $fullname = $display['first_name']." ".$display['last_name'];
         ?>
         <form class="payment-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" autocomplete="off">
             <div class="row">
                 <div class="col">
-                    <br>
-                    <br>
+                    <div class="mt-3 text-end edit-btn">
+                        <button id="paymentinfo-edit" onClick="edit_info(this)" type="button">
+                            <span class="iconify" data-icon="ep:edit"></span>
+                            <p id="btn-text" class="d-inline">edit</p>
+                        </button>
+                    </div>
                     <div class="row mb-3">
-                        <label for="name" class="col-sm-1 col-form-label me-5">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control border-dark shadow-none rounded-0" name="name" value="<?php echo $row['ship_name']; ?>" readonly>
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['name']; ?>
-                            </div>
+                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10 d-flex align-items-center">
+                            <input id="form-input" type="text" class="form-control border-dark shadow-none rounded-0" name="name" value="<?php echo $fullname; ?>" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="email" class="col-sm-1 col-form-label me-5">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control border-dark shadow-none rounded-0" name="email" value="<?php echo $row['email']; ?>" readonly>
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['email']; ?>
-                            </div>
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10 d-flex align-items-center">
+                            <input id="form-input" type="email" class="form-control border-dark shadow-none rounded-0" name="email" value="<?php echo $display['email']; ?>" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="ship" class="col-sm-1 col-form-label me-5">Ship</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control border-dark shadow-none rounded-0" name="addr" rows="3" readonly><?php echo $row['shipping_address'].', '.$row['shipping_city']; ?>
-                            </textarea>
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['addr']; ?>
-                            </div>
+                        <label for="phonenumber" class="col-sm-2 col-form-label">Phone #</label>
+                        <div class="col-sm-10 d-flex align-items-center">
+                            <input id="form-input" type="text" class="form-control border-dark shadow-none rounded-0" name="phonenumber" value="<?php echo $display['phone_number']; ?>" readonly>
+                        </div>
+                    </div>
+        <?php
+            //close connection
+            $database->close();
+            }
+        ?>
+                    <div class="row mb-3">
+                        <label for="ship" class="col-sm-2 col-form-label">Ship</label>
+                        <div class="col-sm-10 d-flex align-items-center">
+                            <textarea id="form-input" class="form-control border-dark shadow-none rounded-0" name="addr" rows="3" readonly><?php echo $_SESSION['address'].", ".$_SESSION['city'].", ".$_SESSION['postal'].", ".$_SESSION['region']; ?></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="method" class="col-sm-1 col-form-label me-5">Method</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control border-dark shadow-none rounded-0" name="method" value="<?php echo $row['shipping_method']; ?>" readonly>
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['ship_method']; ?>
-                            </div>
+                        <label for="method" class="col-sm-2 col-form-label">Method</label>
+                        <div class="col-sm-10 d-flex align-items-center">
+                            <input id="form-input" type="text" class="form-control border-dark shadow-none rounded-0" name="ship_method" value="<?php echo $_SESSION['ship_method']; ?>" readonly>
                         </div>
                     </div>
                     <div class="mb-2 d-flex align-items-center mt-5">
@@ -108,9 +114,16 @@
                                 <input type="radio" name="payment-option" id="option4" value="Palawan Express" <?php if (isset($_POST['payment-option']) && $_POST['payment-option']=="Palawan Express") echo "checked";?>> Palawan Express
                             </label>
                             <div class="error mb-2" style="color:red;">
-                                <?php echo $errors['pay_method']; ?>
+                                <?php echo $error['pay_method']; ?>
                             </div>
                         </div>
+                    </div>
+                    <div class="mt-3 d-flex">
+                        <span class="iconify fs-1 me-3" data-icon="bx:comment-error"></span>
+                        <p class="fs-3 mt-1">Message</p>
+                    </div>
+                    <div class="col-sm-10 ms-5 mb-5">
+                        <textarea class="form-control border-dark shadow-none rounded-0" name="message" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="col">
@@ -154,32 +167,7 @@
                 </div>
             </div>
         </form>
-        <?php
-            //close connection
-            $database->close();
-            }
-        ?>
-
-
-        <!--------------------------------footer------------------------------->
-        <footer>
-            <div class="row">
-                <div class="col d-flex flex-column">
-                    <a class="text-decoration-none text-reset mt-3" href="contact.php">Contact</a>
-                    <a class="text-decoration-none text-reset" href="about.php">About</a>
-                    <a class="text-decoration-none text-reset mb-4" href="policy.php">Return Policy</a>
-                </div>
-                <div class="col">
-                    <p class="fw-bold mt-3">Social Media</p>
-                    <p class="text-decoration-underline">https://www.facebook.com/NJglasspainting</p>
-                    <p class="mb-4">https://www.instagram.com/njglasspainting/</p>
-                </div>
-            </div>
-        </footer>
     </div>
+    <script src="../../assets/javascript/index.js"></script>
 
-  
-  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-</html>
+<?php include('../../include/footer.php');

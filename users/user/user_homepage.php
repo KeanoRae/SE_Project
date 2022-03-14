@@ -17,28 +17,33 @@
     include('../../include/navbar.php');
 ?>
     <div class="container-fluid homepage p-0">
-        <form action="process/product_process.php" method="POST">
-            <div class="content">
-                <div class="hp-container mt-5">
-                    <img src="../../assets/images/hp-anime.png" alt="">
-                    <div class="button">
-                        <button type="submit" name="anime_btn" class="btn btn-secondary btn-lg shadow-none">shop now</button>
-                    </div>
-                </div>
-                <div class="hp-container">
-                    <img src="../../assets/images/hp-cartoon.png" alt="">
-                    <div class="button">
-                    <button type="submit" name="cartoon_btn" class="btn btn-secondary btn-lg shadow-none">shop now</button>
-                    </div>
-                </div>
-                <div class="hp-container">
-                    <img src="../../assets/images/hp-vector.png" alt="">
-                    <div class="button">
-                    <button type="submit" name="vector_btn" class="btn btn-secondary btn-lg shadow-none">shop now</button>
-                    </div>
+        <div class="content">
+            <?php
+                include_once('../../include/database.php');
+                $database = new Connection();
+                $db = $database->open();
+
+                //fetch id,product name,product cover image from database
+                $sql=$db->prepare("SELECT id, product_name, product_cover FROM product");
+                $sql->execute();
+                while($row=$sql->fetch(PDO::FETCH_ASSOC)){
+            ?>
+            <div class="hp-container mt-5">
+                <!-- display product cover -->
+                <?php echo '<img src="data:image;base64,'.base64_encode($row['product_cover']).'" alt="img" >'; ?>
+                <div class="button">
+                    <!-- button that redirect to product page -->
+                    <a href="user_productpage.php?shopnowid=<?php echo $row['id']; ?>" name="product<?php echo $row['product_name']; ?>" 
+                        class="btn btn-secondary btn-lg shadow-none">shop now
+                    </a>
                 </div>
             </div>
-            <?php unset($_SESSION['product_name']); ?>
-        </form>
-        
+            <?php
+                }
+                //close connection
+                $database->close();
+            ?>
+        </div>
+    </div>
+            
 <?php include('../../include/footer.php'); ?>

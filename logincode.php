@@ -32,7 +32,7 @@
 				$db_pw = $row['password'];			
 
 				if($email == $db_email AND $pw == $db_pw){
-					$_SESSION['user_logged_in'] = true;
+					//$_SESSION['user_logged_in'] = true;
 					if($row['role'] == "admin"){
 						$_SESSION['user_type'] = "admin";
 						header('Location: users/admin/dashboard.php');
