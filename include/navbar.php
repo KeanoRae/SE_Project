@@ -3,7 +3,7 @@
         <div class="collapse navbar-collapse d-inline-block">
             <ul class="navbar-nav ms-auto">
             <?php 
-                if(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "user"){
+                if(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "customer"){
             ?>
             <!--For User-->
                 <li class="nav-item">
@@ -54,7 +54,7 @@
     <!--/navbar-->
     <!--header-->
     <?php 
-        if(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "user"){
+        if(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "customer"){
     ?>
     <!--For User-->
     <header>

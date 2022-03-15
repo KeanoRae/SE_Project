@@ -13,7 +13,7 @@
                         <img src="assets/images/login-logo.png" alt="">
                 </div>
                 <div class="col form-container d-inline-block mx-5">
-                    <form action="logincode.php" method="POST" autocomplete="off">
+                    <form action="logincode.php" method="POST">
                         <div class="links d-flex justify-content-around">
                             <div class="link active d-inline">
                                 <a href="login.php">Log In</a>
@@ -39,10 +39,10 @@
                             }
                         ?>
                         <div class="form-group mb-3">
-                            <input type="email" name="email" class="form-control" id="Email" placeholder="Email">
+                            <input type="text" name="useremail" class="form-control"  placeholder="Username or Email">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" id="Password" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password">
                         </div>
                         <div class="forgotpass float-end">
                             <a href="#">forgot password</a>

@@ -117,7 +117,7 @@
                             <label for="role" class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-8 d-flex align-items-center">
                                 <select name="role" class="w-100 py-2 rounded-0">
-                                        <option value=""></option>
+                                        <option value="" selected disabled hidden></option>
                                         <option>admin</option>
                                         <option>staff</option>
                                 </select>

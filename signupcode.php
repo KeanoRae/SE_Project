@@ -2,13 +2,15 @@
     include_once('include/database.php');
 
     $errors=array("fname" => "", 
-                    "lname" => "",  
+                    "lname" => "", 
+                    "username" => "",  
                     "email" => "", 
-                    "phone" => "",
+                    "phonenum" => "",
                     "pw" => ""
             );
     $var=array("fname" => "",
                 "lname" => "",
+                "username" => "", 
                 "email" => "",
                 "phonenum" => "",
                 "pw" => ""
@@ -17,7 +19,7 @@
     if(isset($_POST['signup_btn'])){
         $database = new Connection();
         $db = $database->open();
-        $role = 'user';
+        $role = 'customer';
 
         // strips unnecessary characters and backslashes
         function test_input($data) {
@@ -49,6 +51,14 @@
             }
         }
 
+        //validation for username
+        if(empty($_POST['username'])){
+            $errors['username'] = "*Username field is Required";
+        }
+        else{
+            $var['username'] = test_input($_POST['username']);
+        }
+
         //validation for email
         if(empty($_POST['email'])){
             $errors['email'] = "*Email field is Required";
@@ -71,12 +81,12 @@
         
         //validation for mobile number
         if(empty($_POST['number'])){
-            $errors['phone'] = "*Mobile number field is Required";
+            $errors['phonenum'] = "*Mobile number field is Required";
         }
         else{
             $var['phonenum'] = test_input($_POST['number']);
             if (strlen($var['phonenum']) != 11){
-                $errors['phone'] = "*Please enter a valid mobile number";
+                $errors['phonenum'] = "*Please enter a valid mobile number";
             }
         }
 
@@ -91,20 +101,24 @@
         if(!in_array("",$var)){
             try{
                 //make use of prepared statement to prevent sql injection
-                $insertsql = $db->prepare("INSERT INTO user (first_name, last_name, email, phone_number, password, role)
-                VALUES (:firstname, :lastname, :email, :phone_number, :password, :role)");
+                $insertsql = $db->prepare("INSERT INTO user (username, password, first_name, last_name, email, phone_number, role)
+                VALUES (:username, :password, :firstname, :lastname, :email, :phone_number, :role)");
+
+                $pw_hash = password_hash($var['pw'], PASSWORD_DEFAULT);
     
                 //bind
+                $insertsql->bindParam(':username', $var['username']);
+                $insertsql->bindParam(':password', $pw_hash);
                 $insertsql->bindParam(':firstname', $var['fname']);
                 $insertsql->bindParam(':lastname', $var['lname']);
                 $insertsql->bindParam(':email', $var['email']);
                 $insertsql->bindParam(':phone_number', $var['phonenum']);
-                $insertsql->bindParam(':password', $var['pw']);
                 $insertsql->bindParam(':role', $role);
     
                 if($insertsql->execute()){
                     $_SESSION['email'] = $var['email'];
-                    header('Location: login.php');
+                    $_SESSION['user_type'] = "customer";
+                    header('Location: users/user/user_homepage.php');
                 }                        	
             }
             catch(PDOException $e){

@@ -6,52 +6,54 @@
 		$database = new Connection();
 		$db = $database->open();
 
-		$email = $_POST['email'];
+		$email = $_POST['useremail'];
 		$pw = $_POST['password'];
 
-		if(empty($email) or empty($pw)){
-			$_SESSION['errormsg'] = "invalid email or password";
+		if(empty($_POST['useremail']) or empty($_POST['password'])){
+			$_SESSION['errormsg'] = "invalid username/email or password";
 		}
-		else{
-			
-		}
-
 		try{
 			//make use of prepared statement to prevent sql injection
-			$sql = $db->prepare("SELECT id, email, password, role FROM user WHERE BINARY email=:email AND BINARY password=:password LIMIT 1");
+			$sql = $db->prepare("SELECT id, username, password, email, role FROM user WHERE (BINARY username=:useremail OR BINARY email=:useremail)");
 
 			//bind
-			$sql->bindParam(':email', $email);
-			$sql->bindParam(':password', $pw);
+			$sql->bindParam(':useremail', $_POST['useremail']);
 			$sql->execute();
 			$count=$sql->rowCount();
 			$row=$sql->fetch(PDO::FETCH_ASSOC);
 
-			if( $count == 1){
-				$db_email = $row['email'];
-				$db_pw = $row['password'];			
-
-				if($email == $db_email AND $pw == $db_pw){
-					//$_SESSION['user_logged_in'] = true;
+			if( $count == 1){		
+				if(($_POST['useremail'] == $row['username'] or $_POST['useremail'] == $row['email'])){
 					if($row['role'] == "admin"){
-						$_SESSION['user_type'] = "admin";
-						header('Location: users/admin/dashboard.php');
+						if($pw == $row['password']){
+							$_SESSION['user_type'] = "admin";
+							header('Location: users/admin/dashboard.php');
+						}
+						else{
+							$_SESSION['errormsg'] = "invalid password";
+							header('Location: login.php');
+						}
 					}
-					else if($row['role'] == "user"){
-						$_SESSION['email'] = $row['email'];
-						$_SESSION['pid'] = $row['id'];
-						$_SESSION['user_type'] = "user";
-						header('Location: users/user/user_homepage.php');
-					}
-					else if($row['role'] == "staff"){
-						$_SESSION['user_type'] = "staff";
-						$_SESSION['status'] = "Email / Password is Invalid";
-						header('Location:login.php');
-					}		
+					else if($row['role'] == "customer"){
+						if(password_verify($pw, $row['password'])){
+							$_SESSION['email'] = $row['email'];
+							$_SESSION['pid'] = $row['id'];
+							$_SESSION['user_type'] = "customer";
+							header('Location: users/user/user_homepage.php');
+						}
+						else{
+							$_SESSION['errormsg'] = "invalid password";
+							header('Location: login.php');
+						}
 
+					}
+					//else if($row['role'] == "staff"){
+						//$_SESSION['user_type'] = "staff";
+						//header('Location:login.php');
+					//}		
 				}
 				else{
-					$_SESSION['errormsg'] = "invalid email or password";
+					$_SESSION['errormsg'] = "invalid username or email";
 					header('Location: login.php');
 				}
 			}
@@ -62,7 +64,7 @@
 		
 		}
 		catch(PDOException $e){
-			$_SESSION['message'] = $e->getMessage();
+			$_SESSION['errormsg'] = $e->getMessage();
 		}
 
 		//close connection
