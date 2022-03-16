@@ -10,7 +10,7 @@
     //echo 'type = '.$_SESSION['user_type'];
     include('../../include/header.php');
     include('../../include/navbar.php');
-    include('process/shipping-info_process.php');
+    include('process/shipping_info_process.php');
 ?>
     <div class="container-fluid shipping-info p-0">
         <?php

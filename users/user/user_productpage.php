@@ -119,8 +119,9 @@
                     <p class="fs-1"><?php echo strtoupper($product_name); ?></p>
                     <hr>
                     <p class="fs-4">Characters</p>
+                    <!-- store the total character price -->
+                    <input type="text" id="baseprice" name="baseprice" value="" hidden>
                     <!-- buttons for character price -->
-                    <input type="hidden" id="baseprice" name="baseprice" value="">
                     <div class="d-flex mx-0">
                         <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn1" value=<?php echo $price1; ?> >1 Character</button>
                         <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn2" value=<?php echo $price2; ?> >2 Characters</button>
@@ -130,16 +131,19 @@
                     </div>
                     <hr>
                     <p class="fs-4">Add-ons</p>
+                    <!-- store the total addons -->
+                    <input type="text" id="addons-price" name="addons-price" value="0" hidden>
+                    <!-- store the addons description -->
+                    <input type="text" id="addons-name" name="addons-name" value="" hidden>
                     <!-- buttons for addons -->
-                    <input type="number" id="addons-price" name="addons-price" value=0 hidden>
                     <div class="d-flex mx-0">
-                        <button type="button" onClick="getaddons(this)" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="addons-ch" id="addons" data-bs-toggle="button" value=<?php echo $addons1; ?> >Character</button>
-                        <button type="button" onClick="getaddons(this)" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="addons-bd" id="addons" data-bs-toggle="button" value=<?php echo $addons2; ?> >Background/Dedication</button>
+                        <button type="button" onClick="getaddons(this)" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="Add character" id="addons" data-bs-toggle="button" value=<?php echo $addons1; ?> >Character</button>
+                        <button type="button" onClick="getaddons(this)" class="d-inline-block btn btn-outline-dark shadow-none me-3" name="Add dedication/background" id="addons" data-bs-toggle="button" value=<?php echo $addons2; ?> >Background/Dedication</button>
                     </div>
                     <hr>
                     <p class="fs-4">Quantity</p>
-                    <!-- gets the subtotal -->
-                    <input type="hidden" id="subtotal" name="subtotal" value="">
+                    <!-- store the subtotal -->
+                    <input type="text" id="subtotal" name="subtotal" value="" hidden>
                     <!-- button for quantity -->
                     <div class="d-flex align-items-center">
                         <button type="button" class="border-0" onClick="increase()"><i class="fas fa-plus"></i></button>

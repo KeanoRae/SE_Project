@@ -1,17 +1,5 @@
 <?php 
     session_start();
-    //echo 'email = '.$_SESSION['email'];
-    //echo "<br>";
-    //echo 'id = '.$_SESSION['pid'];
-    //echo "<br>";
-    //echo 'type = '.$_SESSION['user_type'];
-    //echo "<br>";
-    //if(isset($_SESSION['product_name'])){
-        //echo $_SESSION['product_name'];
-    //}
-    //else{
-        //echo "Not set";
-    //}
     include('../../../include/header.php');
     include('../../../include/navbar.php');
 ?>
@@ -23,13 +11,10 @@
             include_once('../../../include/database.php');
             $database = new Connection();
             $db = $database->open();
-            $sql = $db->prepare("SELECT o.id, o.ship_name, p.product_name, od.quantity, od.product_price
-                                FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
-                                WHERE customer_id=:uid AND o.order_status=2"
-                                 );
-            $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
-            $sql->execute();
-            $count = $sql->rowCount();
+            $check_order = $db->prepare("SELECT id FROM orders");
+            //bind param                                 
+            $check_order->execute();
+            $count = $check_order->rowCount();
 
             if($count == 0){           
         ?>
@@ -40,12 +25,20 @@
         <?php
             }
             else{
-                
+
+                $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price
+                FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
+                WHERE customer_id=:uid AND o.order_status=2"
+                 );
+                 // bind param
+                $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
+                $sql->execute();
+                                
         ?>
             <div class="tmp mx-3 mb-4">
                 <div class="title d-flex justify-content-between mx-2 py-2 px-3 border border-dark">
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-pending.php">pending</a>
-                    <a class="text-reset text-decoration-none fst-normal h4 mb-0 fw-bolder" href="#">to pay</a>
+                    <a class="text-reset text-decoration-none fst-normal h4 mb-0 fw-bolder" href="user-to-pay.php">to pay</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="#">on-process</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="#">to ship</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="#">cancelled</a>
@@ -59,7 +52,7 @@
             <form action="">
                 <div class="box border border-dark mb-2 mx-4">
                     <div class="row ms-2 pt-1">
-                        <?php echo $row['ship_name']; ?>
+                        <?php echo $row['receiver_name']; ?>
                     </div>
                     <hr class="mt-1">
                     <div class="inner-box d-flex">

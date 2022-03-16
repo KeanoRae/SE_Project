@@ -1,3 +1,4 @@
+// <-- for character button on product page --> //
 function price_btn(element){
     let btn = document.querySelectorAll('.price-select');
     for (let i = 0; i < btn.length; i++) {
@@ -7,18 +8,20 @@ function price_btn(element){
     let price = document.querySelector('.selected').value;
     document.getElementById("baseprice").value = price;
     let qty = document.querySelector('#qtybox').value;
-    document.getElementById("subtotal").value = Number(parseFloat(qty) * parseFloat(price)).toFixed(2);
-    
+    let addons = document.querySelector('#addons-price').value;
+    document.getElementById("subtotal").value = ((parseFloat(qty) * parseFloat(price)) + parseFloat(addons)).toFixed(2);
     return;
 }
-//< for product page
+// <--------------------------------> //
+
+// <-- for quantity --> //
 function increase() {
   let textBox = document.getElementById("qtybox");
     if(textBox.value < 10){
       textBox.value++;
     }
-    //let bprice = document.getElementById("baseprice").value;
-    //document.getElementById("subtotal").value = Number(parseFloat(bprice) * parseFloat(textBox.value)).toFixed(2);
+    let bprice = document.getElementById("baseprice").value;
+    document.getElementById("subtotal").value = Number(parseFloat(bprice) * parseFloat(textBox.value)).toFixed(2);
 }    
 
 function decrease() {
@@ -29,22 +32,37 @@ function decrease() {
     let bprice = document.getElementById("baseprice").value;
     document.getElementById("subtotal").value = Number(parseFloat(bprice) * parseFloat(textBox.value)).toFixed(2);
 }
-// />
+// <--------------------------------> //
 
-
-  function getaddons(element) {
-    let res = document.getElementById("addons-price");
-      if(element.classList.contains("active")){
-        //add value to result
-        res.value = parseInt(res.value) + parseInt(element.value);
+// <-- for addons --> //
+let name_arr = [];
+function getaddons(element) {
+  let sum = document.getElementById("addons-price");
+  let name = document.getElementById("addons-name");
+  let bprice = document.getElementById("baseprice").value;
+  let qty = document.querySelector('#qtybox').value;
+    if(element.classList.contains("active")){
+      //add value to result
+      sum.value = parseInt(sum.value) + parseInt(element.value);
+      document.getElementById("subtotal").value = Number(parseFloat(bprice) * parseFloat(qty) + parseFloat(sum.value)).toFixed(2);
+      name_arr.push(element.innerHTML); 
+    }
+    else{
+      //subtract value from result
+      sum.value = parseInt(sum.value) - parseInt(element.value);
+      document.getElementById("subtotal").value = Number(parseFloat(bprice) * parseFloat(qty) + parseFloat(sum.value)).toFixed(2);
+      if(name_arr.indexOf(element.innerHTML) == 0){
+        name_arr.shift(element.innerHTML);
       }
       else{
-        //subtract value from result
-        res.value = parseInt(res.value) - parseInt(element.value);
+        name_arr.pop(element.innerHTML);
       }
-  }
+    }
+    name.value = name_arr.join(", ");
+}
+// <--------------------------------> //
 
-
+// <-- for checkbox in cart page --> //
 function checkall(selector) {
   let checkboxes = document.querySelectorAll('#cart-checkbox');
   for (let i = 0; i < checkboxes.length; i++) {
@@ -52,7 +70,9 @@ function checkall(selector) {
           checkboxes[i].checked = selector.checked;
   }
 }
-  
+// <--------------------------------> //
+
+// <-- for edit information in payment page --> //
 function edit_info(btn){
   let input = document.querySelectorAll('#form-input');
     if (btn.classList.contains("clicked")){
@@ -70,8 +90,12 @@ function edit_info(btn){
       document.querySelector("#btn-text").innerHTML = "save";
     }
 }
-
+// <--------------------------------> //
   
+
+
+
+
     //const actualBtn = document.getElementById('actual-btn');
     //const fileChosen = document.getElementById('file-chosen');
     //actualBtn.addEventListener('change', function(){

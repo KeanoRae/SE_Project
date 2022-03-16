@@ -44,9 +44,11 @@
 		if(!empty($var['price'])){
 			$_SESSION['price'] = $var['price'];
 			$_SESSION['qty'] = $var['qty'];
+            $_SESSION['addons_price'] = $_POST['addons-price'];
+            $_SESSION['addons_name'] = $_POST['addons-name'];
 			$_SESSION['subtotal'] = $_POST['subtotal'];
             $_SESSION['product_id'] = $id;
-			header('Location: shipping-info.php');
+			header('Location: shipping_info.php');
 		}
 	}
 
@@ -68,6 +70,7 @@
             $selectedprice = $var['price'];
             $qty = $var['qty'];
             $subtotal = $_POST['subtotal'];
+            $_SESSION['addons_name'] = $_POST['addons-name'];
           
             $insertsql = $db->prepare("INSERT INTO cart (customer_id, product_id, product_name, product_price, quantity, add_ons, subtotal)
                                 VALUES (:uid, :pid, :productname, :price, :quantity, :addons, :subtotal)");

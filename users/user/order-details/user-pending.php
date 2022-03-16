@@ -1,17 +1,5 @@
 <?php 
     session_start();
-    //echo 'email = '.$_SESSION['email'];
-    //echo "<br>";
-    //echo 'id = '.$_SESSION['pid'];
-    //echo "<br>";
-    //echo 'type = '.$_SESSION['user_type'];
-    //echo "<br>";
-    //if(isset($_SESSION['product_name'])){
-        //echo $_SESSION['product_name'];
-    //}
-    //else{
-        //echo "Not set";
-    //}
     include('../../../include/header.php');
     include('../../../include/navbar.php');
 ?>
@@ -23,7 +11,7 @@
             include_once('../../../include/database.php');
             $database = new Connection();
             $db = $database->open();
-            $sql = $db->prepare("SELECT o.id, o.ship_name, p.product_name, od.quantity, od.product_price
+            $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price, od.add_ons, od.add_ons_details
                                 FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
                                 WHERE customer_id=:uid AND o.order_status=1"
                                  );
@@ -59,7 +47,7 @@
             <form action="">
                 <div class="box border border-dark mb-2 mx-4">
                     <div class="row ms-2 pt-1">
-                        <?php echo $row['ship_name']; ?>
+                        <?php echo $row['receiver_name']; ?>
                     </div>
                     <hr class="mt-1">
                     <div class="inner-box d-flex">
@@ -71,15 +59,15 @@
                                 <div class="txt"><p><?php echo "₱".$row['product_price']; ?></p></div>
                             </div>
                             <div class="row2 d-flex justify-content-between">
-                                <div class="txt"><p style="color:#8D8B8B;">Add-ons: </p></div>
-                                <div class="txt"><p>Add-ons Price</p></div>
+                                <div class="txt"><p style="color:#8D8B8B;">Add-ons: <?php echo $row['add_ons_details']; ?></p></div>
+                                <div class="txt"><p><?php echo "₱".$row['add_ons']; ?></p></div>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="bot">
                         <div class="txt text-end me-3 mb-4">
-                            <p class="fs-5" style="word-spacing:40px;">Total ₱420</p>
+                            <p class="fs-5" style="word-spacing:40px;">Total <?php echo "₱".number_format(($row['product_price']*$row['quantity']) + $row['add_ons'], 2);?></p>
                         </div>
                         <div class="text-end me-3 mb-3">
                             <a href="account-details.php?id=<?php echo $row['id']; ?>" class="px-3 py-1 border text-decoration-none border-dark btn-pink btn-shadow py-2">VIEW DETAILS</a>

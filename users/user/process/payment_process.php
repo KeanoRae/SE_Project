@@ -45,7 +45,7 @@
                 //status id for pending
                 $status=1;
                 $city = $_SESSION['city'].", ".$_SESSION['region'];
-                $ordersql = $db->prepare("INSERT INTO orders (customer_id, ship_name, email, shipping_address, shipping_city, ship_postal_code, contact_number, shipping_method, message, order_status)
+                $ordersql = $db->prepare("INSERT INTO orders (customer_id, receiver_name, email, shipping_address, shipping_city, ship_postal_code, contact_number, shipping_method, message, order_status)
                     VALUES (:uid, :name, :email, :ship_addr, :city, :postal, :phone_number, :method, :message, :status)");
                     
                     //bind
@@ -61,27 +61,22 @@
                     $ordersql->bindParam(':status', $status);
     
                     if($ordersql->execute()){
-
-                        //$sql = $db->prepare("SELECT id FROM product WHERE product_name=:name");
-                        //bind
-                        //$sql->bindParam(':name', $_SESSION['product_name']);
-                        //$sql->execute();
-
-                        //if($row=$sql->fetch(PDO::FETCH_ASSOC)){
-                            //$productid = $row['id'];
-                        //}
-
-                        $detailsql = $db->prepare("INSERT INTO order_details (order_id, product_id, quantity, product_price)
-                                                   SELECT orders.id, :productid, :quantity, :price FROM orders ORDER BY orders.id DESC LIMIT 1");
+                        $detailsql = $db->prepare("INSERT INTO order_details (order_id, product_id, quantity, product_price, add_ons, add_ons_details)
+                                                   SELECT orders.id, :productid, :quantity, :price, :addons, :addons_name 
+                                                   FROM orders ORDER BY orders.id DESC LIMIT 1");
                             //bind
                             $detailsql->bindParam(':productid', $_SESSION['product_id']);
                             $detailsql->bindParam(':quantity', $_SESSION['qty']);
                             $detailsql->bindParam(':price', $_SESSION['price']);
+                            $detailsql->bindParam(':addons', $_SESSION['addons_price']);
+                            $detailsql->bindParam(':addons_name', $_SESSION['addons_name']);
                             if($detailsql->execute()){
                                 unset($_SESSION['product_id']);
                                 unset($_SESSION['product_name']);
                                 unset($_SESSION['price']);
                                 unset($_SESSION['qty']);
+                                unset($_SESSION['addons_price']);
+                                unset($_SESSION['addons_name']);
                                 unset($_SESSION['subtotal']);
                                 unset($_SESSION['address']);
                                 unset($_SESSION['city']);
