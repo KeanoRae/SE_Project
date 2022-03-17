@@ -3,6 +3,7 @@
     //echo 'user type = '.$_SESSION['user_type'];
     include('../../../include/header.php');
     include('../../../include/navbar.php');
+    include('../process/product_process.php');
 ?>
 <div class="container-fluid admin p-0">
         <br>
@@ -77,7 +78,7 @@
                                     ?>
                                 </div>
                                 <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                    <a class="text-reset text-decoration-none" data-parent="#product" href="admin-product/addproduct.php">+ add product</a>
+                                    <a class="text-reset text-decoration-none" href="addproduct.php">+ add product</a>
                                 </div>
                             </div>
                         </div>
@@ -92,37 +93,51 @@
             </div>
             <div class="col right">
                 <p class="header fs-2 fw-bold mb-4 mt-5 mx-5">ADD PRODUCT</p>
-                <form class="mx-5" action="">
-                    <h4 class="text-center mb-3">Upload product cover</h4>
-                    <div class="form-group mb-5">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="productname">Product name</label>
-                        <input type="text" class="form-control my-2" name="productname">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="productdetails">Product details</label>
-                        <input type="text" class="form-control my-2" name="productdetails">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="price">Price</label>
-                        <input type="text" class="form-control my-2" name="price">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="shippinginfo">How to Order</label>
-                        <input type="text" class="form-control my-2" name="instruction">
-                    </div>
-                    <div class="form-group mb-5">
-                        <label style="font-size: 24px;" for="shippinginfo">Upload product image</label>
-                        <input class="form-control my-2" type="file" id="formFile">
-                    </div>
-                    <div class="d-grid col-2 float-end mb-5" style="font-size: 24px;">
-                        <a href="addproduct2.php" class="text-reset text-decoration-none text-center py-1 btn-pink btn-shadow">NEXT</a>
-                    </div>
-                </form>
+                <div class="mx-5">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data" multiple="multiple">
+                        <h4 class="text-center mb-3">Upload product cover</h4>
+                        <div class="form-group mb-5">
+                            <input class="form-control" type="file" name="cover[]" value="<?php echo $fileName; ?>">
+                            <div class="mb-2 mt-1" style="color:red;">
+                                <?php echo $error1['file']; ?>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label style="font-size: 24px;" for="productname">Product name</label>
+                            <input type="text" class="form-control my-2" name="productname" value="<?php echo $var1['productname']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error1['productname']; ?>
+                            </div>
+                        </div> 
+                        <div class="form-group mb-3">
+                            <label style="font-size: 24px;" for="productdetails">Product details</label>
+                            <textarea name="productdetails" class="form-control" cols="30" rows="3"><?php echo $var1['productdetails']; ?></textarea>
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error1['productdetails']; ?>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label style="font-size: 24px;" for="category">Category</label>
+                            <input type="text" class="form-control my-2" name="category" value="<?php echo $var1['category']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error1['category']; ?>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label style="font-size: 24px;" for="shippinginfo">How to Order</label>
+                            <input type="text" class="form-control my-2" name="instruction">
+                        </div>
+                        <div class="form-group mb-5">
+                            <label style="font-size: 24px;" for="shippinginfo">Upload product image</label>
+                            <input class="form-control my-2" type="file" id="formFile">
+                        </div>
+                        <div class="d-grid col-2 float-end mb-5" style="font-size: 24px;">
+                            <button type="submit" name="next" class="text-center py-1 btn-pink btn-shadow">NEXT</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-<?php include('../../../include/footer.php');
+<?php include('../../../include/footer.php'); ?>

@@ -46,6 +46,7 @@
                                     <ul class="mb-0">
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
+                                                <!-- button for product -->
                                                 <a onClick="window.location()" type="submit" href="../admin-product/updateproduct.php?productname=<?php echo $row['product_name']; ?>"
                                                     class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
                                                 </a>
@@ -78,7 +79,7 @@
                                 ?>
                             </div>
                             <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                <a class="text-reset text-decoration-none" data-parent="#product" href="admin-product/addproduct.php">+ add product</a>
+                                <a class="text-reset text-decoration-none" href="addproduct.php">+ add product</a>
                             </div>
                         </div>
                     </div>
@@ -105,14 +106,16 @@
                     </div>
                     <div class="form-group mb-3">
                         <label style="font-size: 24px;" for="productdetails">Product details</label>
-                        <textarea class="form-control border-dark shadow-none rounded-0" name="productdetails" rows="3"></textarea>
+                        <textarea class="form-control border-dark shadow-none rounded-0" name="productdetails" rows="3"><?php echo $product_details; ?></textarea>
                     </div>
                     <?php
                         include_once('../../../include/database.php');
                         $database = new Connection();
                         $db = $database->open();
                         //query to get the price and addons values
-                        $sql = $db->prepare("SELECT 1ch_price, 2ch_price, add_char, add_dedication FROM product");
+                        $sql = $db->prepare("SELECT 1ch_price, 2ch_price, add_char, add_dedication FROM product WHERE id=:pid");
+                        //bind param
+                        $sql->bindParam(':pid', $product_id);
                         $sql->execute();
                         $row=$sql->fetch(PDO::FETCH_ASSOC);
 

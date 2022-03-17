@@ -45,17 +45,17 @@
         </div>
     </header>
     <br><br><br><br><br><br>
-
-    <?php
+    <?php 
         session_start();
-        echo $_SESSION['err'];
-        
+        echo $_SESSION['filename']; 
     ?>
+    <p>Test 2</p>
 
     <form action="upload.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="img-file">
-        <button type="submit" name="upload">Upload</button>
+        <button type="submit" name="submit" class="ms-5">Upload to server</button>
     </form>
+
+
 
 
     <br><br><br><br><br><br>

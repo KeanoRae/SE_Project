@@ -62,9 +62,8 @@
                                                 <form action="process/product_process.php?id=<?php echo $row['id']; ?>" method="POST">
                                                     <div class="modal-body mx-5">
                                                         <p class="fs-4 text-center mx-5">Are you sure you want to delete this product?</p>
-                                                        
                                                         <div class="d-grid col-4 mx-auto mb-3">
-                                                            <button type="submit" name="delete_cart" class="d-block btn btn-dark rounded-pill btn-shadow mb-3">delete</button>
+                                                            <button type="submit" name="delete-product" class="d-block btn btn-dark rounded-pill btn-shadow mb-3">delete</button>
                                                             <button type="button" class="btn btn-light rounded-pill btn-shadow" data-bs-dismiss="modal">Cancel</button>
                                                         </div>
                                                     </div>
@@ -77,7 +76,7 @@
                                 ?>
                             </div>
                             <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                <a class="text-reset text-decoration-none" data-parent="#product" href="admin-product/addproduct.php">+ add product</a>
+                                <a class="text-reset text-decoration-none" href="admin-product/addproduct.php">+ add product</a>
                             </div>
                         </div>
                     </div>

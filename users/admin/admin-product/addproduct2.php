@@ -3,6 +3,12 @@
     //echo 'user type = '.$_SESSION['user_type'];
     include('../../../include/header.php');
     include('../../../include/navbar.php');
+    include('../process/product_process.php');
+    echo $_SESSION['fileName'];
+    echo "<br>";
+    echo $_SESSION['productname'];
+    echo "<br>";
+    echo $_SESSION['error'];
 ?>
 <div class="container-fluid admin p-0">
     <br>
@@ -77,7 +83,7 @@
                                 ?>
                             </div>
                             <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                <a class="text-reset text-decoration-none" data-parent="#product" href="admin-product/addproduct.php">+ add product</a>
+                                <a class="text-reset text-decoration-none" href="addproduct.php">+ add product</a>
                             </div>
                         </div>
                     </div>
@@ -91,19 +97,25 @@
             </div>
         </div>
         <div class="col right">
-            <form action="">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <p class="fs-3 mb-4 mt-5 mx-5">Characters</p>
                 <div class="column-box row mx-5 mb-4">
                     <div class="row my-3">
                         <label for="1ch" class="col-sm-2 col-form-label">1 Character</label>
                         <div class="col-sm-10 d-flex align-items-center p-0">
-                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="1ch" value="">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="1ch" value="<?php echo $var2['1ch']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['1ch']; ?>
+                            </div>
                         </div>
                     </div>
                     <div class="row my-3">
                         <label for="2ch" class="col-sm-2 col-form-label">2 Character</label>
                         <div class="col-sm-10 d-flex align-items-center p-0">
-                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="2ch" value="">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="2ch" value="<?php echo $var2['2ch']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['2ch']; ?>
+                            </div>
                         </div>                            
                     </div>
                     <div class="d-grid col-10 mb-4 mx-auto">
@@ -118,13 +130,19 @@
                     <div class="row my-3">
                         <label for="addchar" class="col-sm-2 col-form-label">Add Character</label>
                         <div class="col-sm-10 d-flex align-items-center p-0">
-                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="addchar" value="">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="addchar" value="<?php echo $var2['addchar']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['addchar']; ?>
+                            </div>
                         </div>
                     </div>
                     <div class="row my-3">
                         <label for="add_dedication" class="col-sm-2 col-form-label">Add Dedication</label>
                         <div class="col-sm-10 d-flex align-items-center p-0">
-                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="add_dedication" value="">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="add_dedication" value="<?php echo $var2['add_dedication']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['add_dedication']; ?>
+                            </div>
                         </div>                            
                     </div>
                     <div class="d-grid col-10 mb-4 mx-auto">
@@ -153,7 +171,7 @@
                 </div>
                 <hr class="mx-3 my-0">
                 <div class="d-grid col-3 float-end mt-4 mb-5 me-3" style="font-size: 24px;">
-                    <button class="text-center border-0 py-1 btn-pink btn-shadow">ADD PRODUCT</button>
+                    <button type="submit" name="add-product" class="text-center border-0 py-1 btn-pink btn-shadow">ADD PRODUCT</button>
                 </div>
             </form>
             <br>

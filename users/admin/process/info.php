@@ -45,7 +45,9 @@
                 $sql->bindParam(':name', $prodname);
                 $sql->execute();
                 if($row=$sql->fetch(PDO::FETCH_ASSOC)){
+                    $product_id = $row['id'];
                     $pname = $row['product_name'];
+                    $product_details = $row['product_details'];
                 }           
         }
         catch(PDOException $e){

@@ -22,10 +22,11 @@ session_start();
                 $sql=$db->prepare("SELECT id, product_name, product_cover FROM product");
                 $sql->execute();
                 while($row=$sql->fetch(PDO::FETCH_ASSOC)){
+                    $foldername = str_replace(" ","-",strtolower($row['product_name']))."/cover";
             ?>
             <div class="hp-container mt-5">
                 <!-- display product cover -->
-                <?php echo '<img src="data:image;base64,'.base64_encode($row['product_cover']).'" alt="img" >'; ?>
+                <?php echo '<img src="assets/images/admin-uploads/'.$foldername.'/'.$row['product_cover'].'">'; ?>
                 <div class="button">
                     <!-- button that redirect to product page -->
                     <a href="default_productpage.php?shopnowid=<?php echo $row['id']; ?>" name="product<?php echo $row['product_name']; ?>" 
