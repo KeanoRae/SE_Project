@@ -48,6 +48,7 @@
                     $product_id = $row['id'];
                     $pname = $row['product_name'];
                     $product_details = $row['product_details'];
+                    $category = $row['category'];
                 }           
         }
         catch(PDOException $e){

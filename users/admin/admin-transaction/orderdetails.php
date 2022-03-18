@@ -117,7 +117,7 @@
             <p class="d-inline header fs-3 ms-1 mb-5">> <b>Order Details</b></p>
             <br>
             <br>
-            <form action="../process/update.php" method="POST">
+            <form action="../process/update_transaction.php" method="POST">
                 <div class="row border border-dark mx-5">
                     <div class="col-md-6">
                         <div>

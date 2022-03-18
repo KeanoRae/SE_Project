@@ -94,12 +94,12 @@
             <div class="col right">
                 <p class="header fs-2 fw-bold mb-4 mt-5 mx-5">ADD PRODUCT</p>
                 <div class="mx-5">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data" multiple="multiple">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                         <h4 class="text-center mb-3">Upload product cover</h4>
                         <div class="form-group mb-5">
-                            <input class="form-control" type="file" name="cover[]" value="<?php echo $fileName; ?>">
+                            <input class="form-control" type="file" name="cover" value="<?php echo $fileName; ?>">
                             <div class="mb-2 mt-1" style="color:red;">
-                                <?php echo $error1['file']; ?>
+                                <?php echo $error1['cover']; ?>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -129,7 +129,10 @@
                         </div>
                         <div class="form-group mb-5">
                             <label style="font-size: 24px;" for="shippinginfo">Upload product image</label>
-                            <input class="form-control my-2" type="file" id="formFile">
+                            <input class="form-control my-2" type="file" name="carousel_img[]" multiple>
+                            <div class="mb-2 mt-1" style="color:red;">
+                                <?php echo $error1['carousel']; ?>
+                            </div>
                         </div>
                         <div class="d-grid col-2 float-end mb-5" style="font-size: 24px;">
                             <button type="submit" name="next" class="text-center py-1 btn-pink btn-shadow">NEXT</button>

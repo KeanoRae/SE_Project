@@ -11,14 +11,13 @@
                 $db = $database->open();
 
                 //fetch id,product name,product cover image from database
-                $sql=$db->prepare("SELECT id, product_name, product_cover FROM product");
+                $sql=$db->prepare("SELECT id, product_name, product_cover, product_cover_path FROM product");
                 $sql->execute();
                 while($row=$sql->fetch(PDO::FETCH_ASSOC)){
-                    $foldername = str_replace(" ","-",strtolower($row['product_name']))."/cover";
             ?>
             <div class="hp-container mt-5">
                 <!-- display product cover -->
-                <?php echo '<img src="../../assets/images/admin-uploads/'.$foldername.'/'.$row['product_cover'].'">'; ?>
+                <img src="<?php echo "../../".$row['product_cover_path']; ?>" alt="">
                 <div class="button">
                     <!-- button that redirect to product page -->
                     <a href="user_productpage.php?shopnowid=<?php echo $row['id']; ?>" name="product<?php echo $row['product_name']; ?>" 

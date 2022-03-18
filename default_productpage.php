@@ -18,7 +18,7 @@
                         include_once('include/database.php');
                         $database = new Connection();
                         $db = $database->open();
-                        $sql = $db->prepare("SELECT carousel_image FROM product_carousel WHERE product_id=:pid");
+                        $sql = $db->prepare("SELECT carousel_image, carousel_image_path FROM product_carousel WHERE product_id=:pid");
                         //bind
                         $sql->bindParam(':pid', $id);
                         $sql->execute();
@@ -27,7 +27,7 @@
                     ?>
                     <?php $item_class = ($i == 1) ? 'carousel-item active' : 'carousel-item'; ?>
                         <div class="<?php echo $item_class; ?>">
-                        <?php echo '<img src="data:image;base64,'.base64_encode($row['carousel_image']).'" class="d-block" >'; ?>
+                            <img src="<?php echo $row['carousel_image_path']; ?>" alt="">
                         </div>
                     <?php
                             $i++;

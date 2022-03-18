@@ -4,13 +4,27 @@
     include('../../../include/header.php');
     include('../../../include/navbar.php');
     include('../process/product_process.php');
-    echo $_SESSION['fileName'];
+    echo $_SESSION['cover_img'];
     echo "<br>";
-    echo $_SESSION['productname'];
-    echo "<br>";
-    echo $_SESSION['error'];
+    echo $_SESSION['productname'];echo "<br>";
+    
+
 ?>
 <div class="container-fluid admin p-0">
+    <?php
+        if(isset($_SESSION['upload_err']) and $_SESSION['upload_err'] != ""){
+            echo $_SESSION['upload_err'];echo "<br>";
+            unset($_SESSION['upload_err']);
+        }
+        if(isset($_SESSION['cover_error']) and $_SESSION['cover_error'] != ""){
+            echo "cover_error = ".$_SESSION['cover_error'];echo "<br>";
+            unset($_SESSION['cover_error']);
+        }
+        if(isset($_SESSION['product_error']) and $_SESSION['product_error'] != ""){
+            echo "product_error = ".$_SESSION['product_error'];echo "<br>";
+            unset($_SESSION['product_error']);
+        }
+    ?>
     <br>
     <br>
     <div class="row gx-3 pb-5 px-4" style="min-height: 800px;">

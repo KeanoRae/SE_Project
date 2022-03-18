@@ -4,10 +4,21 @@
     include('../../../include/header.php');
     include('../../../include/navbar.php');
     include('../process/info.php'); 
+    echo $product_id;
 ?>
 <div class="container-fluid admin p-0">
     <br>
     <br>
+    <?php
+        if(isset($_SESSION['msg']) && $_SESSION['msg'] != ""){
+    ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['msg']; ?>
+        </div>
+    <?php
+        unset($_SESSION['msg']);
+        }
+    ?>
     <div class="row gx-3 pb-5 px-4" style="min-height: 800px;">
         <div class="col-3 sidebar p-0 me-3">
             <p class="header text-center fw-bold fs-2 mt-2">ADMIN</p>
@@ -95,14 +106,14 @@
         <div class="col right">
             <p class="header fs-2 fw-bold mb-4 mt-5 mx-5">UPDATE PRODUCT</p>
             <div class="tmp">
-                <form class="mx-5" action="" method="POST">
+                <form class="mx-5" action="../process/update_product.php" method="POST">
                     <h4 class="text-center mb-3">Upload product cover</h4>
                     <div class="form-group mb-5">
                         <input class="form-control" type="file" id="formFile">
                     </div>
                     <div class="form-group mb-3">
                         <label style="font-size: 24px;" for="productname">Product name</label>
-                        <input type="text" class="form-control my-2" id="productname" value="<?php echo $pname; ?>">
+                        <input type="text" class="form-control my-2" name="productname" value="<?php echo $pname; ?>">
                     </div>
                     <div class="form-group mb-3">
                         <label style="font-size: 24px;" for="productdetails">Product details</label>
@@ -123,21 +134,23 @@
                     ?>
                     <div class="form-group mb-3">
                         <label style="font-size: 24px;" for="price"><?php echo $key; ?></label>
-                        <input type="text" class="form-control my-2" id="productname" value="<?php echo $value; ?>">
+                        <input type="text" class="form-control my-2" name="<?php echo $key; ?>" value="<?php echo $value; ?>">
                     </div>
                     <?php 
                         }
-                        //close connection
-                        $database->close();
                     ?>
                     <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="shippinginfo">Shipping Information</label>
-                        <input type="text" class="form-control my-2" id="shippinginfo">
+                        <label style="font-size: 24px;" for="shippinginfo">Category</label>
+                        <input type="text" class="form-control my-2" name="category" value="<?php echo $category; ?>">
                     </div>
                     <div class="form-group mb-5">
                         <label style="font-size: 24px;" for="shippinginfo">Upload product image</label>
-                        <input class="form-control my-2" type="file" id="formFile">
+                        <input class="form-control my-2" type="file" name="formFile">
                     </div>
+                    <?php
+                        //close connection
+                        $database->close();
+                    ?>
                     <div class="d-grid col-3 float-end" style="font-size: 24px;">
                         <button type="submit" name="update-product" class="py-1 border-0 btn-pink btn-shadow">UPDATE PRODUCT</button>
                     </div>
