@@ -46,7 +46,7 @@
                                     <ul class="mb-0">
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <a onClick="window.location()" type="submit" href="../admin-product/updateproduct.php?productname=<?php echo $row['product_name']; ?>"
+                                                <a href="../admin-product/updateproduct.php?productname=<?php echo $row['product_name']; ?>"
                                                     class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
                                                 </a>
                                                 <!-- button for modal -->

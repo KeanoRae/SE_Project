@@ -3,8 +3,7 @@
     //echo 'user type = '.$_SESSION['user_type'];
     include('../../../include/header.php');
     include('../../../include/navbar.php');
-    include('../process/info.php'); 
-    echo $product_id;
+    include('../process/update_product.php'); 
 ?>
 <div class="container-fluid admin p-0">
     <br>
@@ -58,7 +57,7 @@
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <!-- button for product -->
-                                                <a onClick="window.location()" type="submit" href="../admin-product/updateproduct.php?productname=<?php echo $row['product_name']; ?>"
+                                                <a href="updateproduct.php?productname=<?php echo $row['product_name']; ?>"
                                                     class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
                                                 </a>
                                                 <!-- button for modal -->
@@ -106,7 +105,7 @@
         <div class="col right">
             <p class="header fs-2 fw-bold mb-4 mt-5 mx-5">UPDATE PRODUCT</p>
             <div class="tmp">
-                <form class="mx-5" action="../process/update_product.php" method="POST">
+                <form class="mx-5" action="" method="POST">
                     <h4 class="text-center mb-3">Upload product cover</h4>
                     <div class="form-group mb-5">
                         <input class="form-control" type="file" id="formFile">

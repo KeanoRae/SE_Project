@@ -46,9 +46,9 @@
                                         <ul class="mb-0">
                                             <li>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <a onClick="window.location()" type="submit" href="../admin-product/updateproduct.php?productname=<?php echo $row['product_name']; ?>"
-                                                        class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
-                                                    </a>
+                                                <a href="updateproduct.php?productname=<?php echo $row['product_name']; ?>"
+                                                    class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
+                                                </a>
                                                     <!-- button for modal -->
                                                     <a class="border-0" style="background-color:#fff;" data-bs-toggle="modal" data-bs-target="#deleteproduct<?php echo $row['id']; ?>">
                                                         <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
