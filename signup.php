@@ -22,11 +22,9 @@
             }
         ?>
         <div class="form-content">
-            <div class="row d-flex align-items-center justify-content-center">
-                <div class="col ">
-                    <div class="image d-inline-block">
-                        <img src="assets/images/login-logo.png" alt="">
-                    </div>
+            <div class="row d-flex align-items-center mb-5">
+                <div class="col text-center ">
+                    <img src="assets/images/login-logo.png" alt="">
                 </div>
                 <div class="col">
                     <div class="form-container d-inline-block">

@@ -225,6 +225,10 @@ footer a, footer p {
 
 
 /*--------------------------------------------Login/Signup----------------------------------------------- */
+.login-container{
+    min-height: 663px;
+}
+
 .form-content .link a{
     text-decoration: none;
     color: #000;

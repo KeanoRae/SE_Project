@@ -14,7 +14,7 @@
 		}
 		try{
 			//make use of prepared statement to prevent sql injection
-			$sql = $db->prepare("SELECT id, username, password, email, role FROM user WHERE (BINARY username=:useremail OR BINARY email=:useremail)");
+			$sql = $db->prepare("SELECT id, username, password, email, role, verify_status FROM user WHERE (BINARY username=:useremail OR BINARY email=:useremail)");
 
 			//bind
 			$sql->bindParam(':useremail', $_POST['useremail']);
@@ -36,21 +36,26 @@
 					}
 					else if($row['role'] == "customer"){
 						if(password_verify($pw, $row['password'])){
-							$_SESSION['email'] = $row['email'];
-							$_SESSION['pid'] = $row['id'];
-							$_SESSION['user_type'] = "customer";
-							header('Location: users/user/user_homepage.php');
+							if($row['verify_status'] == 1){
+								$_SESSION['email'] = $row['email'];
+								$_SESSION['pid'] = $row['id'];
+								$_SESSION['user_type'] = "customer";
+								header('Location: users/user/user_homepage.php');
+							}
+							else{
+								$_SESSION['errormsg'] = "Your account is not verified yet. Please check your email to verify.";
+								header('Location: login.php');
+							}
 						}
 						else{
 							$_SESSION['errormsg'] = "invalid password";
 							header('Location: login.php');
 						}
-
-					}
-					//else if($row['role'] == "staff"){
-						//$_SESSION['user_type'] = "staff";
-						//header('Location:login.php');
-					//}		
+						//else if($row['role'] == "staff"){
+							//$_SESSION['user_type'] = "staff";
+							//header('Location:login.php');
+						//}	
+					}	
 				}
 				else{
 					$_SESSION['errormsg'] = "invalid username or email";

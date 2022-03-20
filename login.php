@@ -5,12 +5,21 @@
 ?>
 
     <div class="container-fluid login-container p-0">
+        <?php if(isset($_SESSION['verify_status']) and $_SESSION['verify_status'] != ""){ ?>
+                <div class="alert alert-success" role="alert">
+                    <?php 
+                        echo $_SESSION['verify_status']; 
+                        unset($_SESSION['verify_status']);
+                    ?>
+                </div>
+
+        <?php } ?>
         <br>
         <br>
-        <div class="form-content d-flex align-items-center justify-content-evenly">
-            <div class="row">
-                <div class="col image d-inline-block mb-5 align-items-center">
-                        <img src="assets/images/login-logo.png" alt="">
+        <div class="form-content">
+            <div class="row d-flex align-items-center">
+                <div class="col text-center">
+                    <img src="assets/images/login-logo.png" alt="">
                 </div>
                 <div class="col form-container d-inline-block mx-5">
                     <form action="logincode.php" method="POST">
@@ -50,11 +59,7 @@
                         <br>
                         <br>
                         <div class="d-grid button">
-                            
                             <button type="submit" name="login_btn" class="btn btn-secondary btn-lg active px-5 py-1 mb-2 fw-bolder">LOG IN</button>
-                            <!--
-                            <a class="btn btn-secondary btn-lg active px-5 py-1 mb-2 fw-bolder text-reset" href="user/user_homepage.html">LOG IN</a>
-                            -->
                         </div>
                         <br>
                         <br>

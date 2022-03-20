@@ -1,5 +1,8 @@
 <?php
     include_once('include/database.php');
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    require 'include/vendor/autoload.php';
 
     $errors=array("fname" => "", 
                     "lname" => "", 
@@ -20,6 +23,7 @@
         $database = new Connection();
         $db = $database->open();
         $role = 'customer';
+        $vkey = bin2hex(random_bytes(20));
 
         // strips unnecessary characters and backslashes
         function test_input($data) {
@@ -101,8 +105,8 @@
         if(!in_array("",$var)){
             try{
                 //make use of prepared statement to prevent sql injection
-                $insertsql = $db->prepare("INSERT INTO user (username, password, first_name, last_name, email, phone_number, role)
-                VALUES (:username, :password, :firstname, :lastname, :email, :phone_number, :role)");
+                $insertsql = $db->prepare("INSERT INTO user (username, password, first_name, last_name, email, phone_number, role, verify_key)
+                VALUES (:username, :password, :firstname, :lastname, :email, :phone_number, :role, :vkey)");
 
                 $pw_hash = password_hash($var['pw'], PASSWORD_DEFAULT);
     
@@ -114,11 +118,56 @@
                 $insertsql->bindParam(':email', $var['email']);
                 $insertsql->bindParam(':phone_number', $var['phonenum']);
                 $insertsql->bindParam(':role', $role);
+                $insertsql->bindParam(':vkey', $vkey);
     
                 if($insertsql->execute()){
-                    $_SESSION['email'] = $var['email'];
-                    $_SESSION['user_type'] = "customer";
-                    header('Location: users/user/user_homepage.php');
+                    try {
+                        $mail = new PHPMailer(true);
+                        $mail->isSMTP();                    
+                        $mail->Host = 'smtp.gmail.com';     
+                        $mail->SMTPAuth = true;             
+                        $mail->Username = 'njglasspainting@gmail.com'; 
+                        $mail->Password = 'clientpw'; 
+                        $mail->SMTPSecure = 'tls';          
+                        $mail->Port = 587;                  
+                        
+                        // Sender info 
+                        $mail->setFrom('njglasspainting@gmail.com', 'NJ Glass Painting'); 
+                        
+                        // Add a recipient 
+                        $mail->addAddress($var['email']); 
+                        
+                        // Set email format to HTML 
+                        $mail->isHTML(true); 
+                        
+                        // Mail subject 
+                        $mail->Subject = 'Email verification for account registration FROM NJ Customized Glass Painting'; 
+                        
+                        // Mail body content 
+                        $bodyContent = 'Thanks for signing up for NJ Customized Glass Painting!'."<br><br>";
+                        $bodyContent .= 'To verify your email address please click the link below.'."<br><br>";
+                        $bodyContent .= "
+                                        <div style='margin: 10px 0;'>
+                                            <a style='background-color:#FFF1E6;padding:10px 10px;text-decoration:none;color:#000;' 
+                                            href='http://localhost/SE_project/verify.php?key=$vkey'>VERIFY EMAIL ADDRESS</a>
+                                        </div>
+                                        "."<br>";
+                        $bodyContent .= 'Please note that this link will expire in 24 hours.';
+                        $mail->Body    = $bodyContent; 
+                        $mail->AltBody = strip_tags($bodyContent);
+                        
+                        //Send email 
+                        if(!$mail->send()) { 
+                            echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo; 
+                        } else { 
+                            echo 'Message has been sent.'; 
+                        } 
+                    } 
+                    catch (Exception $e) {
+                        $_SESSION['mail_err'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }
+                    $_SESSION['ver_email'] = $var['email'];
+                    header('Location: signup_msg.php');
                 }                        	
             }
             catch(PDOException $e){
