@@ -1,13 +1,5 @@
 <?php 
     session_start();
-    //echo 'email = '.$_SESSION['email'];
-    //echo "<br>";
-    echo 'id = '.$_SESSION['product_id'];
-    echo "<br>";
-    echo 'name = '.$_SESSION['product_name'];
-    echo "<br>";
-    echo $_SESSION['subtotal'];
-    //echo 'type = '.$_SESSION['user_type'];
     include('../../include/header.php');
     include('../../include/navbar.php');
     include('process/shipping_info_process.php');
@@ -104,23 +96,23 @@
                             <label for="region">Region</label>
                             <div>
                                 <select name="region" class="w-100">
-                                    <option value="<?php isset($_POST['region']) ? $var['region']:""; ?>"></option>
-                                    <option>NCR</option>
-                                    <option>CAR</option>
-                                    <option>Region I</option>
-                                    <option>Region II</option>
-                                    <option>Region III</option>
-                                    <option>Region IV</option>
-                                    <option>Region V</option>
-                                    <option>Region VI</option>
-                                    <option>Region VII</option>
-                                    <option>Region VIII</option>
-                                    <option>Region IX</option>
-                                    <option>Region X</option>
-                                    <option>Region XI</option>
-                                    <option>Region XII</option>
-                                    <option>Region XIII</option>
-                                    <option>BARMM</option>
+                                    <option value="" selected disabled hidden></option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "NCR") echo "selected"; ?>>NCR</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "CAR") echo "selected"; ?>>CAR</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region I") echo "selected"; ?>>Region I</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region II") echo "selected"; ?>>Region II</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region III") echo "selected"; ?>>Region III</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region IV") echo "selected"; ?>>Region IV</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region V") echo "selected"; ?>>Region V</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region VI") echo "selected"; ?>>Region VI</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region VII") echo "selected"; ?>>Region VII</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region VIII") echo "selected"; ?>>Region VIII</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region IX") echo "selected"; ?>>Region IX</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region X") echo "selected"; ?>>Region X</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region XI") echo "selected"; ?>>Region XI</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region XII") echo "selected"; ?>>Region XII</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "Region XIII") echo "selected"; ?>>Region XIII</option>
+                                    <option <?php if(isset($_POST['region']) and $_POST['region'] == "BARMM") echo "selected"; ?>>BARMM</option>
                                 </select>
                             </div>
                             <div class="error mb-2" style="color:red;">

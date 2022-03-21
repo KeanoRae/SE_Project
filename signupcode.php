@@ -35,29 +35,29 @@
         
         //validation for first name
         if(empty($_POST['firstname'])){
-            $errors['fname'] = "*First Name field is Required";
+            $errors['fname'] = "First Name field is Required";
         }
         else{
             $var['fname'] = test_input($_POST['firstname']);
             if (!preg_match("/^[a-zA-Z-' ]*$/",$var['fname'])){
-                $errors['fname'] = "*Only letters and spaces are allowed";
+                $errors['fname'] = "Only letters and spaces are allowed";
             }
         }
 
         //validation for last name
         if(empty($_POST['lastname'])){
-            $errors['lname'] = "*Last Name field is Required";
+            $errors['lname'] = "Last Name field is Required";
         }
         else{
             $var['lname'] = test_input($_POST['lastname']);
             if (!preg_match("/^[a-zA-Z-' ]*$/",$var['lname'])){
-                $errors['lname'] = "*Only letters and spaces are allowed";
+                $errors['lname'] = "Only letters and spaces are allowed";
             }
         }
 
         //validation for username
         if(empty($_POST['username'])){
-            $errors['username'] = "*Username field is Required";
+            $errors['username'] = "Username field is Required";
         }
         else{
             $var['username'] = test_input($_POST['username']);
@@ -65,12 +65,12 @@
 
         //validation for email
         if(empty($_POST['email'])){
-            $errors['email'] = "*Email field is Required";
+            $errors['email'] = "Email field is Required";
         }
         else{
             $var['email'] = test_input($_POST['email']);
             if (!filter_var($var['email'], FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = "*Please enter a valid email address";
+                $errors['email'] = "Please enter a valid email address";
             }
             else{
                 $email_check =$db->prepare("SELECT * FROM user WHERE email=:email");
@@ -78,25 +78,25 @@
                 $email_check->execute();
                 $count=$email_check->rowCount();
                 if($count == 1){
-                    $errors['email'] = "*Email Already Taken. Please Try Another one.";
+                    $errors['email'] = "Email Already Taken. Please Try Another one.";
                 }
             }
         }
         
         //validation for mobile number
         if(empty($_POST['number'])){
-            $errors['phonenum'] = "*Mobile number field is Required";
+            $errors['phonenum'] = "Mobile number field is Required";
         }
         else{
             $var['phonenum'] = test_input($_POST['number']);
             if (strlen($var['phonenum']) != 11){
-                $errors['phonenum'] = "*Please enter a valid mobile number";
+                $errors['phonenum'] = "Please enter a valid mobile number";
             }
         }
 
         //validation for password
         if(empty($_POST['password'])){
-            $errors['pw'] = "*Password field is Required";
+            $errors['pw'] = "Password field is Required";
         }
         else{
             $var['pw'] = test_input($_POST['password']);

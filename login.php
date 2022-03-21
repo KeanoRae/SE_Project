@@ -1,7 +1,14 @@
 <?php
     session_start();
-    include('include/header.php');
-    include('include/navbar.php');
+    if(isset($_SESSION['user_type']) and $_SESSION['user_type']=='user'){
+        header('Location: users/user/user_homepage.php');
+    }
+    elseif(isset($_SESSION['user_type']) and $_SESSION['user_type']=='admin'){
+        header('Location: users/admin/dashboard.php');
+    }
+    else{
+        include('include/header.php');
+        include('include/navbar.php');
 ?>
 
     <div class="container-fluid login-container p-0">
@@ -12,7 +19,6 @@
                         unset($_SESSION['verify_status']);
                     ?>
                 </div>
-
         <?php } ?>
         <br>
         <br>
@@ -69,4 +75,7 @@
         </div>
     </div>
 
-<?php include('include/footer.php'); ?>
+<?php 
+    include('include/footer.php');
+    }
+?>

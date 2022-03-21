@@ -39,7 +39,7 @@
         else{
             $var['pay_method'] = test_input($_POST['payment-option']);
         }
-           
+        
         if(!in_array("",$var)){
             try{
                 //status id for pending

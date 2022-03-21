@@ -4,11 +4,6 @@
     include('../../../include/header.php');
     include('../../../include/navbar.php');
     include('../process/product_process.php');
-    echo $_SESSION['cover_img'];
-    echo "<br>";
-    echo $_SESSION['productname'];echo "<br>";
-    
-
 ?>
 <div class="container-fluid admin p-0">
     <?php

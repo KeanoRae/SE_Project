@@ -9,6 +9,10 @@ body {
     overflow-x: hidden;
 }
 
+.error {
+    color: red;
+}
+
 
 
 /*----------------------------------------------Buttons------------------------------------------------- */
@@ -376,6 +380,10 @@ input:-webkit-autofill:active {
 
 .product .upload .input[type="file"]::before {
     content: 'Upload';
+}
+
+.product textarea:focus {
+    box-shadow: none;
 }
 
 

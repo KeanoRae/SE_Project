@@ -63,17 +63,8 @@
                 <div class="col-10 border border-dark mx-auto">
                     <p class="mb-0 py-2 text-center fs-3">PRODUCT DETAILS</p>
                     <hr class="my-0">
-                    <div class="d-flex justify-content-between mx-5">
-                        <div class="fs-5 mt-2">
-                            <p class="m-0">Glass size:</p>
-                            <p class="m-0 text-start">Materials:</p>
-                            <p class="m-0 text-start">Medium:</p>
-                        </div>
-                        <div class="fs-5 mt-2">
-                            <p class="m-0 text-start">6x6</p>
-                            <p class="m-0">Acrylic Glass</p>
-                            <p class="m-0">Acrylic Paint</p>
-                        </div>
+                    <div class="d-flex justify-content-between">
+                        <textarea name="productdetails" class="form-control border-0 fs-5" style="resize:none" rows="3" readonly><?php echo $product_details; ?></textarea>
                     </div>
                     <hr class="my-0">
                     <p class="mb-0 py-2 text-center fs-3">PRICE</p>
