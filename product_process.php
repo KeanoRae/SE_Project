@@ -3,9 +3,6 @@
     $database = new Connection();
     $db = $database->open();
 
-    $errors=array("price" => "");
-	$var=array("price" => "", "qty" => "");
-
     if(isset($_GET['shopnowid'])){
         $id = $_GET['shopnowid'];
 

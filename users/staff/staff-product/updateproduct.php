@@ -29,7 +29,7 @@
             </div>
             <hr>
             <div class="ms-1 d-flex align-items-center">
-                <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../admin-transaction/pending.php">
+                <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../staff-transaction/pending.php">
                     <span class="iconify fs-1 mb-1 me-1" data-icon="icon-park-outline:transaction-order"></span>Transaction
                 </a>
             </div>
@@ -38,7 +38,7 @@
                 <div class="accordion" id="product-collapse">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button fs-3 ps-2 py-1 fw-bold collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#product" aria-expanded="false" aria-controls="product">
+                            <button class="accordion-button fs-3 ps-2 py-1 collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#product" aria-expanded="false" aria-controls="product">
                                 <span class="iconify fs-2 me-2" data-icon="bytesize:cart"></span>Product
                             </button>
                         </h2>
@@ -56,7 +56,6 @@
                                     <ul class="mb-0">
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <!-- button for product -->
                                                 <a href="updateproduct.php?productname=<?php echo $row['product_name']; ?>"
                                                     class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
                                                 </a>
@@ -81,9 +80,8 @@
                                                 <form action="../process/product_process.php?id=<?php echo $row['id']; ?>" method="POST">
                                                     <div class="modal-body mx-5">
                                                         <p class="fs-4 text-center mx-5">Are you sure you want to delete this product?</p>
-                                                        
                                                         <div class="d-grid col-4 mx-auto mb-3">
-                                                            <button type="submit" name="delete_cart" class="d-block btn btn-dark rounded-pill btn-shadow mb-3">delete</button>
+                                                            <button type="submit" name="delete-product" class="d-block btn btn-dark rounded-pill btn-shadow mb-3">delete</button>
                                                             <button type="button" class="btn btn-light rounded-pill btn-shadow" data-bs-dismiss="modal">Cancel</button>
                                                         </div>
                                                     </div>
@@ -96,18 +94,13 @@
                                 ?>
                             </div>
                             <div class="d-grid col-8 mx-auto px-0 btn btn-shadow" style="background: rgba(209, 209, 209, 0.77);color:#000">
-                                <a class="text-reset text-decoration-none" href="addproduct.php">+ add product</a>
+                                <a class="text-reset text-decoration-none" data-parent="#product" href="addproduct.php">+ add product</a>
                             </div>
                         </div>
                     </div>
                 </div>                            
             </div>
             <hr>
-            <div class="ms-2 d-flex align-items-center">
-                <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../manage_user.php">
-                    <span class="iconify fs-1 mb-1 me-1" data-icon="ant-design:user-add-outlined"></span>Manage User
-                </a>
-            </div>
         </div>
         <div class="col right">
             <p class="header fs-2 fw-bold mb-4 mt-5 mx-5">UPDATE PRODUCT</p>

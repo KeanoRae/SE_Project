@@ -139,22 +139,6 @@
                         </div>
                         <div class="row ms-3 mb-3">
                             <div class="col-sm-3">
-                                <label for="email" class="col-form-label">Email</label>
-                            </div>
-                            <div class="col-sm-9 d-flex align-items-center">
-                                <div class="row w-100">
-                                    <div class="col">
-                                        <input type="email" class="form-control border-dark shadow-none rounded-0" 
-                                                name="email" value="<?php echo $var['email']; ?>">
-                                        <div class="error mb-2">
-                                            <?php echo $errors['email']; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row ms-3 mb-3">
-                            <div class="col-sm-3">
                                 <label for="username" class="col-form-label">Username</label>
                             </div>
                             <div class="col-sm-9 d-flex align-items-center">

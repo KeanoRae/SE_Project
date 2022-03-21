@@ -25,7 +25,7 @@
 				if($count == 1){		
 					if($usermail == $row['username'] or $usermail == $row['email']){
 						if($row['role'] == "admin"){
-							if($pw == $row['password']){
+							if(password_verify($pw, $row['password'])){
 								$_SESSION['admin_id'] = $row['id'];
 								$_SESSION['user_type'] = "admin";
 								header('Location: users/admin/dashboard.php');
@@ -52,10 +52,13 @@
 								$_SESSION['errormsg'] = "invalid password";
 								header('Location: login.php');
 							}
-							//else if($row['role'] == "staff"){
-								//$_SESSION['user_type'] = "staff";
-								//header('Location:login.php');
-							//}	
+						}
+						else if($row['role'] == "staff"){
+							if(password_verify($pw,$row['password'])){
+								$_SESSION['admin_id'] = $row['id'];
+								$_SESSION['user_type'] = "staff";
+								header('Location: users/staff/dashboard.php');
+							}
 						}	
 					}
 					else{

@@ -3,24 +3,14 @@
     //echo 'user type = '.$_SESSION['user_type'];
     include('../../../include/header.php');
     include('../../../include/navbar.php');
-    include('../process/update_product.php'); 
+    include('../process/product_process.php');
 ?>
 <div class="container-fluid admin p-0">
     <br>
     <br>
-    <?php
-        if(isset($_SESSION['msg']) && $_SESSION['msg'] != ""){
-    ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $_SESSION['msg']; ?>
-        </div>
-    <?php
-        unset($_SESSION['msg']);
-        }
-    ?>
     <div class="row gx-3 pb-5 px-4" style="min-height: 800px;">
         <div class="col-3 sidebar p-0 me-3">
-            <p class="header text-center fw-bold fs-2 mt-2">ADMIN</p>
+            <p class="header text-center fw-bold fs-2 mt-3">ADMIN</p>
             <br>
             <div class="ms-1 d-flex align-items-center">
                 <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../dashboard.php">
@@ -29,7 +19,7 @@
             </div>
             <hr>
             <div class="ms-1 d-flex align-items-center">
-                <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../admin-transaction/pending.php">
+                <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../staff-transaction/pending.php">
                     <span class="iconify fs-1 mb-1 me-1" data-icon="icon-park-outline:transaction-order"></span>Transaction
                 </a>
             </div>
@@ -56,21 +46,13 @@
                                     <ul class="mb-0">
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <!-- button for product -->
-                                                <a href="updateproduct.php?productname=<?php echo $row['product_name']; ?>"
+                                            <a href="updateproduct.php?productname=<?php echo $row['product_name']; ?>"
                                                     class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
                                                 </a>
                                                 <!-- button for modal -->
-                                                <?php 
-                                                    if($prodname != $row['product_name']){ ?>
                                                 <a class="border-0" style="background-color:#fff;" data-bs-toggle="modal" data-bs-target="#deleteproduct<?php echo $row['id']; ?>">
                                                     <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
                                                 </a>
-                                                <?php }
-                                                    else{
-                                                        echo "";
-                                                    }
-                                                ?>
                                             </div>
                                         </li>
                                     </ul>
@@ -103,65 +85,85 @@
                 </div>                            
             </div>
             <hr>
-            <div class="ms-2 d-flex align-items-center">
-                <a class="text-reset text-decoration-none fs-3 ms-2 mb-1 w-100" href="../manage_user.php">
-                    <span class="iconify fs-1 mb-1 me-1" data-icon="ant-design:user-add-outlined"></span>Manage User
-                </a>
-            </div>
         </div>
         <div class="col right">
-            <p class="header fs-2 fw-bold mb-4 mt-5 mx-5">UPDATE PRODUCT</p>
-            <div class="tmp">
-                <form class="mx-5" action="" method="POST">
-                    <h4 class="text-center mb-3">Upload product cover</h4>
-                    <div class="form-group mb-5">
-                        <input class="form-control" type="file" id="formFile">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <p class="fs-3 mb-4 mt-5 mx-5">Characters</p>
+                <div class="column-box row mx-5 mb-4">
+                    <div class="row my-3">
+                        <label for="1ch" class="col-sm-2 col-form-label">1 Character</label>
+                        <div class="col-sm-10 d-flex align-items-center p-0">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="1ch" value="<?php echo $var2['1ch']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['1ch']; ?>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="productname">Product name</label>
-                        <input type="text" class="form-control my-2" name="productname" value="<?php echo $pname; ?>">
+                    <div class="row my-3">
+                        <label for="2ch" class="col-sm-2 col-form-label">2 Character</label>
+                        <div class="col-sm-10 d-flex align-items-center p-0">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="2ch" value="<?php echo $var2['2ch']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['2ch']; ?>
+                            </div>
+                        </div>                            
                     </div>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="productdetails">Product details</label>
-                        <textarea class="form-control border-dark shadow-none rounded-0" name="productdetails" rows="3"><?php echo $product_details; ?></textarea>
+                    <div class="d-grid col-10 mb-4 mx-auto">
+                        <button class="btn-pink btn-shadow">
+                            <span class="iconify fs-1" data-icon="akar-icons:circle-plus"></span>
+                        </button> 
+                    </div>                                      
+                </div>
+                <hr class="mx-3">
+                <p class="fs-3 mb-4 mt-2 mx-5">Addons</p>
+                <div class="column-box row mx-5 mb-4">
+                    <div class="row my-3">
+                        <label for="addchar" class="col-sm-2 col-form-label">Add Character</label>
+                        <div class="col-sm-10 d-flex align-items-center p-0">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="addchar" value="<?php echo $var2['addchar']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['addchar']; ?>
+                            </div>
+                        </div>
                     </div>
-                    <?php
-                        include_once('../../../include/database.php');
-                        $database = new Connection();
-                        $db = $database->open();
-                        //query to get the price and addons values
-                        $sql = $db->prepare("SELECT 1ch_price, 2ch_price, add_char, add_dedication FROM product WHERE id=:pid");
-                        //bind param
-                        $sql->bindParam(':pid', $product_id);
-                        $sql->execute();
-                        $row=$sql->fetch(PDO::FETCH_ASSOC);
-
-                        foreach ($row as $key => $value){
-                    ?>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="price"><?php echo $key; ?></label>
-                        <input type="text" class="form-control my-2" name="<?php echo $key; ?>" value="<?php echo $value; ?>">
+                    <div class="row my-3">
+                        <label for="add_dedication" class="col-sm-2 col-form-label">Add Dedication</label>
+                        <div class="col-sm-10 d-flex align-items-center p-0">
+                            <input type="text" class="form-control border-0 py-2 shadow-none rounded-0" name="add_dedication" value="<?php echo $var2['add_dedication']; ?>">
+                            <div class="mb-2" style="color:red;">
+                                <?php echo $error2['add_dedication']; ?>
+                            </div>
+                        </div>                            
                     </div>
-                    <?php 
-                        }
-                    ?>
-                    <div class="form-group mb-3">
-                        <label style="font-size: 24px;" for="shippinginfo">Category</label>
-                        <input type="text" class="form-control my-2" name="category" value="<?php echo $category; ?>">
-                    </div>
-                    <div class="form-group mb-5">
-                        <label style="font-size: 24px;" for="shippinginfo">Upload product image</label>
-                        <input class="form-control my-2" type="file" name="formFile">
-                    </div>
-                    <?php
-                        //close connection
-                        $database->close();
-                    ?>
-                    <div class="d-grid col-3 float-end" style="font-size: 24px;">
-                        <button type="submit" name="update-product" class="py-1 border-0 btn-pink btn-shadow">UPDATE PRODUCT</button>
-                    </div>
-                </form>
-            </div>
+                    <div class="d-grid col-10 mb-4 mx-auto">
+                        <button class="btn-pink btn-shadow">
+                            <span class="iconify fs-1" data-icon="akar-icons:circle-plus"></span>
+                        </button> 
+                    </div>                 
+                </div>
+                <hr class="mx-3">
+                <p class="fs-3 mb-4 mt-2 mx-5">Shipping Method</p>
+                <div class="column-box row mx-5 mb-4">
+                    <div class="d-grid col-10 my-4 mx-auto">
+                        <button class="btn-pink btn-shadow">
+                            <span class="iconify fs-1" data-icon="akar-icons:circle-plus"></span>
+                        </button> 
+                    </div>                 
+                </div>
+                <hr class="mx-3 my-0">
+                <p class="fs-3 mb-4 mt-2 mx-5">Payment Method</p>
+                <div class="column-box row mx-5 mb-4">
+                    <div class="d-grid col-10 my-4 mx-auto">
+                        <button class="btn-pink btn-shadow">
+                            <span class="iconify fs-1" data-icon="akar-icons:circle-plus"></span>
+                        </button> 
+                    </div>                 
+                </div>
+                <hr class="mx-3 my-0">
+                <div class="d-grid col-3 float-end mt-4 mb-5 me-3" style="font-size: 24px;">
+                    <button type="submit" name="add-product" class="text-center border-0 py-1 btn-pink btn-shadow">ADD PRODUCT</button>
+                </div>
+            </form>
             <br>
             <br>
             <br>
@@ -171,12 +173,6 @@
             <br>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 </div>
 
 <?php include('../../../include/footer.php');

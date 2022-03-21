@@ -4,8 +4,7 @@
     $errors=array(
         "fname" => "", 
         "lname" => "", 
-        "username" => "",
-        "email" => "",  
+        "username" => "",  
         "password" => "",
         "role" => ""
     );
@@ -14,7 +13,6 @@
         "fname" => "",
         "lname" => "",
         "username" => "", 
-        "email" => "",
         "password" => "",
         "role" => ""
     );
@@ -54,26 +52,6 @@
             }
         }
 
-        //validation for email
-        if(empty($_POST['email'])){
-            $errors['email'] = "Email field is Required";
-        }
-        else{
-            $var['email'] = test_input($_POST['email']);
-            if (!filter_var($var['email'], FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = "Please enter a valid email address";
-            }
-            else{
-                $email_check =$db->prepare("SELECT * FROM user WHERE email=:email");
-                $email_check->bindParam(':email', $var['email']);
-                $email_check->execute();
-                $count=$email_check->rowCount();
-                if($count == 1){
-                    $errors['email'] = "Email Already Taken. Please Try Another one.";
-                }
-            }
-        }
-
         //validation for username
         if(empty($_POST['username'])){
             $errors['username'] = "Username field is Required";
@@ -101,15 +79,14 @@
         if(!in_array("",$var)){
             try{
                 //query to add new user
-                $insertsql = $db->prepare("INSERT INTO user (first_name, last_name, email, username, password, role)
-                                            VALUES (:firstname, :lastname, :email, :username, :password, :role)");
+                $insertsql = $db->prepare("INSERT INTO user (first_name, last_name, username, password, role)
+                                            VALUES (:firstname, :lastname, :username, :password, :role)");
 
                 $pw_hash = password_hash($var['password'], PASSWORD_DEFAULT);
                 //bind params
                 $insertsql->bindParam(':firstname', $var['fname']);
                 $insertsql->bindParam(':lastname', $var['lname']);
                 $insertsql->bindParam(':username', $var['username']);
-                $insertsql->bindParam(':email', $var['email']);
                 $insertsql->bindParam(':password', $pw_hash);
                 $insertsql->bindParam(':role', $var['role']);
                 $insertsql->execute();

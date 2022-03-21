@@ -6,24 +6,30 @@
                 if(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "customer"){
             ?>
             <!--For User-->
+            <?php if(basename(getcwd())=="order-details"){ ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="../trackorders.php">order status</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="../../../logout.php">log out</a>
+                </li>
+            <?php }else{ ?>
                 <li class="nav-item">
                     <a class="nav-link" href="trackorders.php">order status</a>
                 </li>
                 <li class="nav-item">
-                    <?php if(basename(getcwd())=="order-details"){ ?>
-                        <a class="nav-link" href="../../../logout.php">log out</a>
-                    <?php }else{ ?>
                         <a class="nav-link" href="../../logout.php">log out</a>
-                    <?php } ?>
                 </li>
+            <?php } ?>
             <!--/For User-->
             <?php 
                 }
-                elseif(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "admin"){ 
+                elseif(isset($_SESSION['user_type']) and ($_SESSION['user_type'] == "admin" or $_SESSION['user_type'] == "staff")){ 
             ?>
-            <!--For Admin-->
+            <!--For Admin and Staff-->
                 <li class="nav-item">
-                    <?php if(basename(getcwd())=="admin-product" or basename(getcwd())=="admin-transaction"){ ?>
+                    <?php if(basename(getcwd())=="admin-product" or basename(getcwd())=="admin-transaction" or
+                            basename(getcwd())=="staff-product" or basename(getcwd())=="staff-transaction"){ ?>
                         <a class="nav-link" href="../../../logout.php">log out</a>
                     <?php }else{ ?>
                         <a class="nav-link" href="../../logout.php">log out</a>
@@ -97,24 +103,19 @@
     <!--/For User-->
     <?php 
         }
-        elseif(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "admin"){ 
+        elseif(isset($_SESSION['user_type']) and ($_SESSION['user_type'] == "admin" or $_SESSION['user_type'] == "staff")){ 
     ?>
-    <!--For Admin-->
+    <!--For Admin and Staff-->
     <header>
         <div class="row">
             <div class="col">
                 <div class="header-logo">
-                    <?php if(basename(getcwd())=="admin-product" or basename(getcwd())=="admin-transaction"){ ?>
+                    <?php if(basename(getcwd())=="admin-product" or basename(getcwd())=="admin-transaction" or
+                            basename(getcwd())=="staff-product" or basename(getcwd())=="staff-transaction"){ ?>
                     <a href="../dashboard.php"><img src="../../../assets/images/header-logo1.png" alt=""></a>
                     <?php }else{ ?>
                     <a href="dashboard.php"><img src="../../assets/images/header-logo1.png" alt=""></a>
                     <?php } ?>
-                </div>
-            </div>
-            <div class="col">
-                <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
                 </div>
             </div>
         </div>
