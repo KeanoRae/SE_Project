@@ -148,11 +148,11 @@
                                 $database = new Connection();
                                 $db = $database->open();
                                 try{	
-                                    $sql = "SELECT CONCAT(u.first_name,' ',u.last_name) AS fullname, product_name, o.id, od.quantity, (od.product_price*od.quantity) as total, os.name, DATE_FORMAT(o.order_date, '%m-%d-%Y') as date
-                                            FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os
-                                            ON o.id=od.order_id AND o.customer_id=u.id AND p.id=od.product_id AND o.order_status=os.id
+                                    $sql = "SELECT CONCAT(u.first_name,' ',u.last_name) AS fullname, product_name, o.id, od.quantity, (od.product_price*od.quantity) as total, os.name, pm.receipt_status, DATE_FORMAT(o.order_date, '%m-%d-%Y') as date
+                                            FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os JOIN payment pm
+                                            ON o.id=od.order_id AND o.customer_id=u.id AND p.id=od.product_id AND o.order_status=os.id AND od.id = pm.order_details_id
                                             WHERE o.order_status=6
-                                            ORDER BY o.id";
+                                            ORDER BY pm.receipt_status DESC";
                                     foreach ($db->query($sql) as $row) {  
                             ?>
                             <tr style="background: rgba(196, 196, 196, 0.28);">
@@ -164,7 +164,7 @@
                                 <td><?php echo $row['quantity']; ?></td>
                                 <td><?php echo $row['total']; ?></td>
                                 <td><?php echo $row['name'] ?></td>
-                                <td></td>
+                                <td><?php echo $row['receipt_status'] ?></td>
                                 <td>Gcash</td>
                                 <td>
                                     <a href="orderdetails.php?vieworder=<?php echo $row['id']; ?>" 

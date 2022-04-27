@@ -17,6 +17,18 @@
             elseif($status == "Confirmed"){
                 $backpage = "user-to-pay.php";
             }
+            elseif($status == "On Process"){
+                $backpage = "user-onprocess.php";
+            }
+            elseif($status == "To ship"){
+                $backpage = "user-ship.php";
+            }
+            elseif($status == "Cancelled"){
+                $backpage = "user-cancelled.php";
+            }
+            elseif($status == "Completed"){
+                $backpage = "user-completed.php";
+            }
         ?>
             <div class="d-flex align-items-center mb-1">
             <a href="<?php echo $backpage; ?>" class="text-reset text-decoration-none fs-3">
@@ -25,7 +37,29 @@
             </div>
             <div class="detail-header text-end py-2">
                 <p class="d-inline fw-bold fs-3">|</p>
-                <p class="d-inline fs-6 me-4">IN-PROCESS</p>
+                <p class="d-inline fs-6 me-4">
+                    <?php
+                        if($status == "Pending"){
+                            echo "PENDING";
+                        }
+                        elseif($status == "Confirmed"){
+                            echo "TO PAY";
+                        }
+                        elseif($status == "On Process"){
+                            echo "ON-PROCESS";
+                        }
+                        elseif($status == "To ship"){
+                            echo "TO SHIP";
+                        }
+                        elseif($status == "Cancelled"){
+                            echo "CANCELLED";
+                        }
+                        elseif($status == "Completed"){
+                            echo "COMPLETED";
+                        }
+                        
+                    ?>
+                </p>
             </div>
             <div class="detail-topbox mt-3 mb-2">
                 <div class="row mx-2">
@@ -91,8 +125,16 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+            
+            <div class="my-2 border border-dark">
+                <div class="d-flex px-2 py-1 align-items-center">
+                    <span class="iconify fs-2 me-2"  data-icon="fa-regular:comment-dots"></span>
+                    <p class="mb-0 fs-4">Message</p>
+                </div>
+                <textarea class="form-control border-0 shadow-none rounded-0 mb-2 fs-4" name="message" rows="3" readonly><?php echo $message; ?></textarea>
+            </div>
+            
             <div class="detail-botbox">
                 <table class="table text-center">
                     <thead>
@@ -134,10 +176,10 @@
                             </td>
                             <td>
                                 <div>
-                                    <p class="mb-0 fs-4">100.00</p>
+                                    <p class="mb-0 fs-4"><?php echo $shipping_fee; ?></p>
                                 </div>
                                 <div>
-                                    <p class="mb-0 fs-4">620.00</p>
+                                    <p class="mb-0 fs-4"><?php echo number_format($subtotal+$shipping_fee,2); ?></p>
                                 </div>
                             </td>
                         </tr>
@@ -150,46 +192,44 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="tmpbox d-flex">
-                    <?php
-                        if($status == "Confirmed"){
-                    ?>
-                    <div class="receipt col-9">
-                        <!--
-                        <button name="#" class="px-4 py-1 my-2 ms-2 fs-4 me-3 btn-shadow">upload receipt</button>
-                        <input type="file">
-                        -->
-                        <!-- actual upload which is hidden -->
-                        <input type="file" id="actual-btn" onClick="uploadimg()" hidden/>
-
-                        <!-- our custom upload button -->
-                        <label for="actual-btn" class="ms-2 mt-2 p-2">upload receipt</label>
-
-                        <!-- name of file chosen -->
-                        <span id="file-chosen"></span>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="tmpbox d-flex align-items-center">
+                        <?php
+                            if($status == "Confirmed"){
+                                if($receipt_status == "uploaded"){
+                        ?>
+                        <div class="col-9 display-receipt">
+                            <img src="<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
+                        </div>
+                        <?php
+                                }
+                                elseif($receipt_status == "unverified"){
+                        ?>
+                        <div class="receipt col-9">
+                            <input type="file" id="actual-btn" name="receipt" hidden/>
+                            <label class="ms-2 px-3 py-1" for="actual-btn">upload receipt</label>
+                            <span id="file-chosen">No file chosen</span>
+                        </div>
+                        <div class="col-3 text-end border-start">
+                            <button type="submit" name="upload_receipt" class="px-5 py-1 my-2 me-2 fs-4 border border-dark btn-pink btn-shadow">UPLOAD</button>
+                        <?php 
+                                }
+                            }elseif($status == "Pending"){ 
+                        ?>
+                            <button name="#" class="px-4 py-1 fs-4 my-2 ms-2 border border-dark btn-pink btn-shadow">cancel</button>  
+                        <?php 
+                            }elseif($status == "To ship"){
+                        ?>
+                            <button name="to-complete" class="px-3 py-1 fs-4 my-2 ms-2 border border-dark btn-pink btn-shadow">completed</button>            
+                        <?php
+                            }
+                        ?>
+                        </div>
                     </div>
-                    <script>
-                        const actualBtn = document.getElementById('actual-btn');
-                        const fileChosen = document.getElementById('file-chosen');
-                        actualBtn.addEventListener('change', function(){
-                        fileChosen.textContent = this.files[0].name
-                        })
-                    </script>
-                    <div class="col-3 text-end">
-                        <button name="#" class="px-5 py-1 my-2 me-2 fs-4 border border-dark btn-pink btn-shadow">UPLOAD</button>            
-                    <?php 
-                        }elseif($status == "Pending"){ 
-                    ?>
-                        <button name="#" class="px-4 py-1 fs-4 me-3 border border-dark btn-pink btn-shadow">cancel</button>  
-                    <?php 
-                        }elseif($status == "To ship"){
-                    ?>
-                        <button name="to-complete" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow">completed</button>            
-                    <?php
-                        }
-                    ?>
+                    <div class="error mb-2 ms-2">
+                        <?php echo $errors['receipt']; ?>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <br>

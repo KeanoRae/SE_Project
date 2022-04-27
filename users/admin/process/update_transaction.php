@@ -21,6 +21,29 @@
                 $_SESSION['msg'] = $e->getMessage();
             }
         }
+
+        //for process order
+        if(isset($_POST['to-process'])){
+            $getid = $_POST['getid'];
+            $status = 6;
+            $receipt_status = "verified";
+
+            try{
+                $sql = $db->prepare("UPDATE orders o, payment pm, order_details od SET o.order_status=:status, pm.receipt_status=:receipt 
+                                    WHERE pm.order_details_id=od.id AND od.order_id=o.id AND o.id=:id");
+                //bind
+                $sql->bindParam(':id', $getid);
+                $sql->bindParam(':status', $status);
+                $sql->bindParam(':receipt', $receipt_status);
+                if($sql->execute()){
+                    header('Location: ../admin-transaction/onprocess.php');
+                }
+            }
+            catch(PDOException $e){
+                $_SESSION['msg'] = $e->getMessage();
+            }
+        }
+
         //for cancel order
         if(isset($_POST['cancel'])){
             $getid = $_POST['getid'];

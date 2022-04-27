@@ -61,6 +61,13 @@
         }
         else{
             $var['username'] = test_input($_POST['username']);
+            $username_check =$db->prepare("SELECT * FROM user WHERE username=:username");
+                $username_check->bindParam(':username', $var['username']);
+                $username_check->execute();
+                $count=$username_check->rowCount();
+                if($count == 1){
+                    $errors['username'] = "Username Already Taken. Please Try Another one.";
+                }
         }
 
         //validation for email
@@ -126,8 +133,8 @@
                         $mail->isSMTP();                    
                         $mail->Host = 'smtp.gmail.com';     
                         $mail->SMTPAuth = true;             
-                        $mail->Username = ''; 
-                        $mail->Password = ''; 
+                        $mail->Username = 'njglasspainting@gmail.com'; 
+                        $mail->Password = 'clientpw'; 
                         $mail->SMTPSecure = 'tls';          
                         $mail->Port = 587;                  
                         

@@ -3,7 +3,7 @@
     $database = new Connection();
     $db = $database->open();
 
-    $errors=array("price" => "");
+    $errors=array("price" => "", "upload" => "");
 	$var=array("price" => "", "qty" => "");
 
     if(isset($_GET['shopnowid'])){
@@ -41,6 +41,16 @@
 			$var['qty'] = $_POST['qtybox'];
 		}
 
+        //get the extension of the image
+        $get_ext = explode(".",$_FILES['upload']['name']);
+        $img_ext = end($get_ext);
+        $extension = array("jpg", "jpeg", "png");
+
+        //display an error if no image file is chosen
+        if(empty($_FILES['upload']['name'])){
+            $errors['upload'] = "Upload image is required";
+        }
+
 		//if(!in_array("",$var)){
 		if(!empty($var['price'])){
 			$_SESSION['price'] = $var['price'];
@@ -49,7 +59,47 @@
             $_SESSION['addons_name'] = $_POST['addons-name'];
 			$_SESSION['subtotal'] = $_POST['subtotal'];
             $_SESSION['product_id'] = $id;
-			header('Location: shipping_info.php');
+
+            //query to insert the uploaded image too database
+            $insert_img = $db->prepare("INSERT INTO customer_uploads (img_name, img_path) VALUES (?,?)");
+
+                //check if the file has image extension
+                if(in_array($img_ext,$extension)){
+                    //check for error
+                    if($_FILES['upload']['error'] === 0){
+                        //check for size limit
+                        if($_FILES['upload']['size'] <= 10 * 1024 * 1024){
+                            //create unique id for file name
+                            $newname = uniqid("",true).".".$img_ext;
+                            //temporary path
+                            $upload_path = 'assets/images/customer_temp_storage/'.$newname;
+                            //check if the file was moved from the temporary path to new path
+                            if(move_uploaded_file($_FILES['upload']['tmp_name'], "../../".$upload_path)){
+                                $_SESSION['upload_img'] = $newname;
+                                //execute the query
+                                $insert_img->execute(array($newname,$upload_path));
+                                if($insert_img){
+                                    header('Location: shipping_info.php');
+                                }
+                                else{
+                                    $errors['upload'] = "Upload failed. Please try again.";
+                                }
+                            } 
+                            else{
+                                $errors['upload'] = "Upload failed. Please try again.";
+                            }
+                        } 
+                        else{
+                            $errors['upload'] = "File size exceeded! Maximum size is 10mb only.";
+                        }
+                    } 
+                    else{
+                        $errors['upload'] = "Error ".$_FILES['upload']['error']." has occured.";
+                    }
+                } 
+                else{
+                    $errors['upload'] = "File extension not applicable. Please upload image files only.";
+                }
 		}
 	}
 

@@ -229,7 +229,7 @@
 
                 if($sql2->execute() and unlink($tmp_path.$_SESSION['cover_img'])){
                     //get the id of the new product
-                    $productid = $db->lastInsertId();
+                    $productid = $db->prepare("SELECT id FROM products ORDER BY id DESC LIMIT 1");
 
                     //query for product image
                     $productimg = $db->prepare("INSERT INTO product_carousel (product_id, carousel_image, carousel_image_path) VALUES (?,?,?)");

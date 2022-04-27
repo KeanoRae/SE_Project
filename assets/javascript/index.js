@@ -64,11 +64,16 @@ function getaddons(element) {
 
 // <-- for checkbox in cart page --> //
 function checkall(selector) {
-  let checkboxes = document.querySelectorAll('#cart-checkbox');
+  let checkboxes = document.querySelectorAll('.cart-checkbox');
   for (let i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i] != selector)
-          checkboxes[i].checked = selector.checked;
+      if (checkboxes[i] != selector){
+        checkboxes[i].checked = selector.checked;
+        if(checkboxes[i].checked){
+          get_val(checkboxes[i]);
+        }
+      }    
   }
+  display_value();
 }
 // <--------------------------------> //
 
@@ -91,7 +96,84 @@ function edit_info(btn){
     }
 }
 // <--------------------------------> //
+  let inc_btn = document.getElementsByClassName("inc");
+  let dec_btn = document.getElementsByClassName("dec");
+  //increment
+  for(let i = 0; i < inc_btn.length; i++){
+    let current_btn = inc_btn[i];
+    current_btn.addEventListener('click',function(event){
+        let btn_clicked = event.target;
+        let qty_element = btn_clicked.parentElement.children[1];
+        let parent_element = btn_clicked.parentElement.parentElement.parentElement.parentElement;
+        //console.log(parent_element);
+        let cart_price = parent_element.children[1].children[0].value;
+        let cart_addons = parseFloat(parent_element.children[1].children[1].value);
+        let cart_subtotal_element = parent_element.children[1].children[2];
+        let cart_subtotal = parent_element.children[1].children[2].value.replace('₱','');
+        let new_value = parseInt(qty_element.value) + 1;
+        if(new_value < 11){
+          qty_element.value = new_value;
+          cart_subtotal = '₱' + ((cart_price * qty_element.value) + cart_addons).toFixed(2);
+          cart_subtotal_element.value = cart_subtotal;
+        }
+        //console.log(cart_subtotal_element.value);
+    });
+  }
+  //decrement
+  for(let i = 0; i < dec_btn.length; i++){
+    let current_btn = dec_btn[i];
+    current_btn.addEventListener('click',function(event){
+      let btn_clicked = event.target;
+      let qty_element = btn_clicked.parentElement.children[1];
+      let parent_element = btn_clicked.parentElement.parentElement.parentElement.parentElement.children[1];
+      let cart_price = parent_element.children[0].value;
+      let cart_addons = parseFloat(parent_element.children[1].value);
+      let cart_subtotal_element = parent_element.children[2];
+      let cart_subtotal = parent_element.children[2].value.replace('₱','');
+      let new_value = parseInt(qty_element.value) - 1;
+      if(new_value > 0){
+        qty_element.value = new_value;
+        cart_subtotal = '₱' + ((cart_price * qty_element.value)+cart_addons).toFixed(2);
+        cart_subtotal_element.value = cart_subtotal;
+      }
+      else{
+        qty_element.value = 1;
+      }
+      //console.log(cart_subtotal_element.value);
+    });
+  }
+
+
+  // --------------------------------- //
+  function get_val(box){
+    let inc_button = box.parentElement.parentElement.parentElement.children[0].children[2].children[1].children[0];
+    let dec_button = box.parentElement.parentElement.parentElement.children[0].children[2].children[1].children[2];
+    display_value();
+    inc_button.addEventListener('click',function(){
+      display_value();
+    });
+    dec_button.addEventListener('click',function(){
+      display_value();
+    });
+  }
+
+  function display_value(){
+    let cart_checkbox = document.querySelectorAll(".cart-checkbox");
+    let val = 0;
+    for(let i = 0; i < cart_checkbox.length; i++){
+      if(cart_checkbox[i].checked){
+        let box_val = cart_checkbox[i].parentElement.parentElement.parentElement.children[1].children[2].value.replace('₱','');
+        val += parseFloat(box_val);
+      }
+    }
+    document.getElementById("display-subtotal").value = '₱'+val.toFixed(2);
+  }
+    
+    
+ 
   
+
+
 
 
 
@@ -99,7 +181,5 @@ function edit_info(btn){
     //const actualBtn = document.getElementById('actual-btn');
     //const fileChosen = document.getElementById('file-chosen');
     //actualBtn.addEventListener('change', function(){
-    //fileChosen.textContent = this.files[0].name
-   // })
-
-
+      //fileChosen.textContent = "receipt_"+this.files[0].name;
+    //});

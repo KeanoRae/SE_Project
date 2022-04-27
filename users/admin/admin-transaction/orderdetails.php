@@ -99,7 +99,7 @@
                 elseif($status == "Confirmed"){
                     $backpage = "confirmed.php";
                 }
-                elseif($status == "On process"){
+                elseif($status == "On Process"){
                     $backpage = "onprocess.php";
                 }
                 elseif($status == "To ship"){
@@ -117,7 +117,12 @@
             <p class="d-inline header fs-3 ms-1 mb-5">> <b>Order Details</b></p>
             <br>
             <br>
-            <form action="../process/update_transaction.php" method="POST">
+            <div class="mb-2 text-end me-5">
+                <button class="px-3 py-1 border-0" style="background-color:#fff;">
+                    <span class="iconify fs-2 ms-2" data-icon="bytesize:print"></span>
+                </button>
+            </div> 
+            <form action="../process/update_transaction.php" method="POST"> 
                 <div class="row border border-dark mx-5">
                     <div class="col-md-6">
                         <div>
@@ -251,9 +256,13 @@
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <div class="text-start">
-                                        <p class="mb-0 fs-4">uploaded image</p>
+                                    <?php
+                                        //if($status = "Confirmed" and $receipt_status == "uploaded"){
+                                    ?>
+                                    <div class="display-receipt">
+                                        <!--<img src="echo "../../../".$receipt; ?>" class="img-fluid p-2">-->
                                     </div>
+
                                 </td>
                                 <td colspan="2">
                                     <div class="d-flex float-end">
@@ -264,9 +273,13 @@
                                         <button name="confirm" class="px-1 py-1 fs-4 border border-dark btn-pink btn-shadow">confirm</button>
                                     <?php 
                                         }elseif($status == "Confirmed"){
-                                            //$setstatus = ($receipt_status == "unpaid") ? "disabled":"";
+                                            $setstatus = ($receipt_status == "unverified") ? "disabled":"";
                                     ?>
-                                        <button name="to-process" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow">to process</button>
+                                        <button name="to-process" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow" <?php echo $setstatus; ?>>to process</button>
+                                    <?php 
+                                        }elseif($status == "On Process"){
+                                    ?>
+                                        <button name="to-ship" class="px-4 py-1 fs-4 border border-dark btn-pink btn-shadow">to ship</button>
                                     <?php 
                                         }elseif($status == "To ship"){
                                     ?>

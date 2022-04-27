@@ -140,13 +140,15 @@
                 <div class="col mx-3">
                     <div class="displaytotal border border-dark mx-5">
                         <div class="content d-flex justify-content-between px-4 py-5">
-                            <div class="left d-flex">
-                                <div class="box border border-dark me-3"></div>
+                            <div class="d-flex">
+                                <div class="box me-3">
+                                    <img src="<?php echo "../../".$img_path; ?>" class="img-fluid" alt="">
+                                </div>
                                 <p class="fs-3"><?php echo $_SESSION['product_name']; ?></p>
                             </div>
-                            <div class="right d-flex justify-content-between">
-                                <p class="me-5"><?php echo $_SESSION['qty']; ?></p>
-                                <p class="ms-5"><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                            <div class="d-flex justify-content-between">
+                                <p class="fs-3 me-5"><?php echo $_SESSION['qty']; ?></p>
+                                <p class="fs-3 ms-5"><?php echo "₱".$_SESSION['subtotal']; ?></p>
                             </div>
                         </div>
                         <br>

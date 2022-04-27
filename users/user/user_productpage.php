@@ -105,7 +105,7 @@
                 <br>
             </div>
             <div class="col px-5">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="body ms-2">
                     <p class="fs-1"><?php echo strtoupper($product_name); ?></p>
                     <hr>
@@ -117,7 +117,7 @@
                         <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn1" value=<?php echo $price1; ?> >1 Character</button>
                         <button type="button" class="d-inline-block btn btn-outline-dark me-3 shadow-none price-select" onClick="price_btn(this)" name="price-btn" id="price-btn2" value=<?php echo $price2; ?> >2 Characters</button>
                     </div>
-                    <div class="error mb-2" style="color:red;">
+                    <div class="error mb-2">
                         <?php echo $errors['price']; ?>
                     </div>
                     <hr>
@@ -143,8 +143,12 @@
                     </div>
                     <hr>
                     <!-- button for upload image -->
-                    <div class="d-grid col-3 upload">
-                        <button type="button" class="py-1"><i class="fas fa-upload me-3"></i>Upload</button>
+                    <div class="d-grid col-6 upload">
+                        <input class="py-1" type="file" name="upload">
+                        <!--<i class="fas fa-upload me-3"></i>Upload-->
+                        <div class="error mb-2">
+                            <?php echo $errors['upload']; ?>
+                        </div>
                     </div>
                 </div>
                 <!-- button for submit -->

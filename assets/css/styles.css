@@ -154,9 +154,7 @@ header .icon1 {
     background-color: rgba(209, 209, 209, 0.36);
 }
 
-.detail-botbox .receipt {
-    border-right: 1px solid #C4C4C4;
-}
+
 
 .detail-botbox .receipt button {
     background-color: #87CEFA;
@@ -166,7 +164,8 @@ header .icon1 {
 .receipt label {
     background-color: #87CEFA;
     color: #000;
-    font-family: sans-serif;
+    align-self: center;
+    font-size: 24px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 }
@@ -174,6 +173,11 @@ header .icon1 {
 .receipt #file-chosen {
   margin-left: 0.3rem;
   font-family: sans-serif;
+}
+
+.display-receipt{
+    max-height: auto;
+    max-width: 150px;
 }
 
 
@@ -410,8 +414,8 @@ input:-webkit-autofill:active {
 }
 
 .shipping-info .box {
-    width: 86px;
-    height: 77px;
+    width: 100px;
+    height: 88px;
 }
 
 /*-----------------------------------------------Payment-------------------------------------------------- */
@@ -442,6 +446,14 @@ input:-webkit-autofill:active {
 .cart .box2 {
     background: rgba(196, 196, 196, 0.47);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.cart #cart-qtybox, .cart #subtotal-holder {
+    outline: none;
+}
+
+.cart .inc, .cart .dec {
+    user-select: none;
 }
 
 .edit-btn button{

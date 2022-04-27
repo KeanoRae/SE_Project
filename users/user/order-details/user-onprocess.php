@@ -11,13 +11,10 @@
             include_once('../../../include/database.php');
             $database = new Connection();
             $db = $database->open();
-            $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price, od.add_ons, od.add_ons_details, od.uploaded_image
-                                FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
-                                WHERE customer_id=:uid AND o.order_status=1 ORDER BY o.order_date DESC"
-                                 );
-            $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
-            $sql->execute();
-            $count = $sql->rowCount();
+            $check_order = $db->prepare("SELECT id FROM orders");
+            //bind param                                 
+            $check_order->execute();
+            $count = $check_order->rowCount();
 
             if($count == 0){           
         ?>
@@ -28,13 +25,21 @@
         <?php
             }
             else{
-                
+
+                 $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price, od.add_ons, od.add_ons_details
+                                FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
+                                WHERE customer_id=:uid AND o.order_status=6"
+                                 );
+                 // bind param
+                $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
+                $sql->execute();
+                                
         ?>
             <div class="tmp mx-3 mb-4">
                 <div class="title d-flex justify-content-between mx-2 py-2 px-3 border border-dark">
-                    <a class="text-reset text-decoration-none fst-normal h4 mb-0 fw-bolder" href="#">pending</a>
+                    <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-pending.php">pending</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-to-pay.php">to pay</a>
-                    <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-onprocess.php">on-process</a>
+                    <a class="text-reset text-decoration-none fst-normal h4 mb-0 fw-bolder" href="user-onprocess.php">on-process</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-ship.php">to ship</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-completed.php">completed</a>
                     <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="user-cancelled.php">cancelled</a>
@@ -51,9 +56,7 @@
                     </div>
                     <hr class="mt-1">
                     <div class="inner-box d-flex">
-                        <div class="box ms-3" style="height: 77px;width: 77px;">
-                            <img src="<?php echo "../../../".$row['uploaded_image']; ?>" class="img-fluid" alt="">
-                        </div>
+                        <div class="box border border-dark ms-3" style="height: 77px;width: 68px;"></div>
                         <div class="text w-100 mx-3">
                             <div class="row1 d-flex justify-content-between">
                                 <div class="txt"><p><?php echo $row['product_name']; ?></p></div>

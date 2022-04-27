@@ -144,14 +144,14 @@
                             <p class="mb-2">Subtotal</p>
                             <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
                         </div>
-                        <div class="sp">
-                            <p class="ms-4">Shipping Fee</p>
-                            <p><?php ?></p>
+                        <div class="d-flex justify-content-between mx-4">
+                            <p class="mb-2">Shipping Fee</p>
+                            <p><?php echo "₱".number_format(($_SESSION['shipping_fee']),2); ?></p>
                         </div>
                         <hr class="mx-3">
                         <div class="d-flex justify-content-between mx-4">
                             <p class="mb-2">Total</p>
-                            <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                            <p><?php echo "₱".number_format($_SESSION['subtotal']+$_SESSION['shipping_fee'],2); ?></p>
                         </div>
                         <br>
                     </div>

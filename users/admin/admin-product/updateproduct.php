@@ -38,7 +38,7 @@
                 <div class="accordion" id="product-collapse">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button fs-3 ps-2 py-1 fw-bold collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#product" aria-expanded="false" aria-controls="product">
+                            <button class="accordion-button fs-3 ps-2 py-1 collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#product" aria-expanded="false" aria-controls="product">
                                 <span class="iconify fs-2 me-2" data-icon="bytesize:cart"></span>Product
                             </button>
                         </h2>
@@ -61,16 +61,16 @@
                                                     class="text-decoration-none mb-1 border-0 text-reset" style="background-color:#fff;"><?php echo $row['product_name']; ?>
                                                 </a>
                                                 <!-- button for modal -->
-                                                <?php 
-                                                    if($prodname != $row['product_name']){ ?>
+                                        <?php 
+                                            if($prodname != $row['product_name']){ ?>
                                                 <a class="border-0" style="background-color:#fff;" data-bs-toggle="modal" data-bs-target="#deleteproduct<?php echo $row['id']; ?>">
                                                     <span style="color:#C4C4C4" class="iconify fs-5 me-2" data-icon="bi:trash"></span>
                                                 </a>
-                                                <?php }
-                                                    else{
-                                                        echo "";
-                                                    }
-                                                ?>
+                                        <?php }
+                                            else{
+                                                echo "";
+                                            }
+                                        ?>
                                             </div>
                                         </li>
                                     </ul>
@@ -81,9 +81,8 @@
                                                 <form action="../process/product_process.php?id=<?php echo $row['id']; ?>" method="POST">
                                                     <div class="modal-body mx-5">
                                                         <p class="fs-4 text-center mx-5">Are you sure you want to delete this product?</p>
-                                                        
                                                         <div class="d-grid col-4 mx-auto mb-3">
-                                                            <button type="submit" name="delete_cart" class="d-block btn btn-dark rounded-pill btn-shadow mb-3">delete</button>
+                                                            <button type="submit" name="delete-product" class="d-block btn btn-dark rounded-pill btn-shadow mb-3">delete</button>
                                                             <button type="button" class="btn btn-light rounded-pill btn-shadow" data-bs-dismiss="modal">Cancel</button>
                                                         </div>
                                                     </div>

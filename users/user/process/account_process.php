@@ -8,10 +8,10 @@
 
         try{
             $sql = $db->prepare("SELECT o.id, DATE_FORMAT(o.order_date, '%m/%d/%Y %H:%i:%s') as date, o.receiver_name, u.phone_number, 
-                                u.email, CONCAT(o.shipping_address,', ',o.shipping_city) AS address, o.shipping_method, p.product_name,
-                                od.quantity, od.product_price, ((od.quantity*od.product_price)+od.add_ons) AS subtotal, os.name AS status
-                                FROM orders o JOIN user u JOIN product p JOIN order_details od JOIN order_status os
-                                ON o.customer_id=u.id AND o.id=od.order_id AND p.id=od.product_id AND o.id=od.order_id AND os.id=o.order_status
+                                u.email, CONCAT(o.shipping_address,', ',o.shipping_city) AS address, o.shipping_fee, o.shipping_method, o.message, p.product_name,
+                                od.quantity, od.product_price, ((od.quantity*od.product_price)+od.add_ons) AS subtotal, os.name AS status, pm.receipt_status, pm.uploaded_receipt
+                                FROM orders o JOIN user u JOIN product p JOIN order_details od JOIN order_status os JOIN payment pm
+                                ON o.customer_id=u.id AND o.id=od.order_id AND p.id=od.product_id AND o.id=od.order_id AND os.id=o.order_status AND pm.order_details_id=od.id
                                 WHERE o.id=:id");
                 //bind
                 $sql->bindParam(':id', $id);
@@ -22,12 +22,16 @@
                     $num = $row['phone_number'];
                     $email = $row['email'];
                     $addr = $row['address'];
+                    $shipping_fee = $row['shipping_fee'];
                     $ship_method = $row['shipping_method'];
+                    $message = $row['message'];
                     $productname = $row['product_name'];
                     $quantity = $row['quantity'];
                     $price = $row['product_price'];
                     $subtotal = $row['subtotal'];
                     $status = $row['status'];
+                    $receipt_status = $row['receipt_status'];
+                    $receipt = $row['uploaded_receipt'];
                 }           
         }
         catch(PDOException $e){
@@ -35,7 +39,71 @@
         }    
     }
 
+    $errors['receipt'] = "";
 
+    if(isset($_POST['upload_receipt'])){
+        //get the extension of the image
+        $get_ext = explode(".",$_FILES['receipt']['name']);
+        $img_ext = end($get_ext);
+        $extension = array("jpg", "jpeg", "png");
+
+        //display an error if no image file is chosen
+        if(empty($_FILES['receipt']['name'])){
+            $errors['receipt'] = "Receipt image is required";
+        }
+        else{
+            $get_id = $db->prepare("SELECT p.id FROM payment p JOIN order_details od JOIN orders o
+                                    ON p.order_details_id=od.id AND od.order_id=o.id WHERE o.id=:id");
+            //bind
+            $get_id->bindParam(':id',$id);
+            $get_id->execute();
+            if($row=$get_id->fetch(PDO::FETCH_ASSOC)){
+                $payment_id = $row['id'];
+                $status = "uploaded";
+
+                //check if the file has image extension
+                if(in_array($img_ext,$extension)){
+                   //check for error
+                   if($_FILES['receipt']['error'] === 0){
+                       //check for size limit
+                       if($_FILES['receipt']['size'] <= 10 * 1024 * 1024){
+                            //create unique id for file name
+                            $newname = uniqid("",true).".".$img_ext;
+                            //temporary path
+                            $receipt_path = 'assets/images/customer-uploads/receipts/'.$newname;
+                            if(move_uploaded_file($_FILES['receipt']['tmp_name'], "../../../".$receipt_path)){
+                                //execute the query
+                                $insert_receipt = $db->prepare("UPDATE payment SET uploaded_receipt=:receipt, receipt_status=:status WHERE id=:id");
+                                //bind
+                                $insert_receipt->bindParam(':id', $payment_id);
+                                $insert_receipt->bindParam(':status', $status);
+                                $insert_receipt->bindParam(':receipt', $receipt_path);
+                                $insert_receipt->execute();
+                                if($insert_receipt){
+                                    header('Location: user-to-pay.php');
+                                }
+                                else{
+                                    $errors['receipt'] = "Upload failed. Please try again.";
+                                }
+                            }
+                            else{
+                                $errors['receipt'] = "Upload failed. Please try again. 11111";
+                            }
+                       } 
+                       else{
+                           $errors['receipt'] = "File size exceeded! Maximum size is 10mb only.";
+                       }
+                   } 
+                   else{
+                       $errors['receipt'] = "Error ".$_FILES['receipt']['error']." has occured.";
+                   }
+               } 
+               else{
+                   $errors['receipt'] = "File extension not applicable. Please receipt image files only.";
+               }
+            }
+        }
+    }
 
     //close connection
     $database->close();
