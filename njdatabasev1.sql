@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2022 at 02:28 AM
+-- Generation Time: Apr 27, 2022 at 09:15 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -44,7 +44,43 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `customer_id`, `product_id`, `product_name`, `uploaded_image`, `product_price`, `quantity`, `add_ons`, `subtotal`) VALUES
-(31, 43, 40, 'Anime Art', '', '350.00', 1, 30, '380.00');
+(32, 96, 40, 'Anime Art', '', '350.00', 1, 30, '380.00'),
+(43, 43, 41, 'Cartoon Art', '', '420.00', 4, 0, '1680.00'),
+(49, 43, 42, 'Vector Art', '', '390.00', 1, 0, '390.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_uploads`
+--
+
+CREATE TABLE `customer_uploads` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `img_name` varchar(255) NOT NULL,
+  `img_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer_uploads`
+--
+
+INSERT INTO `customer_uploads` (`id`, `img_name`, `img_path`) VALUES
+(1, '623db9b88a17b9.69981262.jpg', 'assets/images/customer_temp_storage/623db9b88a17b9.69981262.jpg'),
+(4, '623dcf4dbf17d2.90849160.jpg', 'assets/images/customer_temp_storage/623dcf4dbf17d2.90849160.jpg'),
+(5, '623f093580da15.05170502.jpg', 'assets/images/customer_temp_storage/623f093580da15.05170502.jpg'),
+(6, '625c2bbd7d5a45.27292292.jpg', 'assets/images/customer_temp_storage/625c2bbd7d5a45.27292292.jpg'),
+(7, '625c32dca30981.03970320.jpg', 'assets/images/customer_temp_storage/625c32dca30981.03970320.jpg'),
+(8, '625c33dd981f86.34213442.jpeg', 'assets/images/customer_temp_storage/625c33dd981f86.34213442.jpeg'),
+(9, '625c34ab43aad6.03343548.jpg', 'assets/images/customer_temp_storage/625c34ab43aad6.03343548.jpg'),
+(10, '625c3509943bd9.72472785.jpg', 'assets/images/customer_temp_storage/625c3509943bd9.72472785.jpg'),
+(11, '625c48895db850.49661532.jpg', 'assets/images/customer_temp_storage/625c48895db850.49661532.jpg'),
+(12, '625cd4acaf8775.55729417.jpg', 'assets/images/customer_temp_storage/625cd4acaf8775.55729417.jpg'),
+(13, '625ce1ab18c0e0.50106619.jpg', 'assets/images/customer_temp_storage/625ce1ab18c0e0.50106619.jpg'),
+(14, '625ce29c110484.80606372.jpg', 'assets/images/customer_temp_storage/625ce29c110484.80606372.jpg'),
+(15, '625ce339446625.97506603.jpg', 'assets/images/customer_temp_storage/625ce339446625.97506603.jpg'),
+(16, '625cf15f729c39.45450269.jpg', 'assets/images/customer_temp_storage/625cf15f729c39.45450269.jpg'),
+(17, '625cf3a460def7.69215039.jpg', 'assets/images/customer_temp_storage/625cf3a460def7.69215039.jpg'),
+(18, '625cf44e5791a7.76323162.jpg', 'assets/images/customer_temp_storage/625cf44e5791a7.76323162.jpg');
 
 -- --------------------------------------------------------
 
@@ -61,7 +97,7 @@ CREATE TABLE `orders` (
   `shipping_city` varchar(50) NOT NULL,
   `ship_postal_code` varchar(50) NOT NULL,
   `contact_number` varchar(50) NOT NULL,
-  `shipping_fee` tinyint(11) NOT NULL,
+  `shipping_fee` decimal(7,2) NOT NULL,
   `shipping_method` varchar(50) NOT NULL,
   `message` varchar(255) NOT NULL,
   `order_status` tinyint(11) NOT NULL,
@@ -75,11 +111,15 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `customer_id`, `receiver_name`, `email`, `shipping_address`, `shipping_city`, `ship_postal_code`, `contact_number`, `shipping_fee`, `shipping_method`, `message`, `order_status`, `order_date`, `paid_date`, `shipped_date`) VALUES
-(00000011, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-51 canelar', 'Zamboanga, Region X', '7000', '09123456789', 0, 'JRS - Express', '', 2, '2022-03-20 16:53:08', '2022-03-21 09:43:47', '2022-03-21 09:43:47'),
-(00000012, 00000043, 'Keano Rae Sevilla XI', 'renewalmaster4@gmail.com', 'ddd-53 canelar', 'Zamboanga, Region VI', '7000', '09123456789', 0, 'JRS - Express', 'Sample message', 2, '2022-03-21 09:13:48', '2022-03-21 12:12:39', '2022-03-21 12:12:39'),
-(00000013, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-52 canelar', 'Zamboanga, Region XII', '7000', '09123456789', 0, 'JRS - Express', '', 3, '2022-03-21 09:16:40', '2022-03-21 12:13:53', '2022-03-21 12:13:53'),
-(00000014, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-52 canelar', 'Zamboanga, Region X', '7000', '09123456789', 0, 'JRS - Express', '', 1, '2022-03-21 12:37:58', NULL, NULL),
-(00000015, 00000043, 'Keano Rae Sevilla XXXXXX', 'renewalmaster4@gmail.com', 'f44f4f234f23f4 canelar', 'Zamboanga, Region XIII', '7000', '09123456789', 0, 'JRS - Express', '', 1, '2022-03-21 13:02:06', NULL, NULL);
+(00000025, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'h51 canelar', 'Zamboanga, Region IX', '7000', '09123456789', '105.00', 'JRS - Express', '1\r\n2\r\n3\r\n4', 6, '2022-04-17 15:25:09', '2022-04-17 17:17:10', '2022-04-17 17:17:10'),
+(00000030, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-51 canelar', 'Zamboanga, Region XIII', '7000', '09123456789', '105.00', 'JRS - Express', 'test', 2, '2022-04-17 17:04:21', '2022-04-17 17:04:56', '2022-04-17 17:04:56'),
+(00000031, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'ddd-53 canelar', 'Zamboanga, Region XII', '7000', '09123456789', '105.00', 'JRS - Express', 'test\r\ntest 1', 6, '2022-04-18 03:02:30', '2022-04-18 03:48:34', '2022-04-18 03:48:34'),
+(00000032, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-51 canelar', 'Zamboanga, Region XII', '7000', '09123456789', '105.00', 'JRS - Express', 'test 123', 6, '2022-04-18 03:57:44', '2022-04-18 04:05:18', '2022-04-18 04:05:18'),
+(00000033, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-52 canelar', 'Zamboanga, Region XIII', '7000', '09123456789', '105.00', 'JRS - Express', '', 1, '2022-04-18 04:01:42', NULL, NULL),
+(00000034, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-52 canelar', 'Zamboanga, Region XI', '7000', '09123456789', '105.00', 'JRS - Express', 'test', 1, '2022-04-18 04:04:19', NULL, NULL),
+(00000035, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-51 canelar', 'Zamboanga, Region XI', '7000', '09123456789', '105.00', 'JRS - Express', 'Sample message', 1, '2022-04-18 05:05:27', NULL, NULL),
+(00000036, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-51 canelar', 'Zamboanga, Region XII', '7000', '09123456789', '105.00', 'JRS - Express', 'Sample message\r\nSample message', 2, '2022-04-18 05:14:59', '2022-04-18 05:15:37', '2022-04-18 05:15:37'),
+(00000037, 00000043, 'Keano Rae Sevilla', 'renewalmaster4@gmail.com', 'd-51 canelar', 'Zamboanga, Region XIII', '7000', '09123456789', '105.00', 'JRS - Express', 'sample message 123', 6, '2022-04-18 05:17:29', '2022-04-18 05:18:54', '2022-04-18 05:18:54');
 
 -- --------------------------------------------------------
 
@@ -95,7 +135,7 @@ CREATE TABLE `order_details` (
   `product_price` decimal(7,2) NOT NULL,
   `add_ons` decimal(7,2) NOT NULL DEFAULT 0.00,
   `add_ons_details` varchar(200) NOT NULL,
-  `uploaded_image` blob NOT NULL
+  `uploaded_image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -103,11 +143,15 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `product_price`, `add_ons`, `add_ons_details`, `uploaded_image`) VALUES
-(00000048, 00000011, 40, 1, '350.00', '30.00', 'Character', ''),
-(00000049, 00000012, 41, 1, '420.00', '30.00', 'Character', ''),
-(00000050, 00000013, 41, 1, '480.00', '60.00', 'Background/Dedication, Character', ''),
-(00000051, 00000014, 40, 1, '350.00', '60.00', 'Character, Background/Dedication', ''),
-(00000052, 00000015, 41, 1, '420.00', '60.00', 'Background/Dedication, Character', '');
+(00000062, 00000025, 41, 1, '420.00', '0.00', '', 'assets/images/customer-uploads/cartoon-art/625c2bbd7d5a45.27292292.jpg'),
+(00000067, 00000030, 41, 1, '480.00', '0.00', '', 'assets/images/customer-uploads/cartoon-art/625c48895db850.49661532.jpg'),
+(00000068, 00000031, 41, 1, '420.00', '30.00', 'Background/Dedication', 'assets/images/customer-uploads/cartoon-art/625cd4acaf8775.55729417.jpg'),
+(00000069, 00000032, 41, 1, '420.00', '30.00', 'Character', 'assets/images/customer-uploads/cartoon-art/625ce1ab18c0e0.50106619.jpg'),
+(00000070, 00000033, 41, 1, '420.00', '30.00', 'Character', 'assets/images/customer-uploads/cartoon-art/625ce29c110484.80606372.jpg'),
+(00000071, 00000034, 42, 1, '390.00', '0.00', '', 'assets/images/customer-uploads/vector-art/625ce339446625.97506603.jpg'),
+(00000072, 00000035, 40, 1, '350.00', '30.00', 'Character', 'assets/images/customer-uploads/anime-art/625cf15f729c39.45450269.jpg'),
+(00000073, 00000036, 41, 1, '420.00', '30.00', 'Character', 'assets/images/customer-uploads/cartoon-art/625cf3a460def7.69215039.jpg'),
+(00000074, 00000037, 41, 1, '480.00', '0.00', '', 'assets/images/customer-uploads/cartoon-art/625cf44e5791a7.76323162.jpg');
 
 -- --------------------------------------------------------
 
@@ -139,13 +183,30 @@ INSERT INTO `order_status` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `payment` (
-  `id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL,
+  `customer_id` mediumint(8) UNSIGNED ZEROFILL NOT NULL,
+  `order_details_id` mediumint(8) UNSIGNED ZEROFILL NOT NULL,
   `payment_type` varchar(50) NOT NULL,
-  `receipt_status` varchar(50) NOT NULL DEFAULT 'unpaid',
+  `receipt_status` varchar(50) NOT NULL DEFAULT 'unverified',
+  `uploaded_receipt` varchar(255) DEFAULT NULL,
   `total_amount` decimal(7,2) NOT NULL,
-  `payment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `payment_date` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `customer_id`, `order_details_id`, `payment_type`, `receipt_status`, `uploaded_receipt`, `total_amount`, `payment_date`) VALUES
+(00000020, 00000043, 00000062, 'M Lhuillier Padala', 'verified', 'assets/images/customer-uploads/receipts/625c47f7e56885.55028322.jpg', '420.00', '2022-04-18 04:07:09'),
+(00000025, 00000043, 00000067, 'Gcash', 'unverified', NULL, '480.00', NULL),
+(00000026, 00000043, 00000068, 'M Lhuillier Padala', 'verified', 'assets/images/customer-uploads/receipts/625cd5415d43e6.76001892.jpg', '450.00', '2022-04-18 04:07:09'),
+(00000027, 00000043, 00000069, 'M Lhuillier Padala', 'verified', 'assets/images/customer-uploads/receipts/625ce35f778752.97500146.jpg', '450.00', '2022-04-18 04:05:18'),
+(00000028, 00000043, 00000070, 'M Lhuillier Padala', 'unverified', NULL, '450.00', NULL),
+(00000029, 00000043, 00000071, 'M Lhuillier Padala', 'unverified', NULL, '390.00', NULL),
+(00000030, 00000043, 00000072, 'M Lhuillier Padala', 'unverified', NULL, '380.00', NULL),
+(00000031, 00000043, 00000073, 'Cebuana Lhuillier', 'unverified', NULL, '450.00', NULL),
+(00000032, 00000043, 00000074, 'M Lhuillier Padala', 'verified', 'assets/images/customer-uploads/receipts/625cf4a17ec091.40225332.jpg', '480.00', '2022-04-18 05:18:54');
 
 -- --------------------------------------------------------
 
@@ -324,7 +385,11 @@ INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `em
 (00000043, 'user1', '$2y$10$WQOY7GYmlFHNLxcFevyqDOO1Li2aRCMVcObeL8udPnI0Fc4lPBFSO', 'Keano Rae', 'Sevilla', 'renewalmaster4@gmail.com', '09123456789', 'customer', '251946f23567d3841e2e89666f49dfa586b16ac4', 1, '2022-03-20 16:04:09', '2022-03-20 16:03:36', '2022-03-20 16:04:09'),
 (00000088, 'user333', '$2y$10$z1ExfeiUxT0xswO6Izcd2.oAr3vtivBQUdq7Ne9BbmatbSO.rEF36', 'Keano Rae', 'Sevilla', 'sevillakeano@yahoo.com', '09123456789', 'customer', '1ae565e0dce37b7e8eeae39a19cbb9885cef15a4', 0, NULL, '2022-03-21 10:02:37', '2022-03-21 10:02:37'),
 (00000091, 'staff', '$2y$10$ea/bfwPtsmXQu951/GXnhezw0zuTnU4eYayh2qEa.YIv8uHrK2S4.', 'staff', 'staff', NULL, '', 'staff', '', 0, NULL, '2022-03-21 14:58:45', '2022-03-21 14:58:45'),
-(00000092, 'admin2', '$2y$10$0fWoOruVk6HAVYQcKKe/b.KCWgW2HTPrBOnkCsackJgzIBEN1wiI2', 'admin', 'admin', NULL, '', 'admin', '', 0, NULL, '2022-03-21 14:58:57', '2022-03-21 14:58:57');
+(00000092, 'admin2', '$2y$10$0fWoOruVk6HAVYQcKKe/b.KCWgW2HTPrBOnkCsackJgzIBEN1wiI2', 'admin', 'admin', NULL, '', 'admin', '', 0, NULL, '2022-03-21 14:58:57', '2022-03-21 14:58:57'),
+(00000094, 'staff2', '$2y$10$uhDsMB1EAeBf/BqNkKiJBOqjeiowPcx9hn9HCPvf9zLg/wY0TRMQ6', 'staff fname', 'staff lname', NULL, '', 'staff', '', 0, NULL, '2022-03-22 05:37:10', '2022-03-22 05:37:10'),
+(00000097, 'staff3', '$2y$10$f67Kt.uPVcG7zI/xuaQ44u1nbgkTNRUIunvKFsV6MHZT0pYMEnK32', 'staff fname', 'staff lname', NULL, '', 'staff', '', 0, NULL, '2022-03-22 06:25:08', '2022-03-22 06:25:08'),
+(00000098, 'user4', '$2y$10$fLh/VxhoR5W7SCqKDwJFzuzUWtsZBUg59Lx9HTz1yodlP/JS3Uui2', 'Keano Rae', 'Sevilla', 'sevillakeano15@yahoo.com', '09123456789', 'customer', '7bfee7fe59f574280e0d40bd76f2184308e0432b', 0, NULL, '2022-03-22 06:34:04', '2022-03-22 06:34:04'),
+(00000105, 'user7', '$2y$10$izahUzRIAPJhG2gjgrbdd.byfb3G23kq8VBK1SToMM.7d8Mgv4rLm', 'Keano Rae', 'Sevilla VII', 'lc201700269@wmsu.edu.ph', '09123456789', 'customer', '185de9f6f875b4950c3b8fb71517cef341e15768', 1, '2022-04-27 15:07:07', '2022-04-27 15:06:41', '2022-04-27 15:07:07');
 
 -- --------------------------------------------------------
 
@@ -357,6 +422,12 @@ ALTER TABLE `cart`
   ADD KEY `fk_cart_pID` (`product_id`);
 
 --
+-- Indexes for table `customer_uploads`
+--
+ALTER TABLE `customer_uploads`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -383,7 +454,8 @@ ALTER TABLE `order_status`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_payment_customerID` (`customer_id`);
+  ADD KEY `fk_payment_customerID` (`customer_id`),
+  ADD KEY `fk_payment_orderdetailsID` (`order_details_id`);
 
 --
 -- Indexes for table `product`
@@ -430,6 +502,7 @@ ALTER TABLE `transaction_status`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -440,19 +513,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT for table `customer_uploads`
+--
+ALTER TABLE `customer_uploads`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -464,19 +543,19 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `product_carousel`
 --
 ALTER TABLE `product_carousel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT for table `tracking_details`
@@ -500,7 +579,7 @@ ALTER TABLE `transaction_status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- Constraints for dumped tables
@@ -520,6 +599,13 @@ ALTER TABLE `order_details`
   ADD CONSTRAINT `fk_order_details_productID` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `fk_payment_customerID` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_payment_orderdetailsID` FOREIGN KEY (`order_details_id`) REFERENCES `order_details` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `product_carousel`
 --
 ALTER TABLE `product_carousel`
@@ -529,7 +615,6 @@ ALTER TABLE `product_carousel`
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD CONSTRAINT `fk_transaction_paymentID` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`),
   ADD CONSTRAINT `fk_transaction_statusID` FOREIGN KEY (`status`) REFERENCES `transaction_status` (`id`);
 
 DELIMITER $$
