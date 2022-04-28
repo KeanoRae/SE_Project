@@ -169,7 +169,18 @@ function edit_info(btn){
     document.getElementById("display-subtotal").value = '₱'+val.toFixed(2);
   }
     
-    
+  let table = document.getElementById("user-table");
+  for(let i = 0; i < table.rows.length; i++){
+    table.rows[i].addEventListener('click', function(){
+      let fullname = this.cells[1].innerHTML.split(' ');
+      let lname = fullname.pop();
+      let fname = fullname.join(' ');
+      document.getElementById("fname").value = fname;
+      document.getElementById("lname").value = lname;
+      document.getElementById("username").value = this.cells[2].innerHTML;
+      document.getElementById("role").value = this.cells[3].innerHTML;
+    })
+  }
  
   
 

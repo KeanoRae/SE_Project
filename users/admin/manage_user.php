@@ -5,18 +5,8 @@
     include('process/manage_user_process.php');
 ?>
 <div class="container-fluid admin p-0">
-    <?php if(isset($_SESSION['add_user']) and $_SESSION['add_user'] != ""){ ?>
-        <div class="alert alert-danger" role="alert">
-            <?php 
-                echo $_SESSION['add_user'];
-                unset($_SESSION['add_user']);
-            ?>
-        </div>
-    <?php }
-        else{
-            echo "<br>";
-            echo "<br>";
-        } ?>
+    <br>
+    <br>
     <div class="row gx-3 pb-5 px-4" style="min-height: 800px;">
         <div class="col-3 sidebar p-0 me-3">
             <p class="text-center fw-bold fs-2 mt-2">ADMIN</p>
@@ -113,7 +103,7 @@
                                 <div class="row w-100">
                                     <div class="col">
                                         <input type="text" class="form-control border-dark shadow-none rounded-0" 
-                                                name="fname" value="<?php echo $var['fname']; ?>">
+                                                name="fname" id="fname" value="<?php echo $var['fname']; ?>">
                                         <div class="error mb-2">
                                             <?php echo $errors['fname']; ?>
                                         </div>
@@ -129,7 +119,7 @@
                                 <div class="row w-100">
                                     <div class="col">
                                         <input type="text" class="form-control border-dark shadow-none rounded-0" 
-                                                name="lname" value="<?php echo $var['lname']; ?>">
+                                                name="lname" id="lname" value="<?php echo $var['lname']; ?>">
                                         <div class="error mb-2">
                                             <?php echo $errors['lname']; ?>
                                         </div>
@@ -145,7 +135,7 @@
                                 <div class="row w-100">
                                     <div class="col">
                                         <input type="text" class="form-control border-dark shadow-none rounded-0" 
-                                                name="username" value="<?php echo $var['username']; ?>">
+                                                name="username" id="username" value="<?php echo $var['username']; ?>">
                                         <div class="error mb-2">
                                             <?php echo $errors['username']; ?>
                                         </div>
@@ -176,7 +166,7 @@
                             <div class="col-sm-9 d-flex align-items-center">
                                 <div class="row w-100">
                                     <div class="col">
-                                        <select name="role" class="w-100 py-2 rounded-0">
+                                        <select name="role" id="role" class="w-100 py-2 rounded-0">
                                             <option value="" selected disabled hidden></option>
                                             <option <?php if(isset($_POST['role']) and $_POST['role'] == "admin") echo "selected"; ?>>admin</option>
                                             <option <?php if(isset($_POST['role']) and $_POST['role'] == "staff") echo "selected"; ?>>staff</option>
@@ -200,7 +190,7 @@
             </form>
             <p class="fs-2 fw-bold my-3 mx-4">List of Users</p>
             <div class="table-responsive mx-4 mb-4">
-                <table class="table">
+                <table id="user-table" class="table">
                     <thead>
                         <tr>
                             <th scope="col" class="fs-4 fw-normal col-2">ID</th>
@@ -240,4 +230,5 @@
     </div>
 </div>
     
+<script src="../../assets/javascript/index.js"></script>
 <?php include('../../include/footer.php'); ?>
