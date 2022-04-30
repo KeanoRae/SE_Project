@@ -200,3 +200,7 @@ function edit_info(btn){
       fileChosen.textContent = "receipt_"+this.files[0].name;
     });
   }
+
+  function remove_row(){
+    
+  }
