@@ -102,7 +102,7 @@
                 elseif($status == "On Process"){
                     $backpage = "onprocess.php";
                 }
-                elseif($status == "To ship"){
+                elseif($status == "To ship" or $status == "Order Received"){
                     $backpage = "ship.php";
                 }
                 elseif($status == "Completed"){
@@ -208,9 +208,10 @@
                         <thead>
                             <tr class="fs-4">
                                 <th scope="col" class="col-sm-1">No.</th>
-                                <th scope="col" class="col-sm-6 text-start">Product</th>
+                                <th scope="col" class="col-sm-4 text-start">Product</th>
                                 <th scope="col" class="col-sm-1">Q</th>
-                                <th scope="col" class="col-sm-3">Price</th>
+                                <th scope="col" class="col-sm-2">Price</th>
+                                <th scope="col" class="col-sm-3">Add-ons</th>
                                 <th scope="col" class="col-sm-2">Subtotal</th>
                             </tr>
                         </thead>
@@ -226,14 +227,17 @@
                                     <p class="mb-0 fs-4"><?php echo $quantity; ?></p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 fs-4"><?php echo $price; ?></p>
+                                    <p class="mb-0 fs-4"><?php echo "₱".$price; ?></p>
                                 </td>
                                 <td>
-                                    <p class="mb-5 fs-4"><?php echo $subtotal; ?></p>
+                                    <p class="mb-0 fs-4"><?php echo "₱".$addons; ?></p>
+                                </td>
+                                <td>
+                                    <p class="mb-5 fs-4"><?php echo "₱".$subtotal; ?></p>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td>
                                     <div class="text-start">
                                         <p class="mb-0 fs-4">Shipping Fee</p>
@@ -244,10 +248,10 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <p class="mb-0 fs-4">100.00</p>
+                                        <p class="mb-0 me-3 fs-4 text-end"><?php echo "₱".$shipping_fee; ?></p>
                                     </div>
                                     <div>
-                                        <p class="mb-0 fs-4">620.00</p>
+                                        <p class="mb-0 me-3 fs-4 text-end"><?php echo "₱".number_format($shipping_fee + $addons + $subtotal, 2); ?></p>
                                     </div>
                                 </td>
                             </tr>
@@ -255,14 +259,24 @@
                                 <td colspan="6"></td>
                             </tr>
                             <tr>
-                                <td colspan="3">
-                                    <?php
-                                        //if($status = "Confirmed" and $receipt_status == "uploaded"){
-                                    ?>
-                                    <div class="display-receipt">
-                                        <!--<img src="echo "../../../".$receipt; ?>" class="img-fluid p-2">-->
+                                <td>
+                                    <div class="display-image">
+                                        <img src="<?php echo "../../../".$uploaded_img; ?>" class="img-fluid p-2">
                                     </div>
-
+                                </td>
+                            </tr>
+                            <tr class="border-0">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <?php
+                                        if(($status != "Pending" or $status != "Cancelled" ) and $receipt_status !== "unverified"){
+                                    ?>
+                                    <div class="display-image">
+                                        <img src= "<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
+                                    </div>
+                                    <?php } ?>
                                 </td>
                                 <td colspan="2">
                                     <div class="d-flex float-end">
@@ -281,9 +295,10 @@
                                     ?>
                                         <button name="to-ship" class="px-4 py-1 fs-4 border border-dark btn-pink btn-shadow">to ship</button>
                                     <?php 
-                                        }elseif($status == "To ship"){
+                                        }elseif($status == "To ship" or $status == "Order Received"){
+                                            $order_status = ($status !== "Order Received") ? "disabled":"";
                                     ?>
-                                        <button name="to-complete" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow">completed</button>            
+                                        <button name="to-complete" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow" <?php echo $order_status; ?>>completed</button>            
                                     <?php
                                         }
                                     ?>      

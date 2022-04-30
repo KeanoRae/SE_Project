@@ -23,6 +23,8 @@
         echo $get_checkbox_id;
     }
 
+    if(isset($_POST['']))
+
 
     //close connection
     $database->close();

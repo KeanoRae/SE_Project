@@ -66,7 +66,6 @@
                     <div class="col-md-6">
                         <div>
                             <div class="d-flex align-items-center">
-                                <input type="hidden" name="getid" value="<?php echo $id; ?>">
                                 <span class="iconify fs-2 me-3 mt-2" data-icon="bx:id-card"></span>
                                 <p class="mb-0 fs-4 mt-2">Order ID</p>
                             </div>
@@ -140,9 +139,10 @@
                     <thead>
                         <tr class="fs-4">
                             <th scope="col" class="col-sm-1">No.</th>
-                            <th scope="col" class="col-sm-6 text-start">Product</th>
+                            <th scope="col" class="col-sm-4 text-start">Product</th>
                             <th scope="col" class="col-sm-1">Q</th>
-                            <th scope="col" class="col-sm-3">Price</th>
+                            <th scope="col" class="col-sm-2">Price</th>
+                            <th scope="col" class="col-sm-3">Add-ons</th>
                             <th scope="col" class="col-sm-2">Subtotal</th>
                         </tr>
                     </thead>
@@ -158,14 +158,17 @@
                                 <p class="mb-0 fs-4"><?php echo $quantity; ?></p>
                             </td>
                             <td>
-                                <p class="mb-0 fs-4"><?php echo $price; ?></p>
+                                <p class="mb-0 fs-4"><?php echo "₱".$price; ?></p>
                             </td>
                             <td>
-                                <p class="mb-5 fs-4"><?php echo $subtotal; ?></p>
+                                <p class="mb-0 fs-4"><?php echo "₱".$addons; ?></p>
+                            </td>
+                            <td>
+                                <p class="mb-5 fs-4"><?php echo "₱".$subtotal; ?></p>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="4"></td>
                             <td>
                                 <div class="text-start">
                                     <p class="mb-0 fs-4">Shipping Fee</p>
@@ -176,60 +179,65 @@
                             </td>
                             <td>
                                 <div>
-                                    <p class="mb-0 fs-4"><?php echo $shipping_fee; ?></p>
+                                    <p class="mb-0 me-4 fs-4 text-end"><?php echo "₱".$shipping_fee; ?></p>
                                 </div>
                                 <div>
-                                    <p class="mb-0 fs-4"><?php echo number_format($subtotal+$shipping_fee,2); ?></p>
+                                    <p class="mb-0 me-4 fs-4 text-end"><?php echo "₱".number_format($subtotal+$shipping_fee,2); ?></p>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5">
-                                <div class="text-start">
-                                    <p class="mb-0 fs-4">uploaded image</p>
+                            <td colspan="6">
+                                <p class="text-start ms-3 fs-4">Uploaded Image</p>
+                                <div class="display-image text-start">
+                                    <img src="<?php echo "../../../".$uploaded_img; ?>" class="img-fluid p-2">
                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <?php if($status == "Pending") { ?>
+                                    <button name="#" class="px-4 py-1 fs-4 my-2 ms-2 border border-dark btn-pink btn-shadow">cancel</button>
+                                <?php 
+                                      }
+                                      elseif($status !== "Pending") {
+                                        if($receipt_status == "uploaded" or $receipt_status == "verified"){
+                                ?>
+                                    <div class="col-9 display-image">
+                                        <p class="text-start ms-3 fs-4">Uploaded Receipt</p>
+                                        <img src="<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
+                                    </div>
+                                    <?php
+                                            if($status == "To ship" or $status == "Order Received"){
+                                                $order_status = ($status == "Order Received") ? "disabled":"";
+                                    ?>
+                                        <div class="text-end">
+                                            <button name="to-complete" class="px-3 py-1 fs-4 my-2 ms-4 border border-dark btn-pink btn-shadow" <?php echo $order_status; ?>>ORDER RECEIVED</button>
+                                        </div>
+                                <?php
+                                            }  
+                                        }
+                                      }
+                                      elseif($receipt_status == "unverified"){
+                                ?>
+                                    <div class="col-9 d-inline-block text-start receipt">
+                                        <input type="file" id="receipt-btn" name="receipt" hidden/>
+                                        <label class="ms-2 px-3 py-1" for="receipt-btn">upload receipt</label>
+                                        <span id="file-chosen">No file chosen</span>
+                                    </div>
+                                    <div class="d-inline-block text-end border-start">
+                                        <button type="submit" name="upload_receipt" class="px-5 py-1 my-2 me-2 fs-4 border border-dark btn-pink btn-shadow">UPLOAD</button>
+                                    </div>
+                                <?php
+                                      }
+                                ?>
+                            </form>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <div class="tmpbox d-flex align-items-center">
-                        <?php
-                            if($status == "Confirmed"){
-                                if($receipt_status == "uploaded"){
-                        ?>
-                        <div class="col-9 display-receipt">
-                            <img src="<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
-                        </div>
-                        <?php
-                                }
-                                elseif($receipt_status == "unverified"){
-                        ?>
-                        <div class="receipt col-9">
-                            <input type="file" id="actual-btn" name="receipt" hidden/>
-                            <label class="ms-2 px-3 py-1" for="actual-btn">upload receipt</label>
-                            <span id="file-chosen">No file chosen</span>
-                        </div>
-                        <div class="col-3 text-end border-start">
-                            <button type="submit" name="upload_receipt" class="px-5 py-1 my-2 me-2 fs-4 border border-dark btn-pink btn-shadow">UPLOAD</button>
-                        <?php 
-                                }
-                            }elseif($status == "Pending"){ 
-                        ?>
-                            <button name="#" class="px-4 py-1 fs-4 my-2 ms-2 border border-dark btn-pink btn-shadow">cancel</button>  
-                        <?php 
-                            }elseif($status == "To ship"){
-                        ?>
-                            <button name="to-complete" class="px-3 py-1 fs-4 my-2 ms-2 border border-dark btn-pink btn-shadow">completed</button>            
-                        <?php
-                            }
-                        ?>
-                        </div>
-                    </div>
-                    <div class="error mb-2 ms-2">
-                        <?php echo $errors['receipt']; ?>
-                    </div>
-                </form>
+                
             </div>
         </div>
         <br>
@@ -238,4 +246,7 @@
         <br>
     </div>
 <script src="../../../assets/javascript/index.js"></script>
+<script>
+    window.onload = upload_receipt();
+</script>
 <?php include('../../../include/footer.php'); ?>

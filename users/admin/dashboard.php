@@ -19,9 +19,7 @@
             unset($_SESSION['product_error']);
         }
     ?>
-    <br>
-    <br>
-    <div class="row gx-3 pb-5 px-4" style="min-height: 800px;">
+    <div class="row gx-3 py-3 px-4" style="min-height: 800px;">
         <div class="col-3 sidebar p-0 me-3">
             <p class="text-center fw-bold fs-2 mt-2">ADMIN</p>
             <br>

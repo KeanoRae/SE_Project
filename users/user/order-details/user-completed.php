@@ -28,7 +28,7 @@
 
                  $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price, od.add_ons, od.add_ons_details
                                 FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
-                                WHERE customer_id=:uid AND o.order_status=5"
+                                WHERE customer_id=:uid AND o.order_status=5 ORDER BY o.id DESC"
                                  );
                  // bind param
                 $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
@@ -72,7 +72,7 @@
                     <hr>
                     <div class="bot">
                         <div class="txt text-end me-3 mb-4">
-                            <p class="fs-5" style="word-spacing:40px;">Total <?php echo "₱".number_format(($row['product_price']*$row['quantity']) + $row['add_ons'], 2);?></p>
+                            <p class="fs-5" style="word-spacing:40px;">Subtotal <?php echo "₱".number_format(($row['product_price']*$row['quantity']) + $row['add_ons'], 2);?></p>
                         </div>
                         <div class="text-end me-3 mb-3">
                             <a href="account-details.php?id=<?php echo $row['id']; ?>" class="px-3 py-1 border text-decoration-none border-dark btn-pink btn-shadow py-2">VIEW DETAILS</a>

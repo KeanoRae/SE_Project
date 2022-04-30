@@ -74,7 +74,7 @@
                     <hr>
                     <div class="bot">
                         <div class="txt text-end me-3 mb-4">
-                            <p class="fs-5" style="word-spacing:40px;">Total <?php echo "₱".number_format(($row['product_price']*$row['quantity']) + $row['add_ons'], 2);?></p>
+                            <p class="fs-5" style="word-spacing:40px;">Subtotal <?php echo "₱".number_format(($row['product_price']*$row['quantity']) + $row['add_ons'], 2);?></p>
                         </div>
                         <div class="text-end me-3 mb-3">
                             <a href="account-details.php?id=<?php echo $row['id']; ?>" class="px-3 py-1 border text-decoration-none border-dark btn-pink btn-shadow py-2">VIEW DETAILS</a>

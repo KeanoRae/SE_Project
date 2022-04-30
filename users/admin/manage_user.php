@@ -3,11 +3,10 @@
     include('../../include/header.php');
     include('../../include/navbar.php');
     include('process/manage_user_process.php');
+    print_r($var);
 ?>
 <div class="container-fluid admin p-0">
-    <br>
-    <br>
-    <div class="row gx-3 pb-5 px-4" style="min-height: 800px;">
+    <div class="row gx-3 py-3 px-4" style="min-height: 800px;">
         <div class="col-3 sidebar p-0 me-3">
             <p class="text-center fw-bold fs-2 mt-2">ADMIN</p>
             <br>
@@ -150,7 +149,7 @@
                             <div class="col-sm-9 d-flex align-items-center">
                                 <div class="row w-100">
                                     <div class="col">
-                                        <input type="text" class="form-control border-dark shadow-none rounded-0" 
+                                        <input type="password" class="form-control border-dark shadow-none rounded-0" 
                                             name="password" value="<?php echo $var['password']; ?>">
                                         <div class="error mb-2">
                                             <?php echo $errors['password']; ?>
@@ -187,7 +186,6 @@
                         </div>
                     </div>
                 </div>
-            </form>
             <p class="fs-2 fw-bold my-3 mx-4">List of Users</p>
             <div class="table-responsive mx-4 mb-4">
                 <table id="user-table" class="table">
@@ -197,6 +195,7 @@
                             <th scope="col" class="fs-4 fw-normal">name</th>
                             <th scope="col" class="fs-4 fw-normal">username</th>
                             <th scope="col" class="fs-4 fw-normal col-2">role</th>
+                            <th>button</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -217,6 +216,8 @@
                             <td><?php echo $row['name']; ?></td>
                             <td><?php echo $row['username']; ?></td>
                             <td><?php echo $row['role']; ?></td>
+                            <td><a href="manage_user_process.php?table_id=<?php echo $row['id']; ?>">submitzz</a></td>
+                            
                         </tr>
                         <?php
                             }
@@ -226,9 +227,10 @@
                     </tbody>
                 </table>
             </div>
+            </form>
         </div>
     </div>
 </div>
-    
 <script src="../../assets/javascript/index.js"></script>
+
 <?php include('../../include/footer.php'); ?>

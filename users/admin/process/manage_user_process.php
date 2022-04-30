@@ -111,6 +111,22 @@
         }
     }
 
+    if(isset($GET['table_id'])){
+        $id = $GET['table_id'];
+        //query
+        $display_sql = $db->prepare("SELECT first_name, last_name, username, password, role FROM user WHERE id=:id");
+        $display_sql->bindParam(':id', $id);
+        $display_sql->execute();
+        $inform=$display_sql->fetch(PDO::FETCH_ASSOC);
+        if($inform){
+            $var['fname'] = $inform['first_name'];
+            $var['lname'] = $inform['last_name'];
+            $var['username'] = $inform['username'];
+            $var['password'] = $inform['password'];
+            $var['role'] = $inform['role'];
+            //header('Location: manage_user.php');
+        }
+    }
     //close connection
     $database->close();
 ?>

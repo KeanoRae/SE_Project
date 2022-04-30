@@ -1,16 +1,5 @@
 <?php 
     session_start();
-    //echo 'email = '.$_SESSION['email'];
-    //echo "<br>";
-    //echo 'id = '.$_SESSION['pid'];
-    //echo "<br>";
-    //echo 'type = '.$_SESSION['user_type'];
-    //if(isset($_SESSION['product_name'])){
-        //echo $_SESSION['product_name'];
-    //}
-    //else{
-        //echo "Not set";
-    //}
     include('../../include/header.php');
     include('../../include/navbar.php');
 ?>
@@ -116,7 +105,7 @@
                     <input type="text" id="display-subtotal" name="subtotal" class="text-center border-0" placeholder="3" value="₱0.00">
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="text-reset text-decoration-none text-center py-1 w-100 mx-5 fs-4 border-0 btn-pink btn-shadow">
+                    <button type="submit" name="checkout" class="text-reset text-decoration-none text-center py-1 w-100 mx-5 fs-4 border-0 btn-pink btn-shadow">
                         CHECK OUT ORDER
                     </button>
                 </div>

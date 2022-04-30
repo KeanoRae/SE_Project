@@ -24,7 +24,7 @@
     //get the image from database
     $get_img = $db->prepare("SELECT img_name, img_path FROM customer_uploads WHERE img_name=:name");
     //bind
-    $get_img->bindParam(':name',$_SESSION['upload_img']);
+    $get_img->bindParam(':name', $_SESSION['upload_img']);
     $get_img->execute();
     $row=$get_img->fetch(PDO::FETCH_ASSOC);
     if($row){

@@ -175,9 +175,8 @@ header .icon1 {
   font-family: sans-serif;
 }
 
-.display-receipt{
-    max-height: auto;
-    max-width: 150px;
+.display-image{
+    width: 200px;
 }
 
 

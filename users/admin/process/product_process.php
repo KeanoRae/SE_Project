@@ -229,7 +229,11 @@
 
                 if($sql2->execute() and unlink($tmp_path.$_SESSION['cover_img'])){
                     //get the id of the new product
-                    $productid = $db->prepare("SELECT id FROM products ORDER BY id DESC LIMIT 1");
+                    $productid_sql = $db->prepare("SELECT id FROM product ORDER BY id DESC LIMIT 1");
+                    $productid_sql->execute();
+                    $get_id = $productid_sql->fetch(PDO::FETCH_ASSOC);
+                    $product_id = $get_id['id'];
+                    //print_r($product_id);
 
                     //query for product image
                     $productimg = $db->prepare("INSERT INTO product_carousel (product_id, carousel_image, carousel_image_path) VALUES (?,?,?)");
@@ -256,7 +260,7 @@
                             $tmp_path = "../../../assets/images/admin_temp_storage/";
 
                             //execute the query
-                            $productimg->execute(array($productid,$value,$product_dbpath));
+                            $productimg->execute(array($product_id,$value,$product_dbpath));
 
                             if(unlink($tmp_path.$value)){
                                 unset($_SESSION['cover_img']);

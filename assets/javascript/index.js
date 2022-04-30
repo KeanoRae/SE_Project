@@ -168,29 +168,35 @@ function edit_info(btn){
     }
     document.getElementById("display-subtotal").value = '₱'+val.toFixed(2);
   }
+
+  //function get_user_id(){
+    //const table_user = document.getElementById("user-table");
+    //for(let i = 0; i < table_user.rows.length; i++){
+      //table_user.rows[i].addEventListener('click', function(){
+        //let id = this.cells[0].innerHTML;
+        //location.href = "../../users/admin/process/manage_user_process.php" + "?table_id=" + id;
+      //});
+    //}
+  //}
+  //window.onload = get_user_id();
     
-  let table = document.getElementById("user-table");
-  for(let i = 0; i < table.rows.length; i++){
-    table.rows[i].addEventListener('click', function(){
-      let fullname = this.cells[1].innerHTML.split(' ');
-      let lname = fullname.pop();
-      let fname = fullname.join(' ');
-      document.getElementById("fname").value = fname;
-      document.getElementById("lname").value = lname;
-      document.getElementById("username").value = this.cells[2].innerHTML;
-      document.getElementById("role").value = this.cells[3].innerHTML;
-    })
-  }
- 
-  
-
-
-
-
-
-
-    //const actualBtn = document.getElementById('actual-btn');
-    //const fileChosen = document.getElementById('file-chosen');
-    //actualBtn.addEventListener('change', function(){
-      //fileChosen.textContent = "receipt_"+this.files[0].name;
+  //const table_user = document.getElementById("user-table");
+  //for(let i = 0; i < table_user.rows.length; i++){
+    //table_user.rows[i].addEventListener('click', function(){
+      //let fullname = this.cells[1].innerHTML.split(' ');
+      //let lname = fullname.pop();
+      //let fname = fullname.join(' ');
+      //document.getElementById("fname").value = fname;
+      //document.getElementById("lname").value = lname;
+      //document.getElementById("username").value = this.cells[2].innerHTML;
+      //document.getElementById("role").value = this.cells[3].innerHTML;
     //});
+  //}
+ 
+  function upload_receipt(){
+    const receiptBtn = document.getElementById('receipt-btn');
+    const fileChosen = document.getElementById('file-chosen');
+    receiptBtn.addEventListener('change', function(){
+      fileChosen.textContent = "receipt_"+this.files[0].name;
+    });
+  }

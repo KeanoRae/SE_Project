@@ -135,7 +135,7 @@
                             <th scope="col">Total Price</th>
                             <th scope="col">Order Status</th>
                             <th scope="col">Receipt Status</th>
-                            <th scope="col">Payment Method</th>
+                            <th scope="col" class="col-3">Payment Method</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -149,11 +149,11 @@
                                 $database = new Connection();
                                 $db = $database->open();
                                 try{	
-                                    $sql = "SELECT CONCAT(u.first_name,' ',u.last_name) AS fullname, product_name, o.id, od.quantity, (od.product_price*od.quantity) as total, os.name, DATE_FORMAT(o.order_date, '%m-%d-%Y') as date
-                                            FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os
-                                            ON o.id=od.order_id AND o.customer_id=u.id AND p.id=od.product_id AND o.order_status=os.id
+                                    $sql = "SELECT CONCAT(u.first_name,' ',u.last_name) AS fullname, product_name, o.id, od.quantity, (od.product_price*od.quantity) as total, os.name, pm.payment_type, pm.receipt_status, DATE_FORMAT(o.order_date, '%m-%d-%Y') as date
+                                            FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os JOIN payment pm
+                                            ON o.id=od.order_id AND o.customer_id=u.id AND p.id=od.product_id AND o.order_status=os.id AND od.id = pm.order_details_id
                                             WHERE o.order_status=5
-                                            ORDER BY o.id";
+                                            ORDER BY pm.receipt_status DESC, o.id DESC";
                                     foreach ($db->query($sql) as $row) {  
                             ?>
                             <tr style="background: rgba(196, 196, 196, 0.28);">
@@ -165,8 +165,8 @@
                                 <td><?php echo $row['quantity']; ?></td>
                                 <td><?php echo $row['total']; ?></td>
                                 <td><?php echo $row['name'] ?></td>
-                                <td></td>
-                                <td>Gcash</td>
+                                <td><?php echo $row['receipt_status'] ?></td>
+                                <td><?php echo $row['payment_type'] ?></td>
                                 <td>
                                     <a href="orderdetails.php?vieworder=<?php echo $row['id']; ?>" 
                                         class="text-reset text-decoration-none px-2 py-1 border border-dark btn-pink btn-shadow">
