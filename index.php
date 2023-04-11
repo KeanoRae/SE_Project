@@ -6,6 +6,9 @@ session_start();
     elseif(isset($_SESSION['user_type']) and $_SESSION['user_type']=='admin'){
         header('Location: users/admin/dashboard.php');
     }
+    elseif(isset($_SESSION['user_type']) and $_SESSION['user_type']=='staff'){
+        header('Location: users/staff/dashboard.php');
+    }
     else{
 ?>
 <!DOCTYPE html>
