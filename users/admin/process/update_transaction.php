@@ -1,5 +1,9 @@
 <?php
     include_once('../../../include/database.php');
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    require '../../../include/vendor/autoload.php';
+
     $database = new Connection();
     $db = $database->open();
 
@@ -14,7 +18,52 @@
                 $sql->bindParam(':id', $getid);
                 $sql->bindParam(':status', $status);
                 if($sql->execute()){
+                    try {
+                        $mail = new PHPMailer(true);
+                        $mail->isSMTP();                    
+                        $mail->Host = 'smtp.gmail.com';     
+                        $mail->SMTPAuth = true;             
+                        $mail->Username = 'njglasspainting@gmail.com'; 
+                        $mail->Password = 'zlpysoueottecbjd';
+                        $mail->SMTPSecure = 'ssl';          
+                        $mail->Port = 465;                  
+                        
+                        // Sender info 
+                        $mail->setFrom('njglasspainting@gmail.com', 'NJ Glass Painting'); 
+                        
+                        // Add a recipient 
+                        $mail->addAddress($_SESSION['confirm_email']); 
+                        
+                        // Set email format to HTML 
+                        $mail->isHTML(true); 
+                        
+                        // Mail subject 
+                        $mail->Subject = 'Order Confirmation FROM NJ Customized Glass Painting'; 
+                        
+                        // Mail body content 
+                        $bodyContent = 'Thank you for purchasing!'."<br><br>";
+                        $bodyContent .= 'Your order was confirmed by the seller, please upload your payment proof by click the link below:.'."<br><br>";
+                        $bodyContent .= "
+                                        <div style='margin: 10px 0;'>
+                                            <a href='http://localhost/SE_project/users/user/order-details/user-to-pay.php'></a>
+                                        </div>
+                                        "."<br>";
+                        $bodyContent .= 'Please note that this link will expire in 48 hours.';
+                        $mail->Body    = $bodyContent; 
+                        $mail->AltBody = strip_tags($bodyContent);
+                        
+                        //Send email 
+                        if(!$mail->send()) { 
+                            echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo; 
+                        } else { 
+                            echo 'Message has been sent.'; 
+                        } 
+                    } 
+                    catch (Exception $e) {
+                        $_SESSION['mail_err'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }
                     header('Location: ../admin-transaction/confirmed.php');
+                    unset($_SESSION['confirm_email']);
                 }
             }
             catch(PDOException $e){

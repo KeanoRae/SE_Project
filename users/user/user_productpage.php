@@ -113,8 +113,17 @@
                 <div class="col-10 border border-dark mx-auto">
                     <p class="mb-0 py-2 text-center fs-3">PRODUCT DETAILS</p>
                     <hr class="my-0">
-                    <div class="d-flex justify-content-between">
-                        <textarea name="productdetails" class="form-control border-0 fs-5" style="resize:none" rows="3" readonly><?php echo $product_details; ?></textarea>
+                    <div class="row">
+                        <div class="col ms-3 fs-5">
+                            <p class="my-0">Glass Size:</p>
+                            <p class="my-0">Material:</p>
+                            <p class="my-0">Medium</p>
+                        </div>
+                        <div class="col fs-5">
+                            <p class="m-0 text-start"><?php echo$material; ?>
+                            <p class="m-0 text-start"><?php echo$medium; ?>
+                            <p class="m-0 text-start"><?php echo$size; ?>
+                        </div>
                     </div>
                     <hr class="my-0">
                     <p class="mb-0 py-2 text-center fs-3">PRICE</p>

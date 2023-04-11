@@ -21,6 +21,7 @@
                     $name = $row['name'];
                     $num = $row['phone_number'];
                     $email = $row['email'];
+                    $_SESSION['confirm_email'] = $row['email'];
                     $addr = $row['address'];
                     $shipping_fee = $row['shipping_fee'];
                     $ship_method = $row['shipping_method'];
