@@ -1,11 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="../../../assets/css/css/all.css">
+    <link rel="stylesheet" href="../../../assets/css/styles.css">
+
+    <title>NJ Customized Glass Painting</title>
+</head>
+<body>
+    <!--navbar-->
+    <nav>
+        <input type="checkbox" id="navbar-check">
+        <label for="navbar-check" class="check-icon">
+            <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+            <li class="nav-item">
+                <a class="nav-link" href="../trackorders.php">order status</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="../../../logout.php">log out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--header-->
+    <header>
+        <div class="row">
+            <div class="col">
+                <div class="header-logo">
+                    <a href="../user_homepage.php"><img src="../../../assets/images/header-logo1.png" alt="" class="img-fluid"></a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="search-box d-flex mt-3 float-end">
+                    <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span>
+                    <div class="icons mx-4">
+                        <a class="text-reset" href="user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
+                        <a class="text-reset" href="../cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 <?php 
     session_start();
-    //echo 'user type = '.$_SESSION['user_type'];
-    include('../../../include/header.php');
-    include('../../../include/navbar.php');
     include('../process/account_process.php');
 ?>
 
+    <!--content-->
     <div class="container-fluid p-0">
         <p class="header fs-2 fw-bold mt-5 mb-0 mx-5 mb-3">Order History</p>
         <div class="detail-container mx-auto">
@@ -48,7 +95,7 @@
                         elseif($status == "On Process"){
                             echo "ON-PROCESS";
                         }
-                        elseif($status == "To ship"){
+                        elseif($status == "To ship" OR $status == "Order Received"){
                             echo "TO SHIP";
                         }
                         elseif($status == "Cancelled"){
@@ -147,25 +194,47 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        include_once('../../../include/database.php');
+                        $database = new Connection();
+                        $db = $database->open();
+                        $counter = 1;
+                        $order_sum = 0;
+
+                        $sql = $db->prepare("SELECT p.product_name, od.quantity, od.product_price, od.add_ons, (od.quantity*od.product_price)+od.add_ons AS subtotal,
+                                             od.uploaded_image FROM product p JOIN orders o JOIN order_details od WHERE od.order_id=o.id AND 
+                                             od.product_id=p.id AND o.id=:id");
+
+                        //bind Param
+                        $sql->bindParam(':id', $id);
+                        $sql->execute();
+                        while($row=$sql->fetch(PDO::FETCH_ASSOC)){ 
+                    ?>
                         <tr>
                             <td>
-                                <p class="mb-0 fs-4">1</p>
+                                <p class="mb-0 fs-4"><?php echo $counter; ?></p>
                             </td>
                             <td>
-                                <p class="mb-0 fs-4 text-start"><?php echo $productname; ?></p>
+                                <p class="mb-0 fs-4 text-start"><?php echo $row['product_name']; ?></p>
                             </td>
                             <td>
-                                <p class="mb-0 fs-4"><?php echo $quantity; ?></p>
+                                <p class="mb-0 fs-4"><?php echo $row['quantity']; ?></p>
                             </td>
                             <td>
-                                <p class="mb-0 fs-4"><?php echo "₱".$price; ?></p>
+                                <p class="mb-0 fs-4"><?php echo "₱".$row['product_price']; ?></p>
                             </td>
                             <td>
-                                <p class="mb-0 fs-4"><?php echo "₱".$addons; ?></p>
+                                <p class="mb-0 fs-4"><?php echo "₱".$row['add_ons']; ?></p>
                             </td>
                             <td>
-                                <p class="mb-5 fs-4"><?php echo "₱".$subtotal; ?></p>
+                                <p class="mb-5 fs-4"><?php echo "₱".$row['subtotal']; ?></p>
                             </td>
+                        <?php
+                            $counter++;
+                            $order_sum += $row['subtotal'];
+                            $img_path[] = $row['uploaded_image'];
+                        }
+                        ?>
                         </tr>
                         <tr>
                             <td colspan="4"></td>
@@ -182,23 +251,53 @@
                                     <p class="mb-0 me-4 fs-4 text-end"><?php echo "₱".$shipping_fee; ?></p>
                                 </div>
                                 <div>
-                                    <p class="mb-0 me-4 fs-4 text-end"><?php echo "₱".number_format($subtotal+$shipping_fee,2); ?></p>
+                                    <p class="mb-0 me-4 fs-4 text-end"><?php echo "₱".number_format($order_sum+$shipping_fee,2); ?></p>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="6">
                                 <p class="text-start ms-3 fs-4">Uploaded Image</p>
-                                <div class="display-image text-start">
-                                    <img src="<?php echo "../../../".$uploaded_img; ?>" class="img-fluid p-2">
+                                <div class="display-image d-flex">
+                                    <?php
+                                        foreach($img_path as $val){
+                                    ?>
+                                    <img src="<?php echo "../../../".$val; ?>" class="img-fluid p-2">
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="6">
                             <form action="" method="POST" enctype="multipart/form-data">
-                                <?php if($status == "Pending") { ?>
-                                    <button name="#" class="px-4 py-1 fs-4 my-2 ms-2 border border-dark btn-pink btn-shadow">cancel</button>
+                                <?php
+                                    if($status == "Cancelled"){
+                                        echo "";
+                                ?>
+                                <?php }
+                                    elseif($status == "Pending"){ 
+                                ?>
+                                    <!--Cancel Button for Pending Status-->
+                                    <div class="text-start float-end">
+                                        <button type="button" class="px-5 py-2 fs-3 my-2 ms-2 border border-dark btn-pink btn-shadow" data-bs-toggle="modal" data-bs-target="#cancelbtn">cancel</button>
+                                    </div>
+                                    <!--Modal for Cancel Button-->
+                                    <div class="modal fade" id="cancelbtn" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cancelbtnLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <input type="text" name="modal_id" value="<?php echo $row['id']; ?>" hidden>
+                                                    <p class="fs-4 text-center">Do you wish to cancel your order?</p>
+                                                    <div class="d-grid col-3 mx-auto mb-3">
+                                                        <button type="submit" name="cancel_btn" class="d-block btn btn-dark btn-shadow mb-3">Confirm</button>
+                                                        <button type="button" class="btn btn-light btn-shadow" data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php 
                                       }
                                       elseif($status !== "Pending") {
@@ -210,16 +309,14 @@
                                     </div>
                                     <?php
                                             if($status == "To ship" or $status == "Order Received"){
-                                                $order_status = ($status == "Order Received") ? "disabled":"";
                                     ?>
                                         <div class="text-end">
-                                            <button name="to-complete" class="px-3 py-1 fs-4 my-2 ms-4 border border-dark btn-pink btn-shadow" <?php echo $order_status; ?>>ORDER RECEIVED</button>
+                                            <button name="to-complete" class="px-3 py-1 fs-4 my-2 ms-4 border border-dark btn-pink btn-shadow">ORDER RECEIVED</button>
                                         </div>
                                 <?php
                                             }  
                                         }
-                                      }
-                                      elseif($receipt_status == "unverified"){
+                                        elseif($receipt_status == "unverified"){
                                 ?>
                                     <div class="col-9 d-inline-block text-start receipt">
                                         <input type="file" id="receipt-btn" name="receipt" hidden/>
@@ -231,6 +328,7 @@
                                     </div>
                                 <?php
                                       }
+                                    }
                                 ?>
                             </form>
                             </td>

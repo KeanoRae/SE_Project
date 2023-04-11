@@ -11,10 +11,59 @@
     //else{
         //echo "Not set";
     //}
-    include('../../include/header.php');
-    include('../../include/navbar.php');
     include('process/payment_process.php');
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="../../assets/css/css/all.css">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+
+    <title>NJ Customized Glass Painting</title>
+</head>
+<body>
+    <!--navbar-->
+    <nav>
+        <input type="checkbox" id="navbar-check">
+        <label for="navbar-check" class="check-icon">
+            <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+            <li class="nav-item">
+                <a class="nav-link" href="trackorders.php">order status</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="../../logout.php">log out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--header-->
+    <header>
+        <div class="row">
+            <div class="col">
+                <div class="header-logo">
+                    <a href="user_homepage.php"><img src="../../assets/images/header-logo1.png" alt="" class="img-fluid"></a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="search-box d-flex mt-3 float-end">
+                    <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span>
+                    <div class="icons mx-4">
+                        <a class="text-reset" href="order-details/user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
+                        <a class="text-reset" href="cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--content-->
     <div class="container-fluid payment p-0">
         <?php
             if(isset($_SESSION['msg']) && $_SESSION['msg'] !=''){
@@ -33,9 +82,9 @@
             }
         ?>
         <div class="header">
-            <a class="d-inline fw-normal fs-4 text-decoration-none text-reset" href="#">cart</a>
+            <a class="d-inline fw-normal fs-4 text-decoration-none text-reset" href="cart.php">cart</a>
             <p class="d-inline fw-normal fs-4">></p>
-            <p class="d-inline fw-normal fs-4">shipping</p>
+            <a class="d-inline fw-normal fs-4 text-decoration-none text-reset" href="shipping_info.php">shipping</a>
             <p class="d-inline fw-normal fs-4">></p>
             <p class="d-inline fw-bolder fs-4">payment</p>
         </div>
@@ -51,6 +100,7 @@
             if($display=$sql->fetch(PDO::FETCH_ASSOC)){
                 $fullname = $display['first_name']." ".$display['last_name'];
         ?>
+        <!--form content-->
         <form class="payment-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" autocomplete="off">
             <div class="row">
                 <div class="col">
@@ -127,22 +177,44 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="displaytotal border border-dark mx-5">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                    <!--display container-->
+                    <div class="displaytotal border border-dark mx-5 mb-5">
+                        <?php
+                            if(isset($_SESSION['cart_checkout_id'])){
+                                include_once('../../include/database.php');
+                                $database = new Connection();
+                                $db = $database->open();
+                                $checkout_id = $_SESSION['cart_checkout_id'];
+                                $sum = 0;
+
+                                try{
+                                    $sql = $db->prepare("SELECT c.product_name, c.quantity, c.subtotal, cu.img_path  FROM cart c JOIN cart_uploads cu 
+                                                        WHERE c.id IN($checkout_id) AND c.id=cu.cart_id");
+                                    $sql->execute();
+                                    while($row=$sql->fetch(PDO::FETCH_ASSOC)){
+                                        $sum += $row['subtotal'];
+                        ?>
+                        <div class="display-content-container mx-3 py-3">
+                            <div class="display-content d-flex justify-content-between py-3">
+                                <div class="d-flex">
+                                    <div class="img-container me-3">
+                                        <img src="<?php echo "../../".$row['img_path']; ?>" class="" alt="">
+                                    </div>
+                                    <p class="fs-3"><?php echo $row['product_name']; ?></p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="fs-3 me-5"><?php echo $row['quantity']; ?></p>
+                                    <p class="fs-3 ms-5"><?php echo "₱".$row['subtotal']; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                            <?php
+                                    }
+                            ?>
                         <hr class="mx-3">
                         <div class="d-flex justify-content-between mx-4">
-                            <p class="mb-2">Subtotal</p>
-                            <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                            <p>Subtotal</p>
+                            <p><?php echo "₱".number_format(($sum),2); ?></p>
                         </div>
                         <div class="d-flex justify-content-between mx-4">
                             <p class="mb-2">Shipping Fee</p>
@@ -151,19 +223,55 @@
                         <hr class="mx-3">
                         <div class="d-flex justify-content-between mx-4">
                             <p class="mb-2">Total</p>
-                            <p><?php echo "₱".number_format($_SESSION['subtotal']+$_SESSION['shipping_fee'],2); ?></p>
+                            <p><?php echo "₱".number_format($sum+$_SESSION['shipping_fee'],2); ?></p>
                         </div>
                         <br>
-                    </div>
-                    <br>
-                    <div class="checkout d-grid mx-5">
-                        <button type="submit" name="submit" class="btn-pink btn-shadow btn btn-lg active py-2 border-0 fw-normal">PLACE ORDER</button>
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                        <?php             
+                                }
+                                catch(PDOException $e){
+                                    $_SESSION['msg'] = $e->getMessage();
+                                }
+                            }
+                            elseif(isset($_SESSION['buynow_id'])){
+                        ?>          
+                        <div class="display-content-container mx-3 py-3">
+                                <div class="display-content d-flex justify-content-between py-3">
+                                    <div class="d-flex">
+                                        <div class="img-container me-3">
+                                            <img src="<?php echo "../../".$_SESSION['img_path']; ?>"  alt="">
+                                        </div>
+                                        <p class="fs-3"><?php echo $_SESSION['product_name']; ?></p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="fs-3 me-5"><?php echo $_SESSION['qty']; ?></p>
+                                        <p class="fs-3 ms-5"><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mx-3">
+                            <div class="d-flex justify-content-between mx-4">
+                                <p>Subtotal</p>
+                                <p><?php echo "₱".$_SESSION['subtotal']; ?></p>
+                            </div>
+                            <div class="d-flex justify-content-between mx-4">
+                                <p class="mb-2">Shipping Fee</p>
+                                <p><?php echo "₱".number_format(($_SESSION['shipping_fee']),2); ?></p>
+                            </div>
+                            <hr class="mx-3">
+                            <div class="d-flex justify-content-between mx-4">
+                                <p class="mb-2">Total</p>
+                                <p><?php echo "₱".number_format($_SESSION['subtotal']+$_SESSION['shipping_fee'],2); ?></p>
+                            </div>
+                            <br>
+                        </div>
+                        <br>
+                        <?php
+                            }
+                        ?>
+                </div>
+                <!--place order button-->
+                <div class="checkout d-grid mx-5 ">
+                    <button type="submit" name="submit" class="btn-pink btn-shadow btn btn-lg active py-2 border-0 fw-normal">PLACE ORDER</button>
                 </div>
             </div>
         </form>

@@ -1,5 +1,5 @@
     <footer>
-        <div class="row">
+        <div class="row d-print-none">
             <div class="col d-flex flex-column">
                 <a class="text-decoration-none text-reset mt-3" href="contact.php">Contact</a>
                 <a class="text-decoration-none text-reset" href="about.php">About</a>

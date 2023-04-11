@@ -6,8 +6,8 @@
     $errors=array("price" => "", "upload" => "");
 	$var=array("price" => "", "qty" => "");
 
-    if(isset($_GET['shopnowid'])){
-        $id = $_GET['shopnowid'];
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
 
         try{
             $sql = $db->prepare("SELECT product_name, product_details, 1ch_price, 2ch_price, add_char, add_dedication FROM product
@@ -58,10 +58,10 @@
             $_SESSION['addons_price'] = $_POST['addons-price'];
             $_SESSION['addons_name'] = $_POST['addons-name'];
 			$_SESSION['subtotal'] = $_POST['subtotal'];
-            $_SESSION['product_id'] = $id;
+            $_SESSION['buynow_id'] = $id;
 
             //query to insert the uploaded image too database
-            $insert_img = $db->prepare("INSERT INTO customer_uploads (img_name, img_path) VALUES (?,?)");
+            $insert_img = $db->prepare("INSERT INTO orders_uploads (img_name, img_path) VALUES (?,?)");
 
                 //check if the file has image extension
                 if(in_array($img_ext,$extension)){
@@ -70,7 +70,7 @@
                         //check for size limit
                         if($_FILES['upload']['size'] <= 10 * 1024 * 1024){
                             //create unique id for file name
-                            $newname = uniqid("",true).".".$img_ext;
+                            $newname = uniqid().".".$img_ext;
                             //temporary path
                             $upload_path = 'assets/images/customer_temp_storage/'.$newname;
                             //check if the file was moved from the temporary path to new path
@@ -104,7 +104,6 @@
 	}
 
     elseif(isset($_POST['cart_btn'])){
-		//$productid;
 
         if(empty($_POST['baseprice'])){
             $errors['price'] = "*Please select 1 button";
@@ -114,6 +113,16 @@
         }
         if(isset($_POST['qtybox'])){
             $var['qty'] = $_POST['qtybox'];
+        }
+
+        //get the extension of the image
+        $get_ext = explode(".",$_FILES['upload']['name']);
+        $img_ext = end($get_ext);
+        $extension = array("jpg", "jpeg", "png");
+
+        //display an error if no image file is chosen
+        if(empty($_FILES['upload']['name'])){
+            $errors['upload'] = "Upload image is required";
         }
 
         if(!empty($var['price'])){
@@ -126,21 +135,67 @@
             $insertsql = $db->prepare("INSERT INTO cart (customer_id, product_id, product_name, product_price, quantity, add_ons, subtotal)
                                 VALUES (:uid, :pid, :productname, :price, :quantity, :addons, :subtotal)");
                 
-                //bind
-                $insertsql->bindParam(':uid', $_SESSION['pid']);
-                $insertsql->bindParam(':pid', $id);
-                $insertsql->bindParam(':productname', $product_name);
-                $insertsql->bindParam(':price', $selectedprice);
-                $insertsql->bindParam(':quantity', $qty);
-                $insertsql->bindParam(':addons', $_POST['addons-price']);
-                $insertsql->bindParam(':subtotal', $subtotal);
+            //bind
+            $insertsql->bindParam(':uid', $_SESSION['pid']);
+            $insertsql->bindParam(':pid', $id);
+            $insertsql->bindParam(':productname', $product_name);
+            $insertsql->bindParam(':price', $selectedprice);
+            $insertsql->bindParam(':quantity', $qty);
+            $insertsql->bindParam(':addons', $_POST['addons-price']);
+            $insertsql->bindParam(':subtotal', $subtotal);
+            $insertsql->execute();
 
-                if($insertsql->execute()){
-                    header('Location: cart.php');
-                }
-                else{
-                    $_SESSION['msg'] = "Something wrong happened";
+            if($insertsql){
+                //get the id of the new cart item
+                $get_id = $db->prepare("SELECT id FROM cart ORDER BY id DESC LIMIT 1");
+                $get_id->execute();
+                $id = $get_id->fetch(PDO::FETCH_ASSOC);
+                $cart_id = $id['id'];
+
+                //query to insert the uploaded image too database
+                $insert_img = $db->prepare("INSERT INTO cart_uploads (cart_id, img_name, img_path) VALUES (?,?,?)");
+
+                //check if the file has image extension
+                if(in_array($img_ext,$extension)){
+                    //check for error
+                    if($_FILES['upload']['error'] === 0){
+                        //check for size limit
+                        if($_FILES['upload']['size'] <= 10 * 1024 * 1024){
+                            //create unique id for file name
+                            $random_id = uniqid();
+                            $newname = $random_id.".".$img_ext;
+                            // $newname = uniqid("",true).$img_ext;
+                            //temporary path
+                            $upload_path = 'assets/images/customer_cart_storage/'.$newname;
+                            //check if the file was moved from the temporary path to new path
+                            if(move_uploaded_file($_FILES['upload']['tmp_name'], "../../".$upload_path)){
+                                $_SESSION['upload_img'] = $newname;
+                                //execute the query
+                                $insert_img->execute(array($cart_id,$newname,$upload_path));
+                                if($insert_img){
+                                    header('Location: cart.php');
+                                }
+                                else{
+                                    $_SESSION['msg'] = "Something wrong happened";
+                                    $errors['upload'] = "Upload failed. Please try again.";
+                                }
+                            } 
+                            else{
+                                $errors['upload'] = "Upload failed. Please try again.";
+                            }
+                        } 
+                        else{
+                            $errors['upload'] = "File size exceeded! Maximum size is 10mb only.";
+                        }
+                    } 
+                    else{
+                        $errors['upload'] = "Error ".$_FILES['upload']['error']." has occured.";
+                    }
                 } 
+                else{
+                    $errors['upload'] = "File extension not applicable. Please upload image files only.";
+                }
+            }
         }
 	}
 

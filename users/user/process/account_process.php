@@ -8,9 +8,9 @@
 
         $sql = $db->prepare("SELECT o.id, DATE_FORMAT(o.order_date, '%m/%d/%Y %H:%i:%s') as date, o.receiver_name, u.phone_number, 
                             u.email, CONCAT(o.shipping_address,', ',o.shipping_city) AS address, o.shipping_fee, o.shipping_method, o.message, p.product_name,
-                            od.quantity, od.product_price, od.add_ons, od.uploaded_image, ((od.quantity*od.product_price)+od.add_ons) AS subtotal, os.name AS status, pm.receipt_status, pm.uploaded_receipt
-                            FROM orders o JOIN user u JOIN product p JOIN order_details od JOIN order_status os JOIN payment pm
-                            ON o.customer_id=u.id AND o.id=od.order_id AND p.id=od.product_id AND o.id=od.order_id AND os.id=o.order_status AND pm.order_details_id=od.id
+                            os.name AS status, pm.receipt_status, pm.uploaded_receipt
+                            FROM orders o JOIN user u JOIN product p JOIN order_status os JOIN payment pm
+                            ON o.customer_id=u.id AND os.id=o.order_status
                             WHERE o.id=:id");
             //bind
             $sql->bindParam(':id', $id);
@@ -24,12 +24,6 @@
                 $shipping_fee = $row['shipping_fee'];
                 $ship_method = $row['shipping_method'];
                 $message = $row['message'];
-                $productname = $row['product_name'];
-                $quantity = $row['quantity'];
-                $price = $row['product_price'];
-                $addons = $row['add_ons'];
-                $uploaded_img = $row['uploaded_image'];
-                $subtotal = $row['subtotal'];
                 $status = $row['status'];
                 $receipt_status = $row['receipt_status'];
                 $receipt = $row['uploaded_receipt'];
@@ -102,16 +96,31 @@
         }
     }
 
-    if(isset($_POST['to-complete'])){
-        $getid = $_GET['id'];
-        $new_status = 8;
+    if(isset($_POST['cancel_btn'])){
+        $getid = $_POST['modal_id'];
+        //status for cancel
+        $new_status = 3;
 
         $sql = $db->prepare("UPDATE orders SET order_status=:status WHERE id=:id");
         //bind
         $sql->bindParam(':id', $getid);
         $sql->bindParam(':status', $new_status);
         if($sql->execute()){
-            header('Location: user-ship.php');
+            header('Location: user-cancelled.php');
+        }
+    }
+
+    if(isset($_POST['to-complete'])){
+        $getid = $_GET['id'];
+        //status for complete
+        $new_status = 5;
+
+        $sql = $db->prepare("UPDATE orders SET order_status=:status WHERE id=:id");
+        //bind
+        $sql->bindParam(':id', $getid);
+        $sql->bindParam(':status', $new_status);
+        if($sql->execute()){
+            header('Location: user-completed.php');
         }
     }
 

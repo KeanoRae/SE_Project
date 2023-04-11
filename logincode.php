@@ -31,7 +31,7 @@
 								header('Location: users/admin/dashboard.php');
 							}
 							else{
-								$_SESSION['errormsg'] = "invalid password";
+								$_SESSION['errormsg'] = "invalid username or password";
 								header('Location: login.php');
 							}
 						}
@@ -49,7 +49,7 @@
 								}
 							}
 							else{
-								$_SESSION['errormsg'] = "invalid password";
+								$_SESSION['errormsg'] = "invalid username or password";
 								header('Location: login.php');
 							}
 						}
@@ -62,17 +62,17 @@
 						}	
 					}
 					else{
-						$_SESSION['errormsg'] = "invalid username or email";
+						$_SESSION['errormsg'] = "invalid username or password";
 						header('Location: login.php');
 					}
 				}
 				else{
-					$_SESSION['errormsg'] = "invalid email or password";
+					$_SESSION['errormsg'] = "invalid username or password";
 					header('Location: login.php');
 				}		
 			}
 			else{
-				$_SESSION['errormsg'] = "An error has occured";
+				$_SESSION['errormsg'] = "invalid username or password";
 				header('Location: login.php');
 			}
 		}

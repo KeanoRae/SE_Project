@@ -13,6 +13,13 @@ body {
     color: red;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
 
 
 /*----------------------------------------------Buttons------------------------------------------------- */
@@ -80,20 +87,49 @@ button[disabled] {
 
 
 /*-----------------------------------------------Navbar-------------------------------------------------- */
-.navbar, header {
+nav, header {
     background-color: #FFF1E6 !important;
     padding: 0;
 }
 
-.navbar li a {
-    color: #000;
+nav {
+    height: 50px;
+}
+
+nav #navbar-check {
+    position: absolute;
+    z-index: 2;
+    display: none;
+}
+
+nav ul {
+    text-decoration: none;
+    float: right;
+    margin-bottom: 0;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: #000 !important;
     font-weight: bold;
     font-size: 20px;
     padding: 0;
     padding-top: 10px;
 }
 
+.check-icon {
+    position: relative;
+    z-index: 2;
+    font-size: 36px;
+    display: none;
+}
+
 .header-logo img {
+    position: relative;
+    z-index: 1;
     transform: translateY(-25px);
 }
 
@@ -181,20 +217,14 @@ header .icon1 {
 
 
 /*----------------------------------------------Homepage------------------------------------------------- */
-.homepage .hp-container {
-    height: 500px;
-}
-
 .homepage .hp-container img {
-    width: 100vw;
-    height: 350px;
-
+    min-width: 100%;
 }
 
 .homepage .content .btn {
-    background: #EEDDD3 !important;
-    color: #000 !important;
-    border-color: #EEDDD3 !important;
+    background: #EEDDD3;
+    color: #000;
+    border-color: #EEDDD3;
     border-radius: 60px;
     font-weight: bolder;
     font-size: 36px;
@@ -406,15 +436,27 @@ input:-webkit-autofill:active {
 
 .displaytotal {
     border-radius: 20px;
+    max-height: 700px;
+}
+
+.displaytotal .display-content-container{
+    overflow: hidden;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.displaytotal .img-container {
+    width: 120px;
+    height: 100px;
+}
+
+.displaytotal .img-container img {
+    height: 100%;
+    width: 100%;
 }
 
 .shipping-info .checkout {
     margin-bottom: 120px;
-}
-
-.shipping-info .box {
-    width: 100px;
-    height: 88px;
 }
 
 /*-----------------------------------------------Payment-------------------------------------------------- */
@@ -437,9 +479,14 @@ input:-webkit-autofill:active {
 
 
 /*-------------------------------------------------Cart---------------------------------------------------- */
-.cart .box1 {
-    height: 124px;
-    width: 112px;
+.cart .box{
+    height: 120px;
+    width: 120px;
+}
+
+.cart .box img {
+    height: 100%;
+    width: 100%;
 }
 
 .cart .box2 {
@@ -513,7 +560,7 @@ input:-webkit-autofill:active {
 }
 
 .modal-product {
-    height: 100px;
+    height: 120px;
     overflow: hidden;
     overflow: auto;
     overflow-x: hidden;
@@ -522,4 +569,66 @@ input:-webkit-autofill:active {
 
 .modal-product2 {
     background-color: rgba(209, 209, 209, 0.26);
+}
+
+#admin-table tbody{
+    cursor: pointer;
+}
+
+
+
+
+/* customize the format in print and pdf view*/
+@media print{
+    body * {
+        visibility: hidden;
+    }
+    #print-container, #print-container * {
+        visibility: visible;
+    }
+    #print-container #print-col p {
+        font-size: 2px;
+    }
+}
+
+@media only screen and (max-width: 1032px){
+    header .iconify {
+        font-size: 36px;
+    }
+
+    header .icon1 {
+        margin-right: auto;
+    }
+
+    .search-box {
+        margin-bottom: 20px;
+    }
+
+    nav {
+        height: 50px;
+    }
+
+    nav ul li a {
+        font-size: 18px;
+    }
+
+    .search-box input, .search-box span {
+        height: 40px;
+        font-size: 16px;
+    }
+
+}
+
+@media only screen and (max-width: 720px){
+    .homepage .content .btn {
+        background: #F6BA8C;
+        color: #000;
+        border-color: #EEDDD3;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 50px;
+        font-weight: bolder;
+        font-size: 24px;
+        margin-top: 25px;
+        padding: 5px 15px;
+    }
 }

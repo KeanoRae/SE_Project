@@ -134,9 +134,9 @@
                         $mail->Host = 'smtp.gmail.com';     
                         $mail->SMTPAuth = true;             
                         $mail->Username = 'njglasspainting@gmail.com'; 
-                        $mail->Password = 'clientpw';
-                        $mail->SMTPSecure = 'tls';          
-                        $mail->Port = 587;                  
+                        $mail->Password = 'zlpysoueottecbjd';
+                        $mail->SMTPSecure = 'ssl';          
+                        $mail->Port = 465;                  
                         
                         // Sender info 
                         $mail->setFrom('njglasspainting@gmail.com', 'NJ Glass Painting'); 

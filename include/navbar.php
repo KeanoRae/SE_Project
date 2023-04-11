@@ -1,5 +1,5 @@
     <!--navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
         <div class="collapse navbar-collapse d-inline-block">
             <ul class="navbar-nav ms-auto">
             <?php 
@@ -63,11 +63,11 @@
         if(isset($_SESSION['user_type']) and $_SESSION['user_type'] == "customer"){
     ?>
     <!--For User-->
-    <header>
+    <header class="d-print-none">
         <div class="row">
         <?php if(basename(getcwd())=="order-details"){ ?>
             <div class="col">
-                <div class="header-logo">
+                <div class="header-logo d-print-none">
                     <a href="../user_homepage.php"><img src="../../../assets/images/header-logo1.png" alt=""></a>
                 </div>
             </div>
@@ -107,7 +107,7 @@
     ?>
     <!--For Admin and Staff-->
     <header>
-        <div class="row">
+        <div class="row d-print-none">
             <div class="col">
                 <div class="header-logo">
                     <?php if(basename(getcwd())=="admin-product" or basename(getcwd())=="admin-transaction" or
@@ -127,7 +127,7 @@
     <!--/For Admin-->
     <!--For Default User-->
     <header>
-        <div class="row">
+        <div class="row d-print-none">
             <div class="col">
                 <div class="header-logo">
                     <a href="index.php"><img src="assets/images/header-logo1.png" alt=""></a>

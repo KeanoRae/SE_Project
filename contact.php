@@ -1,9 +1,11 @@
-<?php
+<?php 
     session_start();
-    include('include/header.php');
-    include('include/navbar.php');
+    include('../../include/header.php');
+    include('../../include/navbar.php');
+    include('process/manage_user_process.php');
 ?>
 
+    <!--content-->
     <div class="container-fluid contact p-0">
         <p class="header text-center mt-4">Contact Info</p>
         <br>
