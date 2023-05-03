@@ -44,8 +44,8 @@
             </div>
             <div class="col-9">
                 <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
+                    <!-- <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span> -->
                     <div class="icons mx-4">
                         <a class="text-reset" href="order-details/user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
                         <a class="text-reset" href="cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>

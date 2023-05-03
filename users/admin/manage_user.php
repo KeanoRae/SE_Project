@@ -162,7 +162,6 @@
                         <div class="col-6">
                             <div class="d-grid col-3">
                                 <button type="submit" name="save"  class="fs-4 mb-3 border border-dark btn-pink btn-shadow">SAVE</button>
-                                <button type="submit" name="update"  class="fs-4 mb-3 border border-dark btn-pink btn-shadow">UPDATE</button>
                                 <button type="submit" name="delete"  class="fs-4 mb-3 border border-dark btn-pink btn-shadow">DELETE</button>
                                 <button type="button" name="clear" id="clear"  class="fs-4 mb-3 border border-dark btn-pink btn-shadow">CLEAR</button>
                             </div>

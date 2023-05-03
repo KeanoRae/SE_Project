@@ -40,20 +40,6 @@
 
     <!--content-->
     <div class="container-fluid admin p-0">
-        <?php
-            if(isset($_SESSION['upload_err']) and $_SESSION['upload_err'] != ""){
-                echo $_SESSION['upload_err'];echo "<br>";
-                unset($_SESSION['upload_err']);
-            }
-            if(isset($_SESSION['cover_error']) and $_SESSION['cover_error'] != ""){
-                echo "cover_error = ".$_SESSION['cover_error'];echo "<br>";
-                unset($_SESSION['cover_error']);
-            }
-            if(isset($_SESSION['product_error']) and $_SESSION['product_error'] != ""){
-                echo "product_error = ".$_SESSION['product_error'];echo "<br>";
-                unset($_SESSION['product_error']);
-            }
-        ?>
         <div class="row gx-3 py-3 px-4" style="min-height: 800px;">
             <div class="col-3 sidebar p-0 me-3">
                 <p class="text-center fw-bold fs-2 mt-2">ADMIN</p>

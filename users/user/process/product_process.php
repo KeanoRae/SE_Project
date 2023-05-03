@@ -50,7 +50,7 @@
 
         //display an error if no image file is chosen
         if(empty($_FILES['upload']['name'])){
-            $errors['upload'] = "Upload image is required";
+            $errors['upload'] = "*Upload image is required";
         }
 
 		//if(!in_array("",$var)){
@@ -101,6 +101,7 @@
                 } 
                 else{
                     $errors['upload'] = "File extension not applicable. Please upload image files only.";
+                    
                 }
 		}
 	}
@@ -124,7 +125,7 @@
 
         //display an error if no image file is chosen
         if(empty($_FILES['upload']['name'])){
-            $errors['upload'] = "Upload image is required";
+            $errors['upload'] = "*Upload image is required";
         }
 
         if(!empty($var['price'])){
@@ -166,7 +167,6 @@
                             //create unique id for file name
                             $random_id = uniqid();
                             $newname = $random_id.".".$img_ext;
-                            // $newname = uniqid("",true).$img_ext;
                             //temporary path
                             $upload_path = 'assets/images/customer_cart_storage/'.$newname;
                             //check if the file was moved from the temporary path to new path

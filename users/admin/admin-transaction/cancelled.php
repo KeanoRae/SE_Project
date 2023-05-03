@@ -80,10 +80,11 @@
                         <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="ship.php">to ship</a>
                         <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="complete.php">completed</a>
                         <a class="text-reset text-decoration-none fst-normal h4 mb-0 fw-bolder" href="cancelled.php">cancelled</a>
+                        <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="declined.php">declined</a>
                     </div>
                 </div>
                 <div class="row m-4">
-                    <div class="button-group d-flex align-items-center">
+                    <!-- <div class="button-group d-flex align-items-center">
                         <div>
                             <select class="form-select shadow-none border-dark border-end-0 rounded-0 py-1" name="sort" aria-label="Floating label select example">
                                 <option selected>Order ID</option>
@@ -104,7 +105,7 @@
                                 <span class="iconify" data-icon="bxs:download"></span>report
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row mx-4">
                     <table class="table table-responsive">

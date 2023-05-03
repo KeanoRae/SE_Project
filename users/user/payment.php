@@ -52,8 +52,8 @@
             </div>
             <div class="col-9">
                 <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
+                    <!-- <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span> -->
                     <div class="icons mx-4">
                         <a class="text-reset" href="order-details/user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
                         <a class="text-reset" href="cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
@@ -129,14 +129,14 @@
                         </div>
                     </div>
         <?php
+            }
             //close connection
             $database->close();
-            }
         ?>
                     <div class="row mb-3">
                         <label for="ship" class="col-sm-2 col-form-label">Ship</label>
                         <div class="col-sm-10 d-flex align-items-center">
-                            <textarea id="form-input" class="form-control border-dark shadow-none rounded-0" name="addr" rows="3" readonly><?php echo $_SESSION['address'].", ".$_SESSION['city'].", ".$_SESSION['postal'].", ".$_SESSION['region']; ?></textarea>
+                            <textarea id="form-input" class="form-control border-dark shadow-none rounded-0" name="addr" rows="3" readonly><?php echo $_SESSION['address'].", ".$_SESSION['city'].", ".$_SESSION['postal'].", ".$_SESSION['province']; ?></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -149,24 +149,41 @@
                         <span class="iconify fs-1 me-3" data-icon="fluent:payment-16-regular"></span>
                         <p class="fs-3 mb-1">Payment Method</p>
                     </div>
+                    <?php
+                        include_once('../../include/database.php');
+                        $database = new Connection();
+                        $db = $database->open();
+
+                        $sql = $db->prepare("SELECT name FROM payment_method");
+                        //bind
+                        $sql->execute();
+                        while($display=$sql->fetch(PDO::FETCH_ASSOC)){
+                    ?>
                     <div class="col-8 delivery ms-5">
                         <div class="btn-group-vertical w-100" data-toggle="buttons">
-                            <label class="p-2 border border-dark border-bottom-0 text-start w-100">
-                                <input type="radio" name="payment-option" id="option1" value="Gcash" <?php if (isset($_POST['payment-option']) && $_POST['payment-option']=="Gcash") echo "checked";?>> Gcash
-                            </label>
-                            <label class="p-2 border border-dark border-bottom-0 text-start w-100">
-                                <input type="radio" name="payment-option" id="option2" value="M Lhuillier Padala" <?php if (isset($_POST['payment-option']) && $_POST['payment-option']=="M Lhuillier Padala") echo "checked";?>> M Lhuillier Padala
-                            </label>
-                            <label class="p-2 border border-dark border-bottom-0 text-start w-100">
-                                <input type="radio" name="payment-option" id="option3" value="Cebuana Lhuillier" <?php if (isset($_POST['payment-option']) && $_POST['payment-option']=="Cebuana Lhuillier") echo "checked";?>> Cebuana Lhuillier
-                            </label>
                             <label class="p-2 border border-dark text-start w-100">
-                                <input type="radio" name="payment-option" id="option4" value="Palawan Express" <?php if (isset($_POST['payment-option']) && $_POST['payment-option']=="Palawan Express") echo "checked";?>> Palawan Express
+                                <?php
+                                    if($display['name'] == "CashonDelivery"){
+                                ?>
+                                <input type="radio" name="payment-option" id="option" value="<?php echo $display['name']; ?>" <?php if (isset($_POST['payment-option'])) echo "checked";?>> Cash on Delivery
+                                <?php
+                                    }
+                                    else{
+                                ?>
+                                <input type="radio" name="payment-option" id="option" value="<?php echo $display['name']; ?>" <?php if (isset($_POST['payment-option'])) echo "checked";?>> <?php echo $display['name']; ?>
+                                <?php
+                                    }
+                                ?>
                             </label>
-                            <div class="error mb-2" style="color:red;">
-                                <?php echo $error['pay_method']; ?>
-                            </div>
                         </div>
+                    </div>
+                    <?php
+                        }
+                        //close connection
+                        $database->close();
+                    ?>
+                    <div class="error mb-2 ms-5" style="color:red;">
+                        <?php echo $error['pay_method']; ?>
                     </div>
                     <div class="mt-3 d-flex">
                         <span class="iconify fs-1 me-3" data-icon="bx:comment-error"></span>
@@ -262,16 +279,14 @@
                                 <p class="mb-2">Total</p>
                                 <p><?php echo "₱".number_format($_SESSION['subtotal']+$_SESSION['shipping_fee'],2); ?></p>
                             </div>
-                            <br>
-                        </div>
-                        <br>
                         <?php
                             }
                         ?>
-                </div>
-                <!--place order button-->
-                <div class="checkout d-grid mx-5 ">
-                    <button type="submit" name="submit" class="btn-pink btn-shadow btn btn-lg active py-2 border-0 fw-normal">PLACE ORDER</button>
+                        </div>
+                    <!--place order button-->
+                    <div class="checkout d-grid mx-5 ">
+                        <button type="submit" name="submit" class="btn-pink btn-shadow btn btn-lg active py-2 border-0 fw-normal">PLACE ORDER</button>
+                    </div>
                 </div>
             </div>
         </form>

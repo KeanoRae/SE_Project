@@ -8,9 +8,9 @@
 
         $sql = $db->prepare("SELECT o.id, DATE_FORMAT(o.order_date, '%m/%d/%Y %H:%i:%s') as date, o.receiver_name, u.phone_number, 
                             u.email, CONCAT(o.shipping_address,', ',o.shipping_city) AS address, o.shipping_fee, o.shipping_method, o.message, p.product_name,
-                            os.name AS status, pm.receipt_status, pm.uploaded_receipt
-                            FROM orders o JOIN user u JOIN product p JOIN order_status os JOIN payment pm
-                            ON o.customer_id=u.id AND os.id=o.order_status
+                            os.name AS status, pm.payment_type, pm.receipt_status, pm.uploaded_receipt
+                            FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os JOIN payment pm
+                            ON o.customer_id=u.id AND os.id=o.order_status AND o.id=od.order_id AND od.id=pm.order_details_id
                             WHERE o.id=:id");
             //bind
             $sql->bindParam(':id', $id);
@@ -25,6 +25,7 @@
                 $ship_method = $row['shipping_method'];
                 $message = $row['message'];
                 $status = $row['status'];
+                $payment = $row['payment_type'];
                 $receipt_status = $row['receipt_status'];
                 $receipt = $row['uploaded_receipt'];
             }             
@@ -97,7 +98,7 @@
     }
 
     if(isset($_POST['cancel_btn'])){
-        $getid = $_POST['modal_id'];
+        $getid = $_GET['id'];
         //status for cancel
         $new_status = 3;
 

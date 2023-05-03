@@ -40,8 +40,8 @@
             </div>
             <div class="col-9">
                 <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
+                    <!-- <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span> -->
                     <div class="icons mx-4">
                         <a class="text-reset" href="order-details/user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
                         <a class="text-reset" href="cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
@@ -59,16 +59,8 @@
         <hr class="w-50 mx-auto">
         <br>
         <br>
-        <div class="form-floating col-3 mx-auto mb-3">
-            <input type="text" class="form-control" id="floatingID" placeholder="order ID">
-            <label for="floatingID">OR Number</label>
-        </div>
-        <div class="form-floating col-3 mx-auto mb-4">
-            <input type="email" class="form-control" id="floatingEmail" placeholder="email">
-            <label for="floatingEmail">BC</label>
-        </div>
         <div class="text-center">
-            <button type="button" class="btn-pink btn-shadow btn btn-lg active py-2 border-0 fw-normal">TRACK</button>
+            <a href="https://trackjrs.com/" target="_blank" class="btn-pink btn-shadow btn btn-lg active py-2 px-5 border-0 fw-bold text-reset">TRACK</a>
         </div>
         <br>
         <br>
@@ -95,5 +87,18 @@
   
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- <script>
+        function validate(){
+            var or = document.forms["track_form"]["or_num"].value;
+            var bc = document.forms["track_form"]["bc_num"].value;
+
+            if(or == "" || bc == ""){
+                return false;
+            }
+            else{
+                window.open("", "_blank");
+            }
+        }
+    </script> -->
 </body>
 </html>

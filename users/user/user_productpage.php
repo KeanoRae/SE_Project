@@ -38,8 +38,8 @@
             </div>
             <div class="col-9">
                 <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
+                    <!-- <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span> -->
                     <div class="icons mx-4">
                         <a class="text-reset" href="order-details/user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
                         <a class="text-reset" href="cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
@@ -158,6 +158,17 @@
                             <?php echo $errors['price']; ?>
                         </div>
                         <hr>
+                        <p class="fs-4">Size</p>
+                        <!-- store the total addons -->
+                        <!-- <input type="text" id="addons-price" name="size1" value="0" hidden> -->
+                        <!-- store the addons description -->
+                        <!-- <input type="text" id="addons-name" name="size2" value="" hidden> -->
+                        <!-- buttons for addons -->
+                        <div class="d-flex mx-0">
+                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none px-5 me-3" name="size1" id="size2" data-bs-toggle="button" value="">6x6 in</button>
+                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none px-5 me-3" name="size2" id="size2" data-bs-toggle="button" value=""> >6x8 in</button>
+                        </div>
+                        <hr>
                         <p class="fs-4">Add-ons</p>
                         <!-- store the total addons -->
                         <input type="text" id="addons-price" name="addons-price" value="0" hidden>
@@ -193,7 +204,7 @@
                         <button type="submit" name="cart_btn" class="btn btn-outline-dark mb-3">ADD TO CART</button>
                         <button type="submit" name="buynow_btn" class="btn btn-outline-dark mb-3">BUY NOW</button>
                     </div>
-                    <div class="d-grid col-9 float-start border border-dark mx-auto">
+                    <div class="d-grid col-9 float-start border border-dark mx-auto mb-5">
                         <p class="mb-0 py-2 text-center fs-3">HOW TO ORDER</p>
                         <hr class="my-0">
                         <div class="mx-2">

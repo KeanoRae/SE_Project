@@ -37,8 +37,8 @@
             </div>
             <div class="col-9">
                 <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
+                    <!-- <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span> -->
                     <div class="icons mx-4">
                         <a class="text-reset" href="user-pending.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
                         <a class="text-reset" href="../cart.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
@@ -76,6 +76,9 @@
             elseif($status == "Completed"){
                 $backpage = "user-completed.php";
             }
+            elseif($status == "Declined"){
+                $backpage = "user-declined.php";
+            }
         ?>
             <div class="d-flex align-items-center mb-1">
             <a href="<?php echo $backpage; ?>" class="text-reset text-decoration-none fs-3">
@@ -104,75 +107,118 @@
                         elseif($status == "Completed"){
                             echo "COMPLETED";
                         }
+                        elseif($status == "Declined"){
+                            echo "DECLINED";
+                        }
                         
                     ?>
                 </p>
             </div>
             <div class="detail-topbox mt-3 mb-2">
                 <div class="row mx-2">
-                    <div class="col-md-6">
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2" data-icon="bx:id-card"></span>
-                                <p class="mb-0 fs-4 mt-2">Order ID</p>
-                            </div>
-                            <p class="mb-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $id; ?></p>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <input type="text" name="getid" value="<?php echo $id; ?>" hidden>
+                            <input type="text" name="customer" value="<?php echo $customer_id; ?>" hidden>
+                            <span class="iconify fs-2 me-3" data-icon="bx:id-card"></span>
+                            <p class="mb-0 fs-4">Order ID</p>
                         </div>
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2" data-icon="carbon:user-avatar-filled-alt"></span>
-                                <p class="mb-0 fs-4 mt-2">Name</p>
-                            </div>
-                            <p class="my-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $name; ?></p>
-                        </div>
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2" data-icon="carbon:email"></span>
-                                <p class="mb-0 fs-4 mt-2">Email</p>
-                            </div>
-                            <p class="mb-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $email; ?></p>
-                        </div>
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2" data-icon="entypo:location"></span>
-                                <p class="mb-0 fs-4 mt-2">Delivery Address</p>
-                            </div>
-                            <p class="mb-4 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $addr; ?></p>
-                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $id; ?></p>
                     </div>
-                    <div class="col-md-6">
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2"  data-icon="healthicons:i-schedule-school-date-time"></span>
-                                <p class="mb-0 fs-4 mt-2">Order Date/Time</p>
-                            </div>
-                            <p class="mb-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $date; ?></p>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3"  data-icon="healthicons:i-schedule-school-date-time"></span>
+                            <p class="mb-0 fs-4">Order Date/Time</p>
                         </div>
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2"  data-icon="akar-icons:phone"></span>
-                                <p class="mb-0 fs-4 mt-2">Phone Number</p>
-                            </div>
-                            <p class="mb-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $num; ?></p>
-                        </div>
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2"  data-icon="fluent:payment-16-regular"></span>
-                                <p class="mb-0 fs-4 mt-2">Payment Method</p>
-                            </div>
-                            <p class="mb-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;">Gcash</p>
-                        </div>
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <span class="iconify fs-2 me-3 mt-2"  data-icon="grommet-icons:deliver"></span>
-                                <p class="mb-0 fs-4 mt-2">Shipping Method</p>
-                            </div>
-                            <p class="mb-0 fs-4 ms-5 lh-1" style="color: #7F7B7B;"><?php echo $ship_method; ?></p>
-                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $date; ?></p>
                     </div>
                 </div>
+                <div class="row mx-2">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3" data-icon="carbon:user-avatar-filled-alt"></span>
+                            <p class="mb-0 fs-4">Name</p>
+                        </div>
+                        <p class="my-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $name; ?></p>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3"  data-icon="akar-icons:phone"></span>
+                            <p class="mb-0 fs-4">Phone Number</p>
+                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $num; ?></p>
+                    </div>
+                </div>
+                <div class="row mx-2">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3" data-icon="carbon:email"></span>
+                            <p class="mb-0 fs-4">Email</p>
+                        </div>
+                        <input type="text" name="email" value="<?php echo $email; ?>" hidden>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $email; ?></p>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3"  data-icon="fluent:payment-16-regular"></span>
+                            <p class="mb-0 fs-4">Payment Method</p>
+                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $payment; ?></p>
+                    </div>
+                </div>
+                <div class="row mx-2">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3" data-icon="entypo:location"></span>
+                            <p class="mb-0 fs-4">Delivery Address</p>
+                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $addr; ?></p>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3"  data-icon="grommet-icons:deliver"></span>
+                            <p class="mb-0 fs-4">Shipping Method</p>
+                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $ship_method; ?></p>
+                    </div>
+                </div>
+                <?php
+                    if($status == "To ship" or $status == "Completed"){
+                        include_once('../../../include/database.php');
+                        $database = new Connection();
+                        $db = $database->open();
+
+                        $sql = $db->prepare("SELECT OR_Number, BC_Number FROM tracking_details WHERE order_id=:oid");
+                        //bind Param
+                        $sql->bindParam(':oid', $id);
+                        $sql->execute();
+                        if($row=$sql->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <div class="row mx-2">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3"  data-icon="material-symbols:receipt-outline"></span>
+                            <p class="mb-0 fs-4">OR Number</p>
+                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $row['OR_Number']; ?></p>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <span class="iconify fs-2 me-3"  data-icon="icon-park-solid:branch-one"></span>
+                            <p class="mb-0 fs-4">BC Number</p>
+                        </div>
+                        <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $row['BC_Number']; ?></p>
+                    </div>
+                </div>
+                <?php
+                        }
+                        else{
+                            echo $id;
+                            echo "error";
+                        }
+                    }
+                ?>
             </div>
-            
             <div class="my-2 border border-dark">
                 <div class="d-flex px-2 py-1 align-items-center">
                     <span class="iconify fs-2 me-2"  data-icon="fa-regular:comment-dots"></span>
@@ -269,6 +315,9 @@
                                 </div>
                             </td>
                         </tr>
+                        <?php
+
+                        ?>
                         <tr>
                             <td colspan="6">
                             <form action="" method="POST" enctype="multipart/form-data">
@@ -288,7 +337,6 @@
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <input type="text" name="modal_id" value="<?php echo $row['id']; ?>" hidden>
                                                     <p class="fs-4 text-center">Do you wish to cancel your order?</p>
                                                     <div class="d-grid col-3 mx-auto mb-3">
                                                         <button type="submit" name="cancel_btn" class="d-block btn btn-dark btn-shadow mb-3">Confirm</button>
@@ -300,23 +348,8 @@
                                     </div>
                                 <?php 
                                       }
-                                      elseif($status !== "Pending") {
-                                        if($receipt_status == "uploaded" or $receipt_status == "verified"){
-                                ?>
-                                    <div class="col-9 display-image">
-                                        <p class="text-start ms-3 fs-4">Uploaded Receipt</p>
-                                        <img src="<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
-                                    </div>
-                                    <?php
-                                            if($status == "To ship" or $status == "Order Received"){
-                                    ?>
-                                        <div class="text-end">
-                                            <button name="to-complete" class="px-3 py-1 fs-4 my-2 ms-4 border border-dark btn-pink btn-shadow">ORDER RECEIVED</button>
-                                        </div>
-                                <?php
-                                            }  
-                                        }
-                                        elseif($receipt_status == "unverified"){
+                                      else {
+                                         if($receipt_status == "unverified"){
                                 ?>
                                     <div class="col-9 d-inline-block text-start receipt">
                                         <input type="file" id="receipt-btn" name="receipt" hidden/>
@@ -327,6 +360,14 @@
                                         <button type="submit" name="upload_receipt" class="px-5 py-1 my-2 me-2 fs-4 border border-dark btn-pink btn-shadow">UPLOAD</button>
                                     </div>
                                 <?php
+                                         }
+                                        elseif($receipt_status == "uploaded" or $receipt_status == "verified"){
+                                ?>
+                                    <div class="col-9 display-image">
+                                        <p class="text-start ms-3 fs-4">Uploaded Receipt</p>
+                                        <img src="<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
+                                    </div>
+                                <?php
                                       }
                                     }
                                 ?>
@@ -335,7 +376,6 @@
                         </tr>
                     </tbody>
                 </table>
-                
             </div>
         </div>
         <br>

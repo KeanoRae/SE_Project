@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include('../process/info.php'); 
+    include('../process/info.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,6 +92,9 @@
                     elseif($status == "Cancelled"){
                         $backpage = "cancelled.php";
                     }
+                    elseif($status == "Declined"){
+                        $backpage = "declined.php";
+                    }
                 ?>
                 <p class="header fs-2 fw-bold mt-5 mb-0 mx-5 d-print-none">TRANSACTION</p>
                 <a href="<?php echo $backpage; ?>" class="text-reset text-decoration-none ms-5 fs-3 d-print-none">Order</a>
@@ -104,61 +107,68 @@
                     </button>
                 </div> 
                 <form action="../process/update_transaction.php" method="POST" id="print-container"> 
-                    <div class="row border border-dark mx-5">
-                        <div class="col-md-6" id="print-col">
-                            <div>
+                    <div class="border border-dark mx-5">
+                        <div class="row mx-2">
+                            <div class="col-6">
                                 <div class="d-flex align-items-center">
-                                    <input type="hidden" name="getid" value="<?php echo $id; ?>">
+                                    <input type="text" name="getid" value="<?php echo $id; ?>" hidden>
+                                    <input type="text" name="customer" value="<?php echo $customer_id; ?>" hidden>
                                     <span class="iconify fs-2 me-3" data-icon="bx:id-card"></span>
                                     <p class="mb-0 fs-4">Order ID</p>
                                 </div>
                                 <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $id; ?></p>
                             </div>
-                            <div>
-                                <div class="d-flex align-items-center">
-                                    <span class="iconify fs-2 me-3" data-icon="carbon:user-avatar-filled-alt"></span>
-                                    <p class="mb-0 fs-4">Name</p>
-                                </div>
-                                <p class="my-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $name; ?></p>
-                            </div>
-                            <div>
-                                <div class="d-flex align-items-center">
-                                    <span class="iconify fs-2 me-3" data-icon="carbon:email"></span>
-                                    <p class="mb-0 fs-4">Email</p>
-                                </div>
-                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $email; ?></p>
-                            </div>
-                            <div>
-                                <div class="d-flex align-items-center">
-                                    <span class="iconify fs-2 me-3" data-icon="entypo:location"></span>
-                                    <p class="mb-0 fs-4">Delivery Address</p>
-                                </div>
-                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $addr; ?></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div>
+                            <div class="col-6">
                                 <div class="d-flex align-items-center">
                                     <span class="iconify fs-2 me-3"  data-icon="healthicons:i-schedule-school-date-time"></span>
                                     <p class="mb-0 fs-4">Order Date/Time</p>
                                 </div>
                                 <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $date; ?></p>
                             </div>
-                            <div>
+                        </div>
+                        <div class="row mx-2">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <span class="iconify fs-2 me-3" data-icon="carbon:user-avatar-filled-alt"></span>
+                                    <p class="mb-0 fs-4">Name</p>
+                                </div>
+                                <p class="my-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $name; ?></p>
+                            </div>
+                            <div class="col-6">
                                 <div class="d-flex align-items-center">
                                     <span class="iconify fs-2 me-3"  data-icon="akar-icons:phone"></span>
                                     <p class="mb-0 fs-4">Phone Number</p>
                                 </div>
                                 <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $num; ?></p>
                             </div>
-                            <div>
+                        </div>
+                        <div class="row mx-2">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <span class="iconify fs-2 me-3" data-icon="carbon:email"></span>
+                                    <p class="mb-0 fs-4">Email</p>
+                                </div>
+                                <input type="text" name="email" value="<?php echo $email; ?>" hidden>
+                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $email; ?></p>
+                            </div>
+                            <div class="col-6">
                                 <div class="d-flex align-items-center">
                                     <span class="iconify fs-2 me-3"  data-icon="fluent:payment-16-regular"></span>
                                     <p class="mb-0 fs-4">Payment Method</p>
                                 </div>
-                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;">Gcash</p>
+                                <input type="text" name="payment" value="<?php echo $payment_type; ?>" hidden>
+                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $payment_type; ?></p>
                             </div>
-                            <div>
+                        </div>
+                        <div class="row mx-2">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <span class="iconify fs-2 me-3" data-icon="entypo:location"></span>
+                                    <p class="mb-0 fs-4">Delivery Address</p>
+                                </div>
+                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $addr; ?></p>
+                            </div>
+                            <div class="col-6">
                                 <div class="d-flex align-items-center">
                                     <span class="iconify fs-2 me-3"  data-icon="grommet-icons:deliver"></span>
                                     <p class="mb-0 fs-4">Shipping Method</p>
@@ -166,6 +176,38 @@
                                 <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $ship_method; ?></p>
                             </div>
                         </div>
+                        <?php
+                            if($status == "To ship" or $status == "Completed"){
+                                include_once('../../../include/database.php');
+                                $database = new Connection();
+                                $db = $database->open();
+
+                                $sql = $db->prepare("SELECT OR_Number, BC_Number FROM tracking_details WHERE order_id=:oid");
+                                //bind Param
+                                $sql->bindParam(':oid', $id);
+                                $sql->execute();
+                                if($row=$sql->fetch(PDO::FETCH_ASSOC)){
+                        ?>
+                        <div class="row mx-2">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <span class="iconify fs-2 me-3"  data-icon="material-symbols:receipt-outline"></span>
+                                    <p class="mb-0 fs-4">OR Number</p>
+                                </div>
+                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $row['OR_Number']; ?></p></p>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <span class="iconify fs-2 me-3"  data-icon="icon-park-solid:branch-one"></span>
+                                    <p class="mb-0 fs-4">BC Number</p>
+                                </div>
+                                <p class="mb-0 fs-4 ms-5" style="color: #7F7B7B;"><?php echo $row['BC_Number']; ?></p>
+                            </div>
+                        </div>
+                        <?php
+                                }
+                            }
+                        ?>
                     </div>
                     <?php
                         if($message == ""){
@@ -178,8 +220,23 @@
                             <span class="iconify fs-2 me-2"  data-icon="fa-regular:comment-dots"></span>
                             <p class="mb-0 fs-4">Message from buyer</p>
                         </div>
-                        
                         <textarea class="form-control border-0 shadow-none rounded-0 mb-2 fs-4" name="message" rows="3" readonly><?php echo $message; ?></textarea>
+                    </div>
+                    <?php
+                        }
+                    ?>
+                    <?php
+                        if($decline_msg == ""){
+                            echo "";
+                        }
+                        else{
+                    ?>
+                    <div class="my-2 mx-5 border border-dark">
+                        <div class="d-flex px-2 py-1 align-items-center">
+                            <span class="iconify fs-2 me-2"  data-icon="fa-regular:comment-dots"></span>
+                            <p class="mb-0 fs-4 fw-bold">Decline Reason</p>
+                        </div>
+                        <textarea class="form-control border-0 shadow-none rounded-0 mb-2 fs-4" name="decline_msg" rows="5" readonly><?php echo $decline_msg; ?></textarea>
                     </div>
                     <?php
                         }
@@ -275,42 +332,187 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <?php
+                                    if($receipt_status == "uploaded" or $receipt_status == "verified"){
+                                ?>
                                 <tr class="border-0 d-print-none">
                                     <td colspan="6"></td>
                                 </tr>
-                                <tr class="d-print-none">
-                                    <td colspan="4">
-                                        <?php
-                                            if(($status != "Pending" or $status != "Cancelled" ) and $receipt_status !== "unverified"){
-                                        ?>
+                                <tr>
+                                    <td colspan="12">
+                                        <p class="text-start ms-3 fs-4">Uploaded Receipt</p>
                                         <div class="display-image">
                                             <img src= "<?php echo "../../../".$receipt; ?>" class="img-fluid p-2">
                                         </div>
-                                        <?php } ?>
                                     </td>
-                                    <td colspan="2">
+                                </tr>
+                                <tr class="border-0">
+                                    <td colspan="6"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12">
+                                        <?php
+                                            if($status == "Confirmed"){
+                                        ?>
+                                        <button type="submit" name="to-process" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow float-end">to process</button>
+                                        <?php
+                                            }
+                                            elseif($status == "On Process"){
+                                        ?>
+                                        <button type="button" class="px-4 py-1 fs-4 border border-dark btn-pink btn-shadow float-end" data-bs-toggle="modal" data-bs-target="#shipinfo">to ship</button>
+                                        <!--Modal for ship info-->
+                                        <div class="modal modal fade" id="shipinfo" role="dialog" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="shipinfoLabel" tabindex="-1">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h1 class="modal-title fs-3 fw-bold w-100" id="shipinfoLabel">Tracking Info</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <!--OR Number-->
+                                                                <div class="col-6 mx-auto">
+                                                                    <div class="form-group text-center">
+                                                                        <h5 class="mb-2 fw-bold">OR Number</h5>
+                                                                        <input type="text" class="form-control my-2" name="or_num" maxlength="4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <!--BC Number-->
+                                                                <div class="col-6 mx-auto">
+                                                                    <div class="form-group text-center">
+                                                                        <h5 class="mb-2 fw-bold">BC Number</h5>
+                                                                        <input type="text" class="form-control my-2" name="bc_num" maxlength="4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- footer -->
+                                                    <div class="modal-footer">
+                                                        <div class="float-end">
+                                                            <button role="submit" name="to-ship" class="fs-4 px-3 border border-dark btn-pink btn-shadow" data-bs-dismiss="modal">confirm to ship</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php 
+                                            }elseif($status == "To ship" or $status == "Order Received"){
+                                        ?>
+                                            <button type="submit" name="to-complete" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow float-end">completed</button>            
+                                        <?php
+                                            }
+                                        ?>  
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
+                                    else{
+                                        if($status == "Completed" or $status == "Cancelled" or $status == "Declined"){
+                                            echo "";
+                                        }
+                                        else{
+                                ?>
+                                <tr class="border-0">
+                                    <td colspan="6"></td>
+                                </tr>
+                                <tr class="d-print-none">
+                                    <td colspan="12">
                                         <div class="d-flex float-end">
                                         <?php 
                                             if($status == "Pending"){ 
                                         ?>
-                                            <button name="cancel" class="px-1 py-1 fs-4 me-3 border border-dark btn-pink btn-shadow">cancel</button>
-                                            <button name="confirm" class="px-1 py-1 fs-4 border border-dark btn-pink btn-shadow">confirm</button>
+                                            <button type="button" class="px-1 py-1 fs-4 me-3 border border-dark btn-pink btn-shadow" data-bs-toggle="modal" data-bs-target="#decline">decline</button>
+                                            <button type="submit" name="confirm" class="px-1 py-1 fs-4 border border-dark btn-pink btn-shadow">confirm</button>
+                                            <!--Modal for decline orders-->
+                                            <div class="modal modal fade" id="decline" role="dialog" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="declineLabel" tabindex="-1">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-center">
+                                                            <h1 class="modal-title fs-3 fw-bold w-100" id="declineLabel">Reason for Declining Order</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <div class="container-fluid">
+                                                                <textarea class="form-control shadow-none rounded-0 mb-2 fs-4" name="decline_msg" rows="10"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <!-- footer -->
+                                                        <div class="modal-footer">
+                                                            <div class="float-end">
+                                                                <button type="button" class="fs-4 px-3 me-3 border border-dark btn-pink btn-shadow" data-bs-dismiss="modal">Cancel</button>
+                                                                <button role="submit" name="decline" class="fs-4 px-3 border border-dark btn-pink btn-shadow" data-bs-dismiss="modal">Decline Order</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php 
                                             }elseif($status == "Confirmed"){
-                                                $setstatus = ($receipt_status == "unverified") ? "disabled":"";
+                                                if($payment_type == "CashonDelivery"){
                                         ?>
-                                            <button name="to-process" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow" <?php echo $setstatus; ?>>to process</button>
+                                            <button type="submit" name="to-process" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow float-end">to process</button>
+                                        <?php
+                                                }
+                                                else{
+                                                    $setstatus = ($receipt_status == "unverified") ? "disabled":"";
+                                        ?>
+                                            <button type="submit" name="to-process" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow float-end" <?php echo $setstatus; ?>>to process</button>
                                         <?php 
+                                                }
                                             }elseif($status == "On Process"){
                                         ?>
-                                            <button name="to-ship" class="px-4 py-1 fs-4 border border-dark btn-pink btn-shadow">to ship</button>
+                                            <button type="button" class="px-4 py-1 fs-4 border border-dark btn-pink btn-shadow" data-bs-toggle="modal" data-bs-target="#shipinfo">to ship</button>
+                                            <!--Modal for ship info-->
+                                            <div class="modal modal fade" id="shipinfo" role="dialog" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="shipinfoLabel" tabindex="-1">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-center">
+                                                            <h1 class="modal-title fs-3 fw-bold w-100" id="shipinfoLabel">Tracking Info</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <!--OR Number-->
+                                                                    <div class="col-6 mx-auto">
+                                                                        <div class="form-group text-center">
+                                                                            <h5 class="mb-2 fw-bold">OR Number</h5>
+                                                                            <input type="text" class="form-control my-2" name="or_num" maxlength="4">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <!--BC Number-->
+                                                                    <div class="col-6 mx-auto">
+                                                                        <div class="form-group text-center">
+                                                                            <h5 class="mb-2 fw-bold">BC Number</h5>
+                                                                            <input type="text" class="form-control my-2" name="bc_num" maxlength="4">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- footer -->
+                                                        <div class="modal-footer">
+                                                            <div class="float-end">
+                                                                <button role="submit" name="to-ship" class="fs-4 px-3 border border-dark btn-pink btn-shadow" data-bs-dismiss="modal">confirm to ship</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php 
                                             }elseif($status == "To ship" or $status == "Order Received"){
-                                                $order_status = ($status !== "Order Received") ? "disabled":"";
                                         ?>
-                                            <button name="to-complete" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow" <?php echo $order_status; ?>>completed</button>            
+                                            <button type="submit" name="to-complete" class="px-3 py-1 fs-4 border border-dark btn-pink btn-shadow">completed</button>            
                                         <?php
                                             }
+                                        }
+                                    }
                                         ?>      
                                         </div>
                                     </td>

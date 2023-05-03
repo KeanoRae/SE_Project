@@ -45,8 +45,8 @@
             </div>
             <div class="col-9">
                 <div class="search-box d-flex mt-3 float-end">
-                    <input type="search" class="px-3" placeholder="search">
-                    <span><i class="fas fa-search mx-2"></i></span>
+                    <!-- <input type="search" class="px-3" placeholder="search">
+                    <span><i class="fas fa-search mx-2"></i></span> -->
                     <div class="icons mx-4">
                         <a class="text-reset" href="login.php"><span class="iconify icon1" data-icon="carbon:user-avatar-filled-alt"></span></a>
                         <a class="text-reset" href="login.php"><span class="iconify" data-icon="bytesize:bag"></span></a>
@@ -96,6 +96,7 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+                <br><br>
                 <div class="col-10 border border-dark mx-auto">
                     <p class="mb-0 py-2 text-center fs-3">PRODUCT DETAILS</p>
                     <hr class="my-0">
@@ -118,36 +119,14 @@
                         <p class="m-0 mt-2"><?php echo "₱".$price1." - 1 CHARACTER"; ?></p>
                         <p class="m-0"><?php echo "₱".$price2." - 1 CHARACTER"; ?></p>
                     </div>
-                    <div class="mx-3 fs-5 mb-2">
+                    <div class="mx-3 fs-5">
                         <p class="m-0 fw-bold">Add-ons</p>
                         <p class="m-0"><?php echo "+ ₱".$addons1." - ADDITIONAL CHARACTERS"; ?></p>
                         <p class="m-0"><?php echo "+ ₱".$addons1." - ADDITIONAL BACKGROUND/DEDICATION"; ?></p>
                     </div>
-                    <hr class="my-0">
-                    <p class="mb-0 py-2 text-center fs-3">HOW TO ORDER</p>
-                    <hr class="my-0">
-                    <div class="mx-2">
-                        <p class="mb-0 py-2 fs-4">BEFORE PLACING AN ORDER:</p>
-                        <ol class="fs-5">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ol>
-                        <p class="mb-0 py-2 fs-4">AFTER PLACING AN ORDER:</p>
-                        <ol class="fs-5">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ol>
-                    </div>
-                    
-
+                    <br><br>
                 </div>
-                <br>
-                <br>
-                <br>
+                <br><br><br>
             </div>
             <div class="col px-5">
             <form action="" method="POST">
@@ -189,6 +168,24 @@
                 <div class="d-grid col-9 p-0 mt-3 btn">
                     <a href="login.php" class="btn btn-outline-dark mb-3">ADD TO CART</a>
                     <a href="login.php" class="btn btn-outline-dark mb-3">BUY NOW</a>
+                </div>
+                <div class="d-grid col-9 float-start border border-dark mx-auto">
+                    <p class="mb-0 py-2 text-center fs-3">HOW TO ORDER</p>
+                    <hr class="my-0">
+                    <div class="mx-2">
+                        <p class="mb-0 py-2 fs-4">BEFORE PLACING AN ORDER:</p>
+                        <ol class="fs-5">
+                            <li>Only 1 character for adds-ons in every purchase </li>
+                            <li>For dedication, you can write the dedication after continuing payment.</li>
+                            <li>Don’t forget to upload your photo and photo of your additional character/background.</li>
+                        </ol>
+                        <p class="mb-0 py-2 fs-4">AFTER PLACING AN ORDER:</p>
+                        <ol class="fs-5">
+                            <li>You cannot cancel your order after receiving confirmation email.</li>
+                            <li>If you choose remittance/Gcash for payment method, wait for the email before transact money.</li>
+                            <li>Use the given tracking number to track your order by visiting <a class="text-reset" href="https://trackjrs.com/" target="_blank">trackjrs.com</a></li>
+                        </ol>
+                    </div>
                 </div>
             </form>
             </div>

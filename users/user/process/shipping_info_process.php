@@ -8,7 +8,7 @@
         "brgy" => "",
         "postal" => "",
         "city" => "",
-        "region" => "",
+        "province" => "",
         "method" => ""
     );
 
@@ -17,7 +17,7 @@
         "brgy" => "",
         "postal" => "",
         "city" => "",
-        "region" => "",
+        "province" => "",
         "method" => ""
     );
 
@@ -32,9 +32,27 @@
     }
 
     //for shipping fee
-    $luzon=array("Region I", "Region II", "Region III", "Region IV", "Region V", "CAR");
-    $visayas=array("Region VI", "Region VII", "Region VIII");
-    $mindanao=array("Region IX", "Region X", "Region XI", "Region XII", "Region XIII", "BARMM");
+    $luzon=array("NCR, 2nd District Province","NCR, 3rd District Province","NCR, 4th District Province","NCR, City of Manila, 1st District Province",
+                "Abra Province","Apayao Province","Benguet Province","Ifugao Province","Kalinga Province","Mountain Province",
+                "Ilocos Norte Province","Ilocos Sur Province","La Union Province","Pangasinan Province",
+                "Batanes Province","Cagayan Province","Isabela Province","Nueva Vizcaya Province","Quirino Province",
+                "Aurora Province","Bataan Province","Bulacan Province","Nueva Ecija Province","Pampanga Province","Tarlac Province","Zambales Province",
+                "Batangas Province","Cavite Province","Laguna Province","Quezon Province","Rizal Province",
+                "Marinduque Province","Occidental Mindoro Province","Palawan Province","Romblon Province",
+                "Albay Province","Camarines Norte Province","Camarines Sur Province","Catanduanes Province","Masbate Province",);
+
+    $visayas=array("Aklan Province","Antique Province","Capiz Province","Guimaras Province","Iloilo Province","Negros Occidental Province",
+                "Bohol Province","Cebu Province","Negros Oriental Province","Siquijor Province",
+                "Biliran Province","Eastern Samar Province","Leyte Province","Northern Samar Province","Samar Province","Southern Leyte Province"
+                );
+
+    $mindanao=array("Zamboanga del Norte Province","Zamboanga del Sur Province","Zamboanga Sibugay Province",
+                "Bukidnon Province","Camiguin Province","Lanao del Norte Province","Misamis Occidental Province","Misamis Oriental Province",
+                "Davao de Oro Province","Davao del Norte Province","Davao del Sur Province","Davao Occidental Province","Davao Oriental Province",
+                "Cotabato Province","Sarangani Province","South Cotabato Province","Sultan Kudarat Province",
+                "Agusan del Norte Province","Agusan del Sur Province","Dinagat Islands Province","Surigao del Norte Province","Surigao del Sur Province",
+                "Basilan Province","Lanao del Sur Province","Maguindanao Province","Sulu Province","Tawi-Tawi Province"
+                );
 
     //$fname = $lname = $email = $addr = $brgy = $postal = $city = $region = $phone = "";
     
@@ -71,20 +89,20 @@
             $var['postal'] = test_input($_POST['postal']);
         }
 
+        //validation for region
+        if(empty($_POST['province'])){
+            $errors['province'] = "*Province field is Required";
+        }
+        else{
+            $var['province'] = test_input($_POST['province']);
+        }
+
         //validation for city
         if(empty($_POST['city'])){
             $errors['city'] = "*City field is Required";
         }
         else{
             $var['city'] = test_input($_POST['city']);
-        }
-
-        //validation for region
-        if(empty($_POST['region'])){
-            $errors['region'] = "*Region field is Required";
-        }
-        else{
-            $var['region'] = test_input($_POST['region']);
         }
 
         //validation for shipping method
@@ -97,26 +115,22 @@
 
 
             if(!in_array("",$var)){
-                //shipping fee for metro manila
-                if($var['region'] == "NCR"){
-                    $_SESSION['shipping_fee'] = 135;
-                }
                 //shipping fee for luzon
-                elseif(in_array($var['region'],$luzon)){
+                if(in_array($var['province'],$luzon)){
                     $_SESSION['shipping_fee'] = 130;
                 }
                 //shipping fee for visayas
-                elseif(in_array($var['region'],$visayas)){
+                elseif(in_array($var['province'],$visayas)){
                     $_SESSION['shipping_fee'] = 120;
                 }
                 //shipping fee for mindanao
-                elseif(in_array($var['region'],$mindanao)){
+                elseif(in_array($var['province'],$mindanao)){
                     $_SESSION['shipping_fee'] = 105;
                 }
                 $_SESSION['address'] = $var['addr']." ".$var['brgy'];
                 $_SESSION['city'] = ucwords($var['city']);
                 $_SESSION['postal'] = $var['postal'];
-                $_SESSION['region'] = $var['region'];
+                $_SESSION['province'] = $var['province'];
                 $_SESSION['ship_method'] = $var['method'];
                 header('Location: payment.php');
             }

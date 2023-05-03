@@ -133,13 +133,13 @@
                         $mail->isSMTP();                    
                         $mail->Host = 'smtp.gmail.com';     
                         $mail->SMTPAuth = true;             
-                        $mail->Username = 'njglasspainting@gmail.com'; 
-                        $mail->Password = 'zlpysoueottecbjd';
+                        $mail->Username = 'njglasspainting4@gmail.com'; 
+                        $mail->Password = 'kcnmixbbwnkkexux';
                         $mail->SMTPSecure = 'ssl';          
                         $mail->Port = 465;                  
                         
                         // Sender info 
-                        $mail->setFrom('njglasspainting@gmail.com', 'NJ Glass Painting'); 
+                        $mail->setFrom('njglasspainting4@gmail.com', 'NJ Glass Painting'); 
                         
                         // Add a recipient 
                         $mail->addAddress($var['email']); 
@@ -151,7 +151,7 @@
                         $mail->Subject = 'Email verification for account registration FROM NJ Customized Glass Painting'; 
                         
                         // Mail body content 
-                        $bodyContent = 'Thanks for signing up for NJ Customized Glass Painting!'."<br><br>";
+                        $bodyContent = 'Thanks for signing up tp NJ Customized Glass Painting website!'."<br><br>";
                         $bodyContent .= 'To verify your email address please click the link below.'."<br><br>";
                         $bodyContent .= "
                                         <div style='margin: 10px 0;'>

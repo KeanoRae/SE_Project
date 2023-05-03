@@ -80,10 +80,11 @@
                         <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="ship.php">to ship</a>
                         <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="complete.php">completed</a>
                         <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="cancelled.php">cancelled</a>
+                        <a class="text-reset text-decoration-none fst-normal h4 mb-0" href="declined.php">declined</a>
                     </div>
                 </div>
                 <div class="row m-4">
-                    <div class="button-group d-flex align-items-center">
+                    <!-- <div class="button-group d-flex align-items-center">
                         <div>
                             <select class="form-select shadow-none border-dark border-end-0 rounded-0 py-1" name="sort" aria-label="Floating label select example">
                                 <option selected>Order ID</option>
@@ -104,7 +105,7 @@
                                 <span class="iconify" data-icon="bxs:download"></span>report
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row mx-4">
                     <table class="table table-responsive transaction-table" id="transaction-table">
@@ -129,12 +130,12 @@
                                     $database = new Connection();
                                     $db = $database->open();
                                     try{	
-                                        $sql = "SELECT CONCAT(u.first_name,' ',u.last_name) AS fullname, product_name, o.id, od.quantity, (od.product_price*od.quantity) as total, os.name, pm.payment_type, pm.receipt_status, DATE_FORMAT(o.order_date, '%m-%d-%Y') as date
-                                                FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os JOIN payment pm
+                                        $sql = "SELECT CONCAT(u.first_name,' ',u.last_name) as fullname, product_name, o.id, od.quantity, (od.product_price*od.quantity) as total, os.name, pm.payment_type, pm.receipt_status, DATE_FORMAT(o.order_date, '%m-%d-%Y') as date
+                                                FROM orders o JOIN order_details od JOIN user u JOIN product p JOIN order_status os JOIN payment pm JOIN payment_method pym
                                                 ON o.id=od.order_id AND o.customer_id=u.id AND p.id=od.product_id AND o.order_status=os.id AND od.id = pm.order_details_id
                                                 WHERE o.order_status=1
                                                 GROUP BY o.id
-                                                ORDER BY pm.receipt_status DESC, o.id DESC";
+                                                ORDER BY o.id DESC";
                                         foreach ($db->query($sql) as $row) {  
                                 ?>
                                 <tr style="background: rgba(196, 196, 196, 0.28);">
