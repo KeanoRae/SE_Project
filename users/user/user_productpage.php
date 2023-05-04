@@ -166,7 +166,7 @@
                         <!-- buttons for addons -->
                         <div class="d-flex mx-0">
                             <button type="button" class="d-inline-block btn btn-outline-dark shadow-none px-5 me-3" name="size1" id="size2" data-bs-toggle="button" value="">6x6 in</button>
-                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none px-5 me-3" name="size2" id="size2" data-bs-toggle="button" value=""> >6x8 in</button>
+                            <button type="button" class="d-inline-block btn btn-outline-dark shadow-none px-5 me-3" name="size2" id="size2" data-bs-toggle="button" value=""> 8x10 in</button>
                         </div>
                         <hr>
                         <p class="fs-4">Add-ons</p>

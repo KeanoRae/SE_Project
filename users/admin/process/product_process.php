@@ -57,9 +57,9 @@
     }
 
     //declare array variable for error and value of each text input
-    $var = array("productname" => "","size" => "", "category" => "", "medium" => "", "material" => "",
+    $var = array("productname" => "", "category" => "", "medium" => "", "material" => "",
                     "1ch" => "", "2ch" => "", "addchar" => "", "add_desc" => "");
-    $error = array("productname" => "","size" => "", "category" => "", "medium" => "", "material" => "", "cover" => "", "sample" => "",
+    $error = array("productname" => "", "category" => "", "medium" => "", "material" => "", "cover" => "", "sample" => "",
                     "1ch" => "", "2ch" => "", "addchar" => "", "add_desc" => "");
 
     if(isset($_POST['add_product'])){
@@ -89,13 +89,13 @@
             $var['productname'] = test_input($_POST['productname']);
         }
 
-        //display an error if size field is empty
-        if(empty($_POST['size'])){
-            $error['size'] = "Product Details field is Required";
-        } 
-        else {
-            $var['size'] = test_input($_POST['size']);
-        }
+        // //display an error if size field is empty
+        // if(empty($_POST['size'])){
+        //     $error['size'] = "Product Details field is Required";
+        // } 
+        // else {
+        //     $var['size'] = test_input($_POST['size']);
+        // }
 
         //display an error if category field is empty
         if(empty($_POST['category'])){
@@ -172,10 +172,10 @@
         //check if the text inputs are empty
         if(!in_array("", $var)){
             //create the folder name
-            $foldername = str_replace(" ","-",strtolower($var['productname']));
+            $foldername = str_replace(" ","-",strtolower($var['productname']))."/cover";
             //create a new directory for the new product
-            $new_cover_path = "../../assets/images/admin-uploads/".$foldername."/cover"."/";
-            $customer_upload_path = "../../assets/images/customer-uploads/".$foldername."/";
+            $new_cover_path = "../../assets/images/admin-uploads/".$foldername."/";
+            $customer_upload_path = "../../assets/images/customer-uploads/".str_replace(" ","-",strtolower($var['productname']))."/";
             //checks if directory exists
             if(!file_exists($new_cover_path) or !is_dir($new_cover_path)){
                 //create the directory for admin
@@ -217,13 +217,13 @@
                                         $product_id = $get_id['id'];
 
                                         //query to insert product details
-                                        $product_details = $db->prepare("INSERT INTO product_details (product_id, material, medium, size, category) 
-                                        VALUES (:pid, :material, :medium, :size, :category)");
+                                        $product_details = $db->prepare("INSERT INTO product_details (product_id, material, medium, category) 
+                                        VALUES (:pid, :material, :medium, :category)");
                                         //bind params
                                         $product_details->bindParam(':pid', $product_id);
                                         $product_details->bindParam(':material', $var['material']);
                                         $product_details->bindParam(':medium', $var['medium']);
-                                        $product_details->bindParam(':size', $var['size']);
+                                        // $product_details->bindParam(':size', $var['size']);
                                         $product_details->bindParam(':category', $var['category']);
 
                                         if($product_details->execute()){

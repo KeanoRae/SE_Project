@@ -34,8 +34,9 @@
 
             if($sql->execute()){
             header('Location: ../dashboard.php');
-            }
-    }
+            }         
+        }
+
         //close connection
         $database->close();
     

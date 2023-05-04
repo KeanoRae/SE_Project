@@ -158,15 +158,15 @@
                                                         </div>
                                                         <div class="row">
                                                             <!-- Size -->
-                                                            <div class="col-6">
+                                                            <!-- <div class="col-6">
                                                                 <div class="form-group">
                                                                     <h5 class="mb-2">Size</h5>
                                                                     <input type="text" class="form-control my-2" name="size" value="">
                                                                     <div class="mb-2" style="color:red;">
-                                                                        <?php echo $error['size']; ?>
+                                                                        ?php echo $error['size']; ?>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                             <!-- Material -->
                                                             <div class="col-6">
                                                                 <div class="form-group">
@@ -177,8 +177,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div> 
-                                                        </div>
-                                                        <div class="row">
                                                             <!-- Medium -->
                                                             <div class="col-6">
                                                                 <div class="form-group">
@@ -363,7 +361,7 @@
                                                                                 <p class="mb-0 fs-5"><?php echo $row['name']; ?></p>
                                                                             </div>
                                                                             <div class="col">
-                                                                                <input type="text" class="w-100" value="<?php echo $row['price']; ?>">
+                                                                                <input type="text" class="w-100" name="<?php echo $row['name']; ?>" value="<?php echo $row['price']; ?>">
                                                                             </div>
                                                                             <div class="col-2 d-flex text-center align-items-center">
                                                                                 <button class="border-0">
@@ -452,7 +450,7 @@
                                                         <div class="row mt-5">
                                                             <div class="col">
                                                                 <div class="float-end">
-                                                                    <button class="fs-4 px-3 mb-3 border border-dark btn-pink btn-shadow" data-bs-dismiss="modal">SAVE</button>
+                                                                    <button type="submit" name="edit_univ" class="fs-4 px-3 mb-3 border border-dark btn-pink btn-shadow">SAVE</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -512,7 +510,7 @@
                                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
-                                                            <input type="text" name="edit_id" value="<?php echo $row['id']; ?>">
+                                                            <input type="text" name="edit_id" value="<?php echo $row['id']; ?>" hidden>
                                                             <div class="row">
                                                                 <!-- Upload Product Cover -->
                                                                 <div class="col-6">

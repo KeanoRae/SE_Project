@@ -73,10 +73,10 @@
             }
             else{
 
-                 $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price, od.add_ons, od.add_ons_details
-                                FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
-                                WHERE customer_id=:uid AND o.order_status=7 ORDER BY o.id DESC"
-                                 );
+                 $sql = $db->prepare("SELECT o.id, o.receiver_name, p.product_name, od.quantity, od.product_price, od.add_ons, od.add_ons_details, od.uploaded_image
+                                    FROM orders o JOIN order_details od JOIN product p ON o.id=od.order_id AND od.product_id=p.id
+                                    WHERE customer_id=:uid AND o.order_status=7 GROUP BY o.id ORDER BY o.order_date DESC"
+                                    );
                  // bind param
                 $sql->bindParam(':uid',$_SESSION['pid'],PDO::PARAM_INT);
                 $sql->execute();
@@ -105,7 +105,9 @@
                     </div>
                     <hr class="mt-1">
                     <div class="inner-box d-flex">
-                        <div class="box border border-dark ms-3" style="height: 77px;width: 68px;"></div>
+                        <div class="box ms-3" style="height: 77px;width: 77px;">
+                            <img src="<?php echo "../../../".$row['uploaded_image']; ?>" class="img-fluid" alt="">
+                        </div>
                         <div class="text w-100 mx-3">
                             <div class="row1 d-flex justify-content-between">
                                 <div class="txt"><p><?php echo $row['product_name']; ?></p></div>
